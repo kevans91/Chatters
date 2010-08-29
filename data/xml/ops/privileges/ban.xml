@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Ban" monitor="1" approve="1">
+		<desc>Ban Chatter</desc>
+		<execute>$n was banned from $c by $u.</execute>
+		<command>Ban</command>
+		<elect by="AutoOP" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

@@ -1,0 +1,6 @@
+<topic name="1.2.4 Instant Messenger">
+	<info>The interface of the CIM client is relatively the same as the main interface, except it has IM features too. There is an Ignore button, which lets you ignore the person you're talking to. There is a Profile button, which lets you see the profile of the person you're talking to. There is a Share button, which lets you send a file to the person you're talking to. There is an Invite button, which allows you to invite other people to join your conversation. And there is a Join button, which allows you to join the channel the other user is in.</info>
+	<related>
+		<link></link>
+	</related>
+</topic>

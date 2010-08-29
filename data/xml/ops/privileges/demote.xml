@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Demote" monitor="1" approve="1">
+		<desc>Demote Chatter</desc>
+		<execute>$n was demmoted to $r by $u.</execute>
+		<command>Demote</command>
+		<elect by="All" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

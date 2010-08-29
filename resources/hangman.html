@@ -1,0 +1,288 @@
+<html>
+	<head>
+		<title>Title</title>
+		<style>
+body {
+	margin: 0;
+	padding: 1px;
+}
+
+#main {
+	margin: 0px;
+	padding: 0px;
+	width: 160px;
+	height: 160px;
+}
+
+#top_bar {
+	width: 80px;
+	height: 5px;
+	font-size: 5px;
+	margin-left: 78px;
+	background-color: #000;
+}
+
+#hangman {
+	height: 150px;
+	width: 100%;
+}
+
+#hung {
+	width: 50px;
+	height: 150px;
+	float: left;
+	padding-top: 20px;
+	padding-left: 26px;
+	font-weight: bold;
+	font-size: 24px;
+	color: #900;
+}
+
+#gallows {
+	float: right;
+	width: 100px;
+	height: 150px;;
+}
+
+#gallows_top {
+	height: 20px;
+	width: 100%;
+}
+
+#rope {
+	width: 5px;
+	height: 19px;
+	float: left;
+	margin-left: 27px;
+margin-top: 1px;
+	background-color: #000;
+}
+
+#top_brace {
+	background-image: url("./top_brace.png");
+	background-repeat: no-repeat;
+	margin: 1px;
+	float: right;
+	width: 20px;
+	height: 20px;
+}
+
+#man {
+	height: 110px;
+	width: 100%;
+}
+
+#arms_left {
+}
+
+#upper_arm_left {
+	background-image: url("./upper_arm_left.png");
+	background-repeat: no-repeat;
+	margin-left: -3px;
+	margin-right: 0px;
+	float: left;
+	width: 13px;
+	height: 20px;
+}
+
+#lower_arm_left {
+	background-image: url("./lower_arm_left.png");
+	background-repeat: no-repeat;
+	margin-top: 20px;
+	margin-left: 4px;
+	float: left;
+	width: 12px;
+	height: 18px;
+}
+
+#torso {
+	width: 5px;
+	height: 38px;
+	float: left;
+	margin-left: 1px;
+	background-color: #800000;
+}
+
+#arms_right {
+}
+
+#upper_arm_right {
+	background-image: url("./upper_arm_right.png");
+	background-repeat: no-repeat;
+	margin-right: -3px;
+	float: right;
+	width: 13px;
+	height: 20px;
+}
+
+#lower_arm_right {
+	background-image: url("./lower_arm_right.png");
+	background-repeat: no-repeat;
+	margin-top: 20px;
+	margin-right: 45px;
+	float: right;
+	width: 12px;
+	height: 18px;
+}
+
+#legs {
+}
+
+#legs_left {
+}
+
+
+#upper_leg_left {
+	background-image: url("./upper_leg_left.png");
+	background-repeat: no-repeat;
+	margin-top: -14px;
+	margin-left: -3px;
+	float: left;
+	width: 11px;
+	height: 28px;
+}
+
+#lower_leg_left {
+	background-image: url("./lower_leg_left.png");
+	background-repeat: no-repeat;
+	margin-top: 14px;
+	margin-left: 8px;
+	float: left;
+	width: 11px;
+	height: 26px;
+}
+
+#legs_right {
+}
+
+#upper_leg_right {
+	background-image: url("./upper_leg_right.png");
+	background-repeat: no-repeat;
+	margin-top: -14px;
+	margin-right: -3px;
+	float: right;
+	width: 11px;
+	height: 28px;
+}
+
+#lower_leg_right {
+	background-image: url("./lower_leg_right.png");
+	background-repeat: no-repeat;
+	margin-top: 14px;
+	margin-right: 49px;
+	float: right;
+	width: 11px;
+	height: 26px;
+}
+
+#head {
+	background-image: url("./head.png");
+	background-repeat: no-repeat;
+	margin-left: 19px;
+	margin-top: 1px;
+	margin-bottom: 1px;
+	width: 21px;
+	height: 28px;
+}
+
+#body {
+	width: 100%;
+	height: 50px;
+}
+
+#gallows_bottom {
+	height: 20px;
+	width: 20px;
+	float: right;
+	margin-top: -4px;
+}
+
+#bottom_brace {
+	background-image: url("./bottom_brace.png");
+	background-repeat: no-repeat;
+	margin: 1px;
+	float: right;
+	width: 20px;
+	height: 20px;
+}
+
+#side_bar {
+	width: 5px;
+	height: 158px;
+	margin-right: 3px;
+	margin-top: 1px;
+	background-color: #000;
+	float: right;
+}
+
+#bottom_bar {
+	width: 120;
+	height: 5px;
+	font-size: 5px;
+	margin-left: 39px;
+	background-color: #000;
+}
+		</style>
+	</head>
+
+	<body>
+		<div id="main">
+			<div id="top_bar">
+			</div>
+			<div id="hangman">
+				<div id="hung">
+					H<br>U<br>N<br>G
+				</div>
+				<div id="side_bar">
+				</div>
+				<div id="gallows">
+					<div id="gallows_top">
+						<div id="rope">
+						</div>
+						<div id="top_brace">
+						</div>
+					</div>
+					<div id="man">
+						<div id="head">
+						</div>
+						<div id="body">
+							<div id="arms_left">
+								<div id="lower_arm_left">
+								</div>
+								<div id="upper_arm_left">
+								</div>
+							</div>
+							<div id="arms_right">
+								<div id="lower_arm_right">
+								</div>
+								<div id="upper_arm_right">
+								</div>
+							</div>
+							<div id="torso">
+							</div>
+						</div>
+						<div id="legs">
+							<div id="legs_left">
+								<div id="lower_leg_left">
+								</div>
+								<div id="upper_leg_left">
+								</div>
+							</div>
+							<div id="legs_right">
+								<div id="lower_leg_right">
+								</div>
+								<div id="upper_leg_right">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div id="gallows_bottom">
+						<div id="bottom_brace">
+						</div>
+					</div>
+				</div>
+			</div>
+			<div id="bottom_bar">
+		</div>
+	</body>
+</html>

@@ -1,0 +1,6 @@
+<topic name="5.9 Ignore">
+	<info>Ignore allows you to ignore another user completely, or to ignore a certain feature from them. There are currently 6 levels of scope for ignoring someone. A full ignore prevents any messages by them from reaching you. There are also scopes for chat, im, colors, fades, and smileys. Simpley type the scope you wish, in quotes, after the name of the person. ie: /ignore "Xooxer" "smileys"</info>
+	<related>
+		<link></link>
+	</related>
+</topic>

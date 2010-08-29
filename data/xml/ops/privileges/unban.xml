@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Unban" monitor="1" approve="1">
+		<desc>Unban Chatter</desc>
+		<execute>$n was unbanned from $c by $u.</execute>
+		<command>Unban</command>
+		<elect by="AutoOP" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

@@ -1,0 +1,59 @@
+
+Message Format
+	A string that describes the format of a message, with keywords that
+	act as place holders for dynamic data to be filled in at runtime.
+	Formats have required keywords, such as '$name' and '$msg.' Both must
+	be present in the Chat Format for it to be valid.
+
+	The format may contain approved HTML tags, text and punctuation in
+	any order or arrangement that is desired, so long as all required
+	keywords are present. Message formats have the following keywords.
+
+	$name - The name of the person saying the message
+	$msg  - The message being said
+	$ts   - Time the message was said, displayed according to a time format.
+	$rp   - An inline action passed with a said message.
+	says  - Auto-replaced with asks and exclaims where appropriate
+	said  - Auto-replaced with asked and exclaimed where appropriate
+
+	The following setting affects all message formats.
+
+	Forced Punctuation - If the message lacks punctuation, add a period to
+	the end of the message. If the format has the keyword 'said' or 'says'
+	after the message, then add a comma instead of a period. If a period
+	does end the message, but the keyword 'says' or 'said' follows the
+	message in the format, then replace the period with a comma. A period
+	may be added to the end of the message format to complete the
+	sentence with the proper punctuation. It is up to the user to decide.
+
+	Forced Punctuation is off by default.
+
+	The default formats are as follows:
+
+		Chat Format: "$ts <b>$name:</b>   $msg"
+
+		RP Chat Format: "$ts $name $rp:   $msg"
+
+		Emote Format: "$ts $name $msg"
+
+
+Time Format
+	A string that describes the format of a timestamp, with keywords that
+	act as place holders for dynamic data to be filled in at runtime.
+
+	The format may contain approved HTML tags, text and punctuation in
+	any order or arrangement that is desired. The Time Format has the
+	following keywords.
+
+	hh - The hours value of the current time
+	mm - The minutes value of the current time
+	ss - The seconds value of the current time
+
+	Hour: 24/12 - You may choose to have hours displayed in 12 or 24 hour
+	format. If you choose the 12 hour format, the suffix 'am' or 'pm'
+	will be added to the end of the timestamp to denote the time of day.
+
+	The Hour format is set to 24 by default.
+
+	The default Time Format is: "<b>[</b>hh:mm:ss<b>]</b>"
+

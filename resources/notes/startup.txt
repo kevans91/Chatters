@@ -1,0 +1,87 @@
+
+Channel Server Startup (win | *nix)
+
+	When starting a local channel server for the first time,
+	the channel host should either have to configure or login
+	to the channel server in order to host thier channel.
+
+	If running a linux-based server, the only option is to
+	connect from a windows client, or to configure your server
+	to auto-connect to the network and auto-start a channel.
+
+	Server Started (DreamSeeker | DreamDaemon)
+
+		The channel server is started and begins the world managers.
+		Configurations are loaded, as well has supporting XML files.
+		If the world is set to auto-connect, a connection is opened
+		to the network server provided in the network configuration file.
+		If the world is set to auto-load a channel, a new channel
+		is created, as specified in the server configuration file.
+		World publicity and the hub_password are set based on the
+		settings provided by the configuration files and the network.
+		Channels verified authentic are given the Chatters hub password.
+		Those not verified will be given an alternative hub_password
+		which is reserved for modded channel servers and test servers.
+
+	Host Login (DreamSeeker | telnet)
+
+		If a channel server is running, the host is joined to it.
+		Otherwise the main menu is displayed if they are using DS to join.
+		If they use telnet, they must enter in the appropriate commands
+		to access their hosting options. If the server is already
+		connected to the network, network options are enabled and the
+		server status is reported in the main menu's output. Otherwise,
+		the host is given a form to connect to the network, and all
+		network options are disabled. The host may choose to connect to
+		the official network, or to another channel server, which will
+		act as the surrogate network server for the channel. Channels
+		connected in this way may serve as an invisible network alternative
+		to the official chatters network. Only channels connected together
+		in this way may communicate and share network resources.
+
+	Network Connect (Public | Private | Invisible) (Official | Modded)
+
+		The channel server attempts to establish a connection with the
+		network server with the variables provided in the configuration
+		file, or by the Host in the main menu network connection form.
+		If a connection is established, the network queries the channel
+		for verification, and if verified, adds the channel to the network.
+		The host and other chatters currently logged in are then added to
+		the chatters listing on the network, and the channel is published
+		based on it's publicity setting. Public servers and thier chatters
+		are announced to the appropriate channels when they enter or leave
+		the network. Private servers only announce their chatters logins
+		and logouts to the chatter's friends, irregardless of the publicity
+		setting of the channel being hosted, while invisible servers do not
+		publish themselves at all, even if the channel they are hosting is
+		set to public. This ensures final publication rights are reserved
+		by the server host, not the channel founder(s).
+
+	Channel Open (Public | Private | Invisible)
+
+		If auto-start is enabled, a new channel is loaded from the saved
+		channel file, or from the server configuration file. Otherwise,
+		the Host must open a channel either by loading one from a savefile,
+		or by using the New Channel form to create a new channel. Once this
+		channel is created, it will be saved so it can be loaded again later.
+		The host may delete channels they no longer wish to host.
+		Once started, if the channel server is connected to the network, its
+		channel info is published, and all chatters waiting in the server are
+		joined to the newly started channel. If publicity allows, login notices
+		for the chatters are published to the network for distribution to other
+		interested channels. Otherwise the channel only sends chatter info to
+		the network for the purposes of tracking locations for network features.
+		If no connection to the network is, or can be, established, the channel
+		runs silently, publishing no information about it's location or chatters.
+
+	Chatter Login (DreamSeeker | telnet)
+
+		If the channel server is hosting a channel, the chatter is joined
+		to that channel when they login. Otherwise they are shown a basic
+		window asking them to wait for the channel to be started by the host.
+		Once joined to a channel, depending on the publicity of the channel
+		the server running it, the chatter's location is published to the
+		network. Relavent information for that chatter is then sent back.
+		If no connection to the network is, or can be, established, the
+		chatter's connection is only published to the chatters in the local
+		channel, and no attempt is made to inform the network of their login.

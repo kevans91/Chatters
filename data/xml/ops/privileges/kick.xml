@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Kick" monitor="1" approve="1">
+		<desc>Kick Chatter</desc>
+		<execute>$n was kicked from $c by $u.</execute>
+		<command>Kick</command>
+		<elect by="ChanOP" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

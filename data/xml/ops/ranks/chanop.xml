@@ -1,0 +1,1 @@
+<xml><oprank name="ChanOP" pos="3" color="#0000CC" monitor="1" approve="1"><desc>Channel Operator</desc><promote>$n was promoted to $r by $u.</promote><demote>$n was demoted to $r by $u.</demote><temp expires="0"/><elect by="All" orhigher="1" max="3"/><privileges><privilege name="Mute"/><privilege name="Voice"/></privileges></oprank></xml>

@@ -1,0 +1,175 @@
+<xml>
+
+	<chapter name="1.0 Getting Started">
+		<chapter name="1.1 What is Chatters?">
+			<topic>1.1.1 The Chatters Network</topic>
+			<topic>1.1.2 Chatting in Channels</topic>
+			<topic>1.1.3 Instant Messaging</topic>
+			<topic>1.1.4 Cmail, Friends, Groups and More</topic>
+			<topic>1.1.5 The Chatters Portal</topic>
+			<topic>1.1.6 The Chatters Forums</topic>
+			<topic>1.1.7 The Chatters Guild</topic>
+		</chapter>
+
+		<chapter name="1.2 Tour the Interface">
+			<topic>1.2.1 The Host's Main Menu</topic>
+			<topic>1.2.2 Open a Channel Window</topic>
+			<topic>1.2.3 The Channel Window</topic>
+			<topic>1.2.4 Instant Messenger</topic>
+			<topic>1.2.5 The Help System</topic>
+			<topic>1.2.6 Chatters Settings</topic>
+			<topic>1.2.7 Public Channels List</topic>
+			<topic>1.2.8 Chatters Mail Window</topic>
+		</chapter>
+
+		<chapter name="1.3 Join a Channel">
+			<topic>1.3.1 The Chatters Hub Entry</topic>
+			<topic>1.3.2 The Chatters Portal</topic>
+			<topic>1.3.3 Public Channels</topic>
+			<topic>1.3.4 Private Channels</topic>
+			<topic>1.3.5 Invisible Channels</topic>
+		</chapter>
+
+		<chapter name="1.4 Customize Yourself"></chapter>
+		<chapter name="1.5 Friends and Groups"></chapter>
+		<chapter name="1.6 Showing and Sharing"></chapter>
+		<chapter name="1.7 Playing on the Map"></chapter>
+		<chapter name="1.8 Create Your own Channel"></chapter>
+	</chapter>
+
+	<chapter name="2.0 Hosting">
+		<topic>2.1 Before You Begin</topic>
+		<topic>2.2 Public Hosting</topic>
+		<topic>2.3 Nodes and Super Nodes</topic>
+		<topic>2.4 Naming Your Channel</topic>
+		<topic>2.5 Your Channel bot</topic>
+		<topic>2.5 Options and Settings</topic>
+		<topic>2.7 Host Commands and Controls</topic>
+		<topic>2.8 Icons, Smileys and Avatars</topic>
+		<topic>2.9 Filters and Spam Guards</topic>
+		<topic>2.10 The Map and Game Elements</topic>
+		<topic>2.11 Events and Triggers</topic>
+		<topic>2.12 Operators</topic>
+	</chapter>
+
+	<chapter name="3.0 Moderation">
+		<topic>3.1 Channel Bot</topic>
+		<topic>3.2 Operators and Ranks</topic>
+		<topic>3.4 Priviledges</topic>
+		<topic>3.5 Mute and Voice</topic>
+		<topic>3.6 Kick</topic>
+		<topic>3.7 Ban and Unban</topic>
+	</chapter>
+
+	<chapter name="4.0 Major Systems">
+		<chapter name="4.1 Chatters Help"></chapter>
+		<chapter name="4.2 The Channel">
+			<topic>4.2.1 Input and Output</topic>
+			<topic>4.2.2 Menu Items</topic>
+			<topic>4.2.3 The Chatters List</topic>
+			<topic>4.2.4 The Channel Bot</topic>
+			<topic>4.2.5 The Channel Map</topic>
+		</chapter>
+
+		<chapter name="4.3 Messaging">
+			<chapter name="4.3.1 The Quick Bar">
+				<topic>4.3.1.1 About the Quick Bar</topic>
+				<topic>4.3.1.2 Enabling and Disabling</topic>
+			</chapter>
+
+			<chapter name="4.3.2 UBB Codes"></chapter>
+			<chapter name="4.3.3 Quick Links">
+				<topic>4.3.3.1 Viewing List</topic>
+				<topic>4.3.3.2 Customizing</topic>
+			</chapter>
+
+			<chapter name="4.3.4 Colors">
+				<topic>4.3.4.1 Enabling and Disabling</topic>
+				<topic>4.3.4.2 Customizing</topic>
+			</chapter>
+
+			<chapter name="4.3.5 Fades">
+				<topic>4.3.5.1 Fade Name</topic>
+			</chapter>
+
+			<chapter name="4.3.6 Avatars">
+				<topic>4.3.6.1 Customizing</topic>
+			</chapter>
+
+			<chapter name="4.3.7 Smileys">
+				<topic>4.3.7.1 Enabling and Disabling</topic>
+			</chapter>
+
+			<chapter name="4.3.8 Message Formatting">
+				<topic>4.3.8.1 Format Basics</topic>
+				<topic>4.3.8.2 Chat Format</topic>
+				<topic>4.3.8.3 Emote Format</topic>
+				<topic>4.3.8.4 Inline Emote Format</topic>
+				<topic>4.3.8.5 Time Format</topic>
+				<topic>4.3.8.6 Date Format</topic>
+				<topic>4.3.8.7 Long Date Forma</topic>t
+			</chapter>
+
+			<chapter name="4.3.9 Code Syntax Highlighting">
+				<topic>4.3.9.1 Enabling and Disabling</topic>
+				<topic>4.3.9.2 Customizing</topic>
+				<topic>4.3.9.3 Inline Syntax Highlighting</topic>
+			</chapter>
+
+			<chapter name="4.3.10 Ignore">
+				<topic>4.3.10.1 Ignore Scopes</topic>
+				<topic>4.3.10.2 Ignoring Chatters</topic>
+				<topic>4.3.10.3 Unignoring Chatters</topic>
+				<topic>4.3.10.4 Checking Ignores</topic>
+			</chapter>
+
+			<chapter name="4.3.11 Events"></chapter>
+			<chapter name="4.3.12 Triggers"></chapter>
+		</chapter>
+
+		<chapter name="4.4 Groups"></chapter>
+		<chapter name="4.5 Friends"></chapter>
+		<chapter name="4.6 Trivia"></chapter>
+		<chapter name="4.7 Polls"></chapter>
+		<chapter name="4.8 Profiles">
+			<topic>4.8.1 Picture</topic>
+			<topic>4.8.2 Updating</topic>
+			<topic>4.8.3 Viewing</topic>
+		</chapter>
+
+		<chapter name="4.9 Sharing">
+			<topic>4.9.1 Show Code</topic>
+			<topic>4.9.2 Show Text</topic>
+			<topic>4.9.3 Show HTML</topic>
+		</chapter>
+
+		<chapter name="4.10 Chatters Mail"></chapter>
+		<chapter name="4.11 Settings">
+			<topic>4.11.1 General</topic>
+			<topic>4.11.2 Style</topic>
+			<topic>4.11.3 Icons</topic>
+			<topic>4.11.4 Events</topic>
+			<topic>4.11.5 Filters</topic>
+			<topic>4.11.6 Security</topic>
+			<topic>4.11.7 System</topic>
+		</chapter>
+	</chapter>
+
+	<chapter name="5.0 Commands">
+		<topic>5.1 > (Say)</topic>
+		<topic>5.2 Help</topic>
+		<topic>5.3 Set</topic>
+		<topic>5.4 Me</topic>
+		<topic>5.5 My</topic>
+		<topic>5.6 IM</topic>
+		<topic>5.7 Cmail</topic>
+		<topic>5.8 LookAt</topic>
+		<topic>5.9 Ignore</topic>
+		<topic>5.10 Ignoring</topic>
+		<topic>5.11 Unignore</topic>
+		<topic>5.12 Host Commands</topic>
+		<topic>5.13 Operator Commands</topic>
+	</chapter>
+
+
+</xml>

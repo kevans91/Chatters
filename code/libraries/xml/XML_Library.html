@@ -1,0 +1,904 @@
+<html><body>
+	<h1>Deadron's XML Library for BYOND</h1>
+	<hr>A convenient library for parsing XML files or creating and manipulating XML on the fly.<hr><h2>Contents</h2><a href="#HTMLifier_55">Why XML?</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_56">XML != web</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_57">Document as a database</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_58">Using XML in games</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_59">Making your games data-driven</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_60">Providing data to fans</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_61">What about savefiles?</a><br><a href="#HTMLifier_62">The Rules of XML</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_63">The anatomy of an element</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_64">Opening tag</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_65">Closing tag</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_66">Nested elements</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_67">Root element</a><br><a href="#getting-started">Getting Started</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_68">Getting the root element</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_69">Querying the tree</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_70">Navigating the tree</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_71">Children</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_72">Descendants</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_73">Parents and ancestors</a><br><a href="#reference">Reference</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_74">Functions</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_75">xmlRootFromFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_76">xmlRootFromPath</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_77">xmlRootFromString</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_78">Classes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_79">XML/Element</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_80">Procs</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_81">New</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_82">AddChild</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_83">AddSibling</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_84">Attribute</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_85">Attributes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_86">ChildElements</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_87">Children</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_88">Descendant</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_89">Descendants</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_90">DescendantsOrSelf</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_91">FirstChild</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_92">FirstChildElement</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_93">FirstChildText</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_94">Parent</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_95">RemoveChild</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_96">RemoveChildren</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_97">setAttribute</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_98">setAttributes</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_99">setChild</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_100">setChildren</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_101">setTag</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_102">setText</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_103">setXML</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_104">String</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_105">Tag</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_106">Text</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_107">WriteToFile</a><br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#HTMLifier_108">XML</a><br>
+
+	<a name="HTMLifier_55"></a>
+		<h2>Why XML?</h2>
+		XML is the simplest idea ever to change the world. It is one of the few cases in human history where a committee set out to do something, and to do it fast, and succeeded brilliantly. Not only that, this was a committee actually obsessed with keeping things as <i>simple</i> as possible. Unheard of!<p>
+
+		Yet for all their success in creating XML, the committee also failed. Or at least failed their original vision, at this point in history anyway. They failed because they created XML to be the new format for web pages, something that could replace HTML. And yet XML has done everything <i>but</i> replace HTML. It has quickly become the interchange format of choice for software engineers. Preference files, data streams, billing records...almost any information read into a computer program is now being turned into XML.<p>
+
+		This seems odd for an ASCII format that doesn't have the wizzy speed or compactness of binary data. Why not just leave everything binary? The answer is simple: Because engineers were spending large chunks of their lives creating and parsing and bug-fixing new data formats, and companies were spending big chunks of their money paying for it. Nearly every application or utility had to create its own data format from scratch at some point or another, and indeed might actually have many proprietary data formats for different parts of the program. Most likely no other program knew how to read those formats, and any program that did want to read another program's binary formats had to do a lot of custom coding. Worse yet, the formats were often not flexible enough to be automatically expanded; if you added a new type of data to the format, every application that needed to read the format now had to be upgraded in order to read the upgraded data files, or else they would simply error out when encountering a file with the new kind of data.<p>
+
+		XML offers a way out of that morass of data formats.<p>
+
+		<a name="HTMLifier_56"></a>
+			<h3>XML != web</h3>
+			Many people confuse XML with the web, thinking the only reason to use it is for stylesheets or displaying web pages. But for our purposes, <i>XML has nothing to do with the web!</i> Get any such thoughts out of your head.<p>
+
+			We're dealing with XML as a data format. A way to store and manipulate data for your games. For BYOND, XML is simply an alternative or a companion to savefiles, and no one would confuse a savefile with a web page.<p>
+		
+
+		<a name="HTMLifier_57"></a>
+			<h3>Document as a database</h3>
+			The biggest benefit of XML is that it turns a document into a simple database you can query. In fact, for our purposes, it's probably best not to think in terms of documents, but to think of data files and databases. This is commonly referred to as the Document Object Model (DOM), which refers to turning the XML into an object tree that you can query and manipulate.<p>
+		
+
+		<a name="HTMLifier_58"></a>
+			<h3>Using XML in games</h3>
+			The demo provided with the XML library shows multiple ways to use XML for your games, with complete code.<p>
+
+			<a name="HTMLifier_59"></a>
+				<b>Making your games data-driven</b><br>
+				When people love a game, they want to change the game. (Fortunately, this often works out better with games than it does with people.) For years now strategy games have defined their units and rules in external human-readable files, to allow players to add their own units or tweak the rules for the game. In the past, these data files have been custom formats, but in the future it's quite likely that data files like this will use XML as their format of choice.<p>
+
+				The demo takes the approach of reading in all XML files found anywhere under the demo directory, and putting together the game based on what it finds. In this case, the units the player can choose are based on whatever "unit" elements are found in the XML. Even the unit's graphic is specified there. The XML for a typical unit looks like:<p>
+
+				<blockquote><pre>&lt;unit&gt;
+	&lt;name&gt;Doggie&lt;/name&gt;
+	&lt;damage&gt;3&lt;/damage&gt;
+	&lt;distance&gt;5&lt;/distance&gt;
+	&lt;description&gt;Woof woof.&lt;/description&gt;
+	&lt;image&gt;demo/units/doggie.bmp&lt;/image&gt;
+&lt;/unit&gt;</pre></blockquote>
+				The player can add or change units however they like by manipulating the XML. The "<a href="#getting-started">Getting Started</a>" section shows some ways to access the information in XML like this, and the "<a href="#reference">Reference</a>" describes all the functions available. See the demo code for complete examples.<p>
+			
+
+			<a name="HTMLifier_60"></a>
+				<b>Providing data to fans</b><br>
+				Breaking with the tight-lipped "we don't tell the players nothing about anything" tradition of MMORPGs, in which even basic data about how spells work is kept a "secret", Dark Age of Camelot takes an interesting approach to their game data: They publish it on their website in XML files, updated hourly. This includes full spell data (damage, duration, etc) and updates about what is happening in the game world, such as server status, which guild has taken over which keep, and what realm has stolen the stat-boosting relics. Information about this is available on <a href="http://www.camelotherald.com/xml.php">the DAoC XML page</a>.<p>
+
+				This turns out to be a brilliant idea. With the information freely available, and in easily parsable XML, fan sites put together sophisticated websites, and even Java applications for putting together character templates. DAoC has found a way to strengthen their community ties by providing information, but if they'd just put it out in boring old unstructured HTML, nobody could have done much with it. By making it XML, they sparked a fan revolution.<p>
+
+				A typical DAoC spell looks like this:<p>
+
+				<blockquote><pre>&lt;spell name="Minor Shield of Magma" desc="Creates a field that damages anyone who attacks the target in melee. " id="22" target="Realm"&gt;
+&lt;level&gt;1&lt;/level&gt;
+&lt;range&gt;1000&lt;/range&gt;
+&lt;damage&gt;0.7&lt;/damage&gt;
+&lt;damage_type&gt;Matter&lt;/damage_type&gt;
+&lt;duration&gt;600&lt;/duration&gt;
+&lt;power&gt;2&lt;/power&gt;
+&lt;cast_time&gt;4&lt;/cast_time&gt;
+&lt;/spell&gt;</pre></blockquote>
+
+				Server status looks like this:<p>
+
+				<blockquote><pre>&lt;server name="Pendragon" type="Test" lastguildupdate="2003-05-10 12:05:13" lastcharupdate="2003-04-18 05:20:53"&gt;
+&lt;population&gt;336&lt;/population&gt;
+&lt;status&gt;Up&lt;/status&gt;
+&lt;relic name="Scabbard of Excalibur" type="Melee" realm="Albion"&gt;
+   &lt;owner&gt;Albion&lt;/owner&gt;
+&lt;/relic&gt;
+&lt;keep name="Nottmoor Faste" realm="Midgard"&gt;
+   &lt;owner&gt;Midgard&lt;/owner&gt;
+&lt;claimant&gt;No Innocent Victims&lt;/claimant&gt;
+&lt;/keep&gt;
+&lt;/server&gt;</pre></blockquote>
+
+				The demo provides code for displaying data from these DAoC files.<p>
+			
+		
+
+		<a name="HTMLifier_61"></a>
+			<h3>What about savefiles?</h3>
+			Since XML has been compared to savefiles in this discussion, why not just use savefiles?<p>
+
+			It's a good question. In many cases savefiles are definitely the way to go. In particular, if you want to store the current state of a player mob including anything they are carrying and their customized icon, then savefiles will do the trick and XML would be a poor substitute. Savefiles are great at quickly writing and restoring entire objects and object trees with no hard work on your part.<p>
+
+			XML is useful when you want an easy way to customize your game, since the source is in an easily editable and human-readable text format. It's also useful when you want to archive your data, since XML is appropriate for CVS and other source control systems (you can write a savefile out as plain text, but that's not as convenient).<p>
+
+			Probably the biggest benefit of XML over savefiles is when you want rich ways to query the data. In a savefile you can move up and down the directory tree, but you can't quickly find out questions like "How many weapons are stored in this file?" or "Which weapons use energy packs as ammunition?"<p>
+
+			Savefiles are a convenient, simple solution for storing and retrieving game objects. XML is a convenient, simple solution for manipulating and querying data.<p>
+
+			You may want to use savefiles and XML together. There's no reason you can't store a parsed XML tree in a savefile, giving you the convenience and speed of savefiles with the querying capability of XML.<p>
+		
+	
+
+	<a name="HTMLifier_62"></a>
+		<h2>The Rules of XML</h2>
+		XML is amazingly simple. You don't need any special tools to create it (this document is a reasonably large XML document, which I'm editing in a typical text editor before using the XML library to parse it to HTML), and you only need to know a few rules to start creating your own XML files.<p>
+		
+		<a name="HTMLifier_63"></a>
+			<h3>The anatomy of an element</h3>
+			As in HTML, text in XML documents is surrounded by "elements". An element works just like it does in HTML, except you aren't restricted in what element names you can use.<p>
+			
+			<a name="HTMLifier_64"></a>
+				<b>Opening tag</b><br>
+				A typical element's opening tag looks like this:<p>
+
+				<blockquote><pre>&lt;weapon name="Laser pistol"&gt;</pre></blockquote>
+
+				The word after the opening bracket is the tag's name. Tags are always enclosed in angle brackets (&lt; and &gt;). A starting tag can be as simple as opening bracket, tag name, closing bracket, such as:<p>
+
+				<blockquote><pre>&lt;weapon&gt;</pre></blockquote>
+
+				But the weapon listed in the previous paragraph had more: it also had an <i>attribute</i> (<tt>name="Laser pistol"</tt>). An attribute is additional information that can come along with an element.<p>
+			
+
+			<a name="HTMLifier_65"></a>
+				<b>Closing tag</b><br>
+				That's the opening (or starting) tag. Now pay attention to this next part, because this is the thing about XML that changed the world: An element in XML <i>must be explicitly closed</i>. Got that? Brilliant, isn't it?<p>
+			
+				What does it mean exactly? Well, unlike in HTML where you can have an opening tag like &lt;br&gt; or &lt;p&gt; that just sits there by itself, in XML you must have a closing tag also, which is the same tag name preceded by a slash character (/). So to have a complete weapon element we need:<p>
+
+				<blockquote><pre>&lt;weapon name="Laser pistol"&gt;&lt;/weapon&gt;</pre></blockquote>
+
+				Why is that such a big deal? Because without a closing element, an XML parser can't know <i>when the element stops</i>. For the weapon element so far that doesn't seem important: it's opened then it's closed. Nothing significant. However, the weapon could have child elements that belong to it:<p>
+
+				<blockquote><pre>&lt;weapon name="Laser pistol"&gt;
+     &lt;ammunition name="energy pack" damage="3"&gt;&lt;/ammunition&gt;
+&lt;/weapon&gt;</pre></blockquote>
+
+				Knowing when an element stops turns out to be critical to making parsing simple and flexible. Amazingly enough for such a simple concept, until XML was introduced some of the smartest programmers in the world were still creating formats without closing tags, which meant that their parsers couldn't process a document that had an opening tag that wasn't hardcoded into the parser. This happened all the time, but no more.<p>
+
+				You might have noticed that it's a rather awkward waste of space to have a whole closing tag when there's nothing actually inside the element. To make this a bit more elegant, XML allows for one of the only little "tricks" in the format: You can have an opening tag be "self-closing" by placing a slash at the end of the tag, like so:<p>
+
+				<blockquote><pre>&lt;ammunition name="energy pack" damage="3" /&gt;</pre></blockquote>
+
+				Now there is no need for a whole closing tag, since you've already told the parser that this element stops here.<p>
+			
+		
+
+		<a name="HTMLifier_66"></a>
+			<h3>Nested elements</h3>
+			Another simple rule that vastly simplifies the parsing process: You can't open an element inside one element and close it inside another. In other words, this kind of HTML frequently allowed in browsers is completely illegal in XML:<p>
+
+			<blockquote><pre>&lt;b&gt;&lt;i&gt;&lt;/b&gt;&lt;/i&gt;</pre></blockquote>
+
+			The italics element starts out inside the bold element, and ends outside the bold element. Bad! As in dating, you leave the party with the same element you walked in with. In XML, elements are always "nested", always completely inside the element they started in:<p>
+
+			<blockquote><pre>&lt;b&gt;&lt;i&gt;&lt;/i&gt;&lt;/b&gt;</pre></blockquote>
+
+			This rule was technically true in HTML also, but in a mis-guided attempt to be "flexible", the browsers would allow breeches like this and guess at what the author intended. Not so for XML parsers! They will yell at you and refuse to go any further. It's tough love, and it's what you need.<p>
+		
+
+		<a name="HTMLifier_67"></a>
+			<h3>Root element</h3>
+			Implicit in the nested elements rule is that an XML document is contained within a single <i>root element</i>. The root element encloses all other elements in the document. So if you have an XML file that defines all the weapons for our game, you might have a <tt>weapons</tt> root element:<p>
+
+			<blockquote><pre>&lt;weapons&gt;
+    &lt;weapon name="Laser pistol"&gt;
+        &lt;ammunition name="energy pack" damage="3" /&gt;
+    &lt;/weapon&gt;
+    &lt;weapon name="Gooifier"&gt;
+        &lt;ammunition name="goo gunk" damage="2" /&gt;
+    &lt;/weapon&gt;
+&lt;/weapons&gt;</pre></blockquote>
+
+			An XML file or string can only have one root element. Multiple elements at the top level are illegal.<p>
+		
+	
+
+	<a name="getting-started"></a>
+		<h2>Getting Started</h2>
+		Navigating and manipulating XML is very simple. Think of the XML as a tree, with a single parent (the root element) at the top, which has child elements who might have their own children, etc. You can walk up and down the tree looking for things, or you can get a flat list of all the elements that match your criteria and operate on them.<p>
+
+		When the library parses XML, it turns each element into an <code><a href="#HTMLifier_79">XML/Element</a></code> object. These objects know their parent and their children, so from any element you can reach the entire tree.<p>
+
+		The library provides a rich set of XML editing functions, which should be pretty self-explanatory, so this section just focusses on getting you up and running with navigating XML. When you are ready to start creating and editing XML programmatically, check out procs like <code><a href="#HTMLifier_81">New</a>()</code>, <code><a href="#HTMLifier_103">setXML</a>()</code>, <code><a href="#HTMLifier_82">AddChild</a>()</code>, <code><a href="#HTMLifier_100">setChildren</a>()</code>, and <code><a href="#HTMLifier_107">WriteToFile</a>()</code>.<p>
+
+		<a name="HTMLifier_68"></a>
+			<h3>Getting the root element</h3>
+			The key to accessing the XML is to get your hands on the root element. The library provides several convenient functions for doing this, depending on how the XML is stored. If the XML is in a known file location, use <code>xmlRootFromFile()</code>, like so:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromFile("myfile.xml")</pre></blockquote>
+
+			If there are a bunch of files you may need to read (or if you can't know ahead of time what files you need to read), then an interesting approach is to simply read all the XML files in your game directory into a single XML tree, using <code>xmlRootFromPath()</code>:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromPath()</pre></blockquote>
+
+			The function creates a root element, <tt>&lt;root&gt;</tt>, and adds the contents of each XML file it finds as a child of the root object. Then you just ask for the elements you need (as described in the next section) without regard to what file they were stored in. This is quite a flexible approach, and something you should consider using to simplify the process.<p>
+
+			Finally, if you happen to have the XML string around, or want to quickly create an XML document in memory, <code>xmlRootFromString()</code> is the way to go:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromString("&lt;weapons&gt;&lt;weapon name="Crowbar"/&gt;&lt;/weapons&gt;")</pre></blockquote>
+
+			Once you have the root object, the fun begins. You have two approaches to getting at the data, which you can combine as necessary: querying and navigating. Querying lets you ask for what you want and get it right away; navigating lets you move up and down the tree looking for what you want.<p>
+		
+
+		<a name="HTMLifier_69"></a>
+			<h3>Querying the tree</h3>
+			Navigating is fun (and covered next), but you can often considerably simplify your code by simply asking for the elements you want up front. For example, if you want all the spell elements in any XML file under your game directory, use <code><a href="#HTMLifier_89">Descendants</a>()</code>:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/list/spells = root.Descendants("spell")</pre></blockquote>
+
+			That goes through every element in the document to find everything named "spell".<p>
+
+			Once you have an element, you can query it with procs like <code><a href="#HTMLifier_84">Attribute</a>()</code> and <code><a href="#HTMLifier_106">Text</a>()</code>:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+for (var/XML/Element/spell in root.Descendants("spell"))
+    var/spell_name = spell.Attribute("name")
+    var/desc_element = spell.FirstChild("description")
+    var/spell_desc = desc_element.Text()</pre></blockquote>
+
+			Often you can save a line or two by using <code><a href="#HTMLifier_93">FirstChildText</a>()</code> instead of <code><a href="#HTMLifier_106">Text</a>()</code>:<p>
+
+			<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+for (var/XML/Element/spell in root.Descendants("spell"))
+    var/spell_name = spell.Attribute("name")
+    var/spell_desc = spell.FirstChildText("description"))</pre></blockquote>
+		
+
+		<a name="HTMLifier_70"></a>
+			<h3>Navigating the tree</h3>
+			All elements except the root have one parent, and all elements can have zero or more children. In some cases you may want to navigate to a portion of the tree. For example, if you have a large XML document it may be too time consuming to use <code><a href="#HTMLifier_89">Descendants</a>()</code> on the entire document. In other cases once you've gotten to the parent element you need, you want to check for particular children of that element.<p>
+
+			It's important to understand the difference between children and descendants. A child belongs directly to its parent, with nothing else in between. A descendant can be a child or a grandchild or any other element inside the parent. Ask for a child when you know it belongs directly to the parent; ask for a descendant when you aren't sure where it will be inside the parent.<p>
+
+			<a name="HTMLifier_71"></a>
+				<b>Children</b><br>
+				There are several ways to access an element's children. If you want all of the children that match a certain name, you can use <code><a href="#HTMLifier_86">ChildElements</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/list/spells = root.ChildElements("spell")</pre></blockquote>
+
+				If you want all the child elements regardless of their name, just call it without an argument:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/list/children = root.ChildElements()</pre></blockquote>
+
+				Very similar to <code><a href="#HTMLifier_86">ChildElements</a>()</code> is <code><a href="#HTMLifier_87">Children</a>()</code>; in fact, if called with a name argument, they act exactly the same. There are a couple of procs that have two versions like this (<code><a href="#HTMLifier_91">FirstChild</a>()</code> and <code><a href="#HTMLifier_91">FirstChildElement</a>()</code> is another case); the difference comes when they are called without an argument: <code><a href="#HTMLifier_87">Children</a>()</code> and <code><a href="#HTMLifier_91">FirstChild</a>()</code> may return special elements you might not be expecting, such as raw text, comments, or processing instructions. Those procs tend to be used internally by the library, and you'll usually want to stick with the "Element" version of the procs, which only return the kind of element you are probably expecting.<p>
+
+				To get the first child of an element, use <code><a href="#HTMLifier_92">FirstChildElement</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/XML/Element/spellbook = root.FirstChildElement()</pre></blockquote>
+
+				It's a bit dangerous to just grab the first child, though...are you <i>sure</i> it's the element you expect? Maybe something else slipped in there on you. To be safer, if you know the name of the element you want, pass it as an argument and you'll get the first child found with that name:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/XML/Element/spellbook = root.FirstChildElement("spellbook")</pre></blockquote>
+			
+
+			<a name="HTMLifier_72"></a>
+				<b>Descendants</b><br>
+				To get the first element anywhere inside the parent with a certain name, use <code><a href="#HTMLifier_88">Descendant</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/XML/Element/first_spell = root.Descendant("spell")</pre></blockquote>
+
+				To get all elements inside a parent with a certain name, use <code><a href="#HTMLifier_89">Descendants</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/list/spells = root.Descendants("spell")</pre></blockquote>
+
+				Or, if you'd like every descendant regardless of name, call it without an argument.<p>
+
+				If the element you are looking for might be any element including the parent, then use <code><a href="#HTMLifier_88">DescendantsOrSelf</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromFile("spellbook.xml")
+var/list/spellbooks = root.DescendantsOrSelf("spellbook")</pre></blockquote>
+			
+
+			<a name="HTMLifier_73"></a>
+				<b>Parents and ancestors</b><br>
+				To get the direct parent of an element, use <code><a href="#HTMLifier_94">Parent</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/XML/Element/first_spell = root.Descendant("spell")
+var/XML/Element/spellbook = first_spell.Parent()</pre></blockquote>
+
+				To get a parent or ancestor of a particular name, pass a name argument to <code><a href="#HTMLifier_94">Parent</a>()</code>:<p>
+
+				<blockquote><pre>var/XML/Element/root = xmlRootFromPath()
+var/XML/Element/first_spell = root.Descendant("spell")
+var/XML/Element/spell_library = first_spell.Parent("spell_library")</pre></blockquote>
+			
+
+		
+	
+
+	<a name="reference"></a>
+		<h2>Reference</h2>
+
+		<a name="HTMLifier_74"></a>
+			<h3>Functions</h3>
+
+			<a name="HTMLifier_75"></a>
+				<b>xmlRootFromFile</b><blockquote>
+				<tt>xmlRootFromFile(<i>file</i>)</tt><p>
+				Parses the file and returns the root element object.<p>
+				<font size="-1"><b>Returns:</b><br></font>An <code><a href="#HTMLifier_79">XML/Element</a></code> object that is the root element for the XML tree.<p>
+				<font size="-1"><b>Parameters:</b><br></font>
+					
+						<i>file</i>
+						-&nbsp;The file to parse, as a path or file object.<br>
+					
+				<p>
+				<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/root = xmlRootFromFile("myfile.xml")</pre>
+			</blockquote><hr>
+
+			<a name="HTMLifier_76"></a>
+				<b>xmlRootFromPath</b><blockquote>
+				<tt>xmlRootFromPath(<i>path</i>)</tt><p>
+				Reads all XML files anywhere in the path into a tree and returns the root element.<p>
+				<font size="-1"><b>Returns:</b><br></font>An <code><a href="#HTMLifier_79">XML/Element</a></code> object that is the root element for the XML tree.<p>
+				<font size="-1"><b>Parameters:</b><br></font>
+					
+						<i>path</i>
+						-&nbsp;The path to search for XML files.<br>
+					
+				<p>
+				<font size="-1"><b>Discussion:</b><br></font>Parses all .xml files found in the path and its subdirectories into one XML tree with a root element called "root". Each file is treated as a child of the root. The children are given an "filepath" attribute indicating what file they were read from. If no path is specified, uses the top level path of the game.<p>
+				<font size="-1"><b>Example:</b></font><br><pre>// Read all XML files from the game directory and its sub-directories.
+var/XML/Element/root = xmlRootFromPath()</pre>
+			</blockquote><hr>
+
+			<a name="HTMLifier_77"></a>
+				<b>xmlRootFromString</b><blockquote>
+				<tt>xmlRootFromString(<i>text</i>)
+				</tt><p>
+				Parses the string and returns the root element object.<p>
+				<font size="-1"><b>Returns:</b><br></font>An <code><a href="#HTMLifier_79">XML/Element</a></code> object that is the root element for the XML tree.<p>
+				<font size="-1"><b>Parameters:</b><br></font>
+					
+						<i>file</i>
+						-&nbsp;The string to parse.<br>
+					
+				<p>
+				<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/root = xmlRootFromString("&lt;book&gt;&lt;title&gt;My life in a nutshell.&lt;/title&gt;&lt;/book&gt;")</pre>
+			</blockquote><hr>
+		
+
+		<a name="HTMLifier_78"></a>
+			<h2>Classes</h2>
+
+			<a name="HTMLifier_79"></a>
+				<h3>XML/Element</h3>
+
+				Representing an XML element, this is the primary class for accessing and manipulating XML.<p>
+
+				<a name="HTMLifier_80"></a>
+					<b>Procs</b><br>
+
+					<a name="HTMLifier_81"></a><blockquote>
+						<b>New</b><blockquote>
+						<tt>New(<i>tag</i>, <i>xml</i>)</tt><p>
+						The optional parameters allow you to specify the contents of the element on creation.<p>
+						<font size="-1"><b>Returns:</b><br></font>An <code>XML/Element</code> object.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>tag</i>
+								-&nbsp;An optional parameter that specifies the name of the element; equivalent to calling <code><a href="#HTMLifier_101">setTag</a>()</code>.<br>
+							
+							
+								<i>xml</i>
+								-&nbsp;An optional parameter specifying the xml text of the element; equivalent to calling <code><a href="#HTMLifier_103">setXML</a>()</code>.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>If you are just reading XML, you will never need to create an <code>XML/Element</code> directly. The only time you need to create an element is if you are creating or editing an XML tree programmatically.<p>
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_101">setTag</a>()</code>, <code><a href="#HTMLifier_103">setXML</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spell = new("spell", "&lt;name&gt;Magic Missile&lt;/name&gt;&lt;damage&gt;1&lt;/damage&gt;&lt;distance&gt;5&lt;/distance&gt;")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_82"></a><blockquote>
+						<b>AddChild</b><blockquote>
+						<tt>AddChild(<i>child</i>, <i>position</i>)
+						</tt><p>
+						Add a child element at the specified position.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>child</i>
+								-&nbsp;An XML/Element.<br>
+							
+							
+								<i>position</i>
+								-&nbsp;An optional parameter specifying where the child should be placed. Defaults to <tt>LAST_CHILD</tt>.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							<i>position</i> can be set to <tt>FIRST_CHILD</tt> or <tt>LAST_CHILD</tt>.<p>
+							This proc removes the child from any previous parent.<p>
+							If you want to add children without having to create XML/Element objects first, use <code><a href="#HTMLifier_103">setXML</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_83">AddSibling</a>()</code>, <code><a href="#HTMLifier_95">RemoveChild</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellbook")
+var/XML/Element/fireball = new("spell", "&lt;name&gt;Fireball&lt;/name&gt;")
+
+spellBook.AddChild(fireball, FIRST_CHILD)</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_83"></a><blockquote>
+						<b>AddSibling</b><blockquote>
+						<tt>AddSibling(<i>sibling</i>, <i>position</i>)
+						</tt><p>
+						Add a sibling next to this element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>sibling</i>
+								-&nbsp;An XML/Element.<br>
+							
+							
+								<i>position</i>
+								-&nbsp;An optional parameter specifying where the sibling should be placed. Defaults to <tt>AFTER</tt>.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							<i>position</i> can be set to <tt>BEFORE</tt> or <tt>AFTER</tt>.<p>
+							Removes the sibling from any previous parent. If this element does not have a parent (as the root element does not), an error message occurs since there is nowhere to put the sibling.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_82">AddChild</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellbook", "&lt;spell&gt;&lt;name&gt;Fireball&lt;/name&gt;&lt;/spell&gt;")
+var/XML/Element/fireball = spellBook.FirstChild("spell")
+var/XML/Element/iceblast = new("spell", "&lt;name&gt;Ice Blast&lt;/name&gt;")
+
+fireball.AddSibling(iceblast, BEFORE)</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_84"></a><blockquote>
+						<b>Attribute</b><blockquote>	
+						<tt>Attribute(<i>name</i>)</tt><p>
+						Returns the value for the specified attribute.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;The name of the desired attribute.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							An attribute is extra information next to the element tag, like so: <tt>&lt;spellbook cover="leather"&gt;</tt>. In this example, the spellbook has a <tt>cover</tt> attribute.<p>
+							XML designers are forever arguing over when things should be stored as attributes versus as child elements.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_97">setAttribute</a>()</code>, <code><a href="#HTMLifier_85">Attributes</a>()</code>,  <code><a href="#HTMLifier_98">setAttributes</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/cover_style = spellBook.Attribute("cover")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_85"></a><blockquote>
+						<b>Attributes</b><blockquote>	
+						<tt>Attributes()</tt><p>
+						Returns an associated list of attribute names and their values.<p>
+						<font size="-1"><b>Returns:</b><br></font>A list.<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							The list contains all the attributes for this element, with the attribute names as the keys.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_98">setAttributes</a>()</code>, <code><a href="#HTMLifier_84">Attribute</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/list/attributes = spellBook.Attributes()
+for (var/name in attributes)
+    var/value = attributes[name]
+    world &lt;&lt; "found attribute [name] = [value]"</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_86"></a><blockquote>
+						<b>ChildElements</b><blockquote>	
+						<tt>ChildElements(<i>name</i>)</tt><p>
+						Returns a list of direct children that are regular elements.<p>
+						<font size="-1"><b>Returns:</b><br></font>A list.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get only the children with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							This skips special elements, like raw text, comments, and processing instructions. In most cases you want to use this rather than <code><a href="#HTMLifier_87">Children</a>()</code>. If a name is provided, only children with that name are included.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_91">FirstChild</a>()</code>,  <code><a href="#HTMLifier_92">FirstChildElement</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/list/spells = spellBook.ChildElements()</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_87"></a><blockquote>
+						<b>Children</b><blockquote>	
+						<tt>Children(<i>name</i>)</tt><p>
+						Returns a list of direct children.<p>
+						<font size="-1"><b>Returns:</b><br></font>A list.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get only the children with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							If no name is provided, this returns all direct children of any type, including raw text, comments, and processing instructions. In most cases you want to use <code><a href="#HTMLifier_86">ChildElements</a>()</code> instead.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_86">ChildElements</a>()</code>, <code><a href="#HTMLifier_91">FirstChild</a>()</code>,  <code><a href="#HTMLifier_92">FirstChildElement</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/list/spells = spellBook.Children("spell")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_88"></a><blockquote>
+						<b>Descendant</b><blockquote>	
+						<tt>Descendant(<i>name</i>)</tt><p>
+						Returns a descendant belonging to this element.<p>
+						<font size="-1"><b>Returns:</b><br></font>An <code>XML/Element</code> or null.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get the descendant with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							By default returns the element's first child. If <i>name</i> is provided, returns the first element found anywhere inside this element with that name, or null if there is no descendant with that name. Unlike <code><a href="#HTMLifier_91">FirstChild</a>()</code>, which only checks the direct children, <code>Descendant()</code> searches all levels below this element.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_89">Descendants</a>()</code>, <code><a href="#HTMLifier_91">FirstChild</a>()</code>,  <code><a href="#HTMLifier_92">FirstChildElement</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/firstspell = spellBook.Descendant("spell")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_89"></a><blockquote>
+						<b>Descendants</b><blockquote>	
+						<tt>Descendants(<i>name</i>)</tt><p>
+						Returns a list of all elements anywhere inside this element.<p>
+						<font size="-1"><b>Returns:</b><br></font>A list.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get only the descendants with this name.<br>
+							
+						<p>
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_90">DescendantsOrSelf</a>()</code>, <code><a href="#HTMLifier_88">Descendant</a>()</code>, <code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_86">ChildElements</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/list/all_spells = spellBook.Descendants("spell")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_90"></a><blockquote>
+						<b>DescendantsOrSelf</b><blockquote>	
+						<tt>DescendantsOrSelf(<i>name</i>)</tt><p>
+						Returns a list of all elements anywhere inside this element, including this element.<p>
+						<font size="-1"><b>Returns:</b><br></font>A list.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get only the elements with this name.<br>
+							
+						<p>
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_89">Descendants</a>()</code>, <code><a href="#HTMLifier_88">Descendant</a>()</code>, <code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_86">ChildElements</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/list/all_spellbooks = spellBook.DescendantsOrSelf("spellbook")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_91"></a><blockquote>
+						<b>FirstChild</b><blockquote>	
+						<tt>FirstChild(<i>name</i>)</tt><p>
+						Returns the first child, regardless of what kind of element it is.<p>
+						<font size="-1"><b>Returns:</b><br></font>An <code>XML/Element</code> or null.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get the first child found with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							If no name is provided, returns the first child, which might be a regular element or a special element, such as raw text, a comment, or a processing instruction. Child elements are those elements that are directly underneath this element (so grandchildren and further down are not considered). If a name is provided, returns the first child found with that name.<p>
+							Often if you use this proc without specifying a name, you will unwittingly end up with a text element representing white space between two regular elements or somesuch; in most cases you want to use <code><a href="#HTMLifier_92">FirstChildElement</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_92">FirstChildElement</a>()</code>, <code><a href="#HTMLifier_93">FirstChildText</a>()</code>, <code><a href="#HTMLifier_88">Descendant</a>()</code>, <code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_86">ChildElements</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/firstspell = spellBook.FirstChild("spell")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_92"></a><blockquote>
+						<b>FirstChildElement</b><blockquote>	
+						<tt>FirstChildElement(<i>name</i>)</tt><p>
+						Returns the first child that is a regular element.<p>
+						<font size="-1"><b>Returns:</b><br></font>An <code>XML/Element</code> or null.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get the first child found with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							If no name is provided, returns the first "regular" child element.  Child elements are those elements that are directly underneath this element (so grandchildren and further down are not considered). Internally, raw text, comments, and processing instructions are wrapped in special elements to simplify processing; those special elements are skipped by this proc, so that you always get elements like <tt>&lt;spellbook&gt;</tt> and <tt>&lt;spell&gt;</tt>. If a name is provided, the first child found with that name is returned.<p>
+							You usually want to use this proc rather than <code><a href="#HTMLifier_91">FirstChild</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_91">FirstChild</a>()</code>, <code><a href="#HTMLifier_93">FirstChildText</a>()</code>, <code><a href="#HTMLifier_88">Descendant</a>()</code>, <code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_86">ChildElements</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/firstspell = spellBook.FirstChildElement()</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_93"></a><blockquote>
+						<b>FirstChildText</b><blockquote>	
+						<tt>FirstChildText(<i>name</i>)</tt><p>
+						Returns the text of the first child, with any internal element tags removed.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string or null.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get the text of the first child found with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							This is a convenience proc to keep you from having to call <code><a href="#HTMLifier_91">FirstChild</a>()</code> to get an element and then call <code><a href="#HTMLifier_106">Text</a>()</code> on it. This proc calls <code><a href="#HTMLifier_91">FirstChild</a>()</code> to get the child element, which might be a special element (raw text, comment, etc). It's safest if you always provide a name so you know you are getting what you want.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_91">FirstChild</a>()</code>, <code><a href="#HTMLifier_92">FirstChildElement</a>()</code>, <code><a href="#HTMLifier_106">Text</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellbook", "&lt;spell&gt;&lt;name&gt;Fireball&lt;/name&gt;&lt;damage&gt;1&lt;/damage&gt;&lt;/spell&gt;")
+var/XML/Element/spell = spellBook.FirstChild("spell")
+	
+var/name = spell.FirstChildText("name")
+var/damage = spell.FirstChildText("damage")
+	
+world &lt;&lt; "You were hit by a [name] spell for [damage] damage!"</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_94"></a><blockquote>
+						<b>Parent</b><blockquote>	
+						<tt>Parent(<i>name</i>)</tt><p>
+						Returns the element's parent.<p>
+						<font size="-1"><b>Returns:</b><br></font>An <code>XML/Element</code> or null.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;An optional parameter to get the parent or ancestor with this name.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							By default returns the element's direct parent. If <i>name</i> is provided, returns the parent or ancestor with that name, or null if there is no ancestor with that name.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_91">FirstChild</a>()</code>, <code><a href="#HTMLifier_88">Descendant</a>()</code>, <code><a href="#HTMLifier_87">Children</a>()</code>, <code><a href="#HTMLifier_86">ChildElements</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = spell.Parent("spellbook")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_95"></a><blockquote>
+						<b>RemoveChild</b><blockquote>
+						<tt>RemoveChild(<i>child</i>)
+						</tt><p>
+						Remove the child from the element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>child</i>
+								-&nbsp;An XML/Element.<br>
+							
+						<p>
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_96">RemoveChildren</a>()</code>, <code><a href="#HTMLifier_82">AddChild</a>()</code>, <code><a href="#HTMLifier_100">setChildren</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>spellBook.RemoveChild(fireball)</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_96"></a><blockquote>
+						<b>RemoveChildren</b><blockquote>
+						<tt>RemoveChildren()
+						</tt><p>
+						Remove all children from the element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_95">RemoveChild</a>()</code>, <code><a href="#HTMLifier_82">AddChild</a>()</code>, <code><a href="#HTMLifier_100">setChildren</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>spellBook.RemoveChildren()</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_97"></a><blockquote>
+						<b>setAttribute</b><blockquote>	
+						<tt>setAttribute(<i>name</i>, <i>value</i>)</tt><p>
+						Returns the value for the specified attribute.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>name</i>
+								-&nbsp;Name of the attribute being set.<br>
+							
+							
+								<i>value</i>
+								-&nbsp;Value to set the attribute to.<br>
+							
+						<p>					
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_84">Attribute</a>()</code>, <code><a href="#HTMLifier_98">setAttributes</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>spellBook.setAttribute("cover", "latex")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_98"></a><blockquote>
+						<b>setAttributes</b><blockquote>	
+						<tt>setAttributes(<i>associated_list</i>)</tt><p>
+						Sets the attribute list to the specified associated_list.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>associated_list</i>
+								-&nbsp;An associated list with attribute names as the keys.<br>
+							
+						<p>					
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_85">Attributes</a>()</code>, <code><a href="#HTMLifier_97">setAttribute</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellBook")
+var/list/attributes = new()
+attributes["cover"] = "leather"
+attributes["title"] = "Big Book of Spells"
+	
+spellBook.setAttributes(attributes)</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_99"></a><blockquote>
+						<b>setChild</b><blockquote>	
+						<tt>setChild(<i>child</i>)</tt><p>
+						Replaces any existing children with this element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>child</i>
+								-&nbsp;An <code>XML/Element</code> object.<br>
+							
+						<p>					
+						<font size="-1"><b>Discussion:</b><br></font>
+							Removes the child from any existing parent.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_100">setChildren</a>()</code>, <code><a href="#HTMLifier_82">AddChild</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellBook")
+var/XML/Element/spell = new("spell")
+
+spellBook.setChild(spell)</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_100"></a><blockquote>
+						<b>setChildren</b><blockquote>	
+						<tt>setChildren(<i>children</i>)</tt><p>
+						Set the element's children to these, replacing any existing children.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>children</i>
+								-&nbsp;A list of <code>XML/Element</code> objects.<br>
+							
+						<p>					
+						<font size="-1"><b>Discussion:</b><br></font>
+							Calls <code><a href="#HTMLifier_82">AddChild</a>()</code> for each child in the list.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_99">setChild</a>()</code>, <code><a href="#HTMLifier_82">AddChild</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellBook")
+	
+var/XML/Element/fireball = new("spell", "&lt;name&gt;Fireball&lt;/name&gt;&lt;damage&gt;1&lt;/damage&gt;")
+var/XML/Element/iceblast = new("spell", "&lt;name&gt;Ice Blast&lt;/name&gt;&lt;damage&gt;2&lt;/damage&gt;")
+var/list/spells = list(fireball, iceblast)
+	
+spellBook.setChildren(spells)
+</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_101"></a><blockquote>
+						<b>setTag</b><blockquote>	
+						<tt>setTag(<i>tag</i>)</tt><p>
+						Specify the name of the element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>tag</i>
+								-&nbsp;The name for the element.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							In most cases you'll want to set the tag when you create the element, as an argument to <code><a href="#HTMLifier_81">New</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_105">Tag</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new()
+spellBook.setTag("spellBook")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_102"></a><blockquote>
+						<b>setText</b><blockquote>	
+						<tt>setText(<i>text</i>)</tt><p>
+						Specify the content of the element as raw text.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>text</i>
+								-&nbsp;The text.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							This treats <i>text</i> as a raw text string (rather than as XML) and sets the contents of the element to that text. To support player-entered text, and to make sure the XML represents the text as it is presented, any illegal characters for XML are "escaped". This means they are changed to their entity equivalent, so that "<tt>Ted &amp; Alice are &lt;dating&gt;...</tt>" becomes "<tt>Ted &amp;amp; Alice are &amp;lt;dating&amp;gt;...</tt>". If you use <code><a href="#HTMLifier_106">Text</a>()</code> to access the text later, the entities are "unescaped" so that you get the text back in the original form. In general if you use <code>setText()</code> and <code><a href="#HTMLifier_106">Text</a>()</code> you won't need to think about this entity stuff, it'll just do the right thing.<p>
+							If you want your text treated as parsable XML, use <code><a href="#HTMLifier_103">setXML</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_106">Text</a>()</code>, <code><a href="#HTMLifier_103">setXML</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("&lt;title&gt;&lt;/title&gt;")
+var/XML/Element/title = spellBook.FirstChild("title")
+title.setText("Spells &amp; Spells &amp; More Spells")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_103"></a><blockquote>
+						<b>setXML</b><blockquote>	
+						<tt>setXML(<i>text</i>)</tt><p>
+						Specify the content of the element.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>text</i>
+								-&nbsp;The text to parse.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							This treats <i>text</i> as an XML string and parses it to determine the contents of this element. <i>text</i> can be pure text ("<tt>The sky was blue today.</tt>") or can represent a set of elements ("<tt>&lt;sky&gt;&lt;color&gt;blue&lt;/color&gt;&lt;/sky&gt;</tt>"). Any existing children are replaced.<p>
+							In many cases you'll want to set the XML when you create the element, as an argument to <code><a href="#HTMLifier_81">New</a>()</code>.<p>
+							If you want your text treated as raw text (not parsed as XML), use <code><a href="#HTMLifier_102">setText</a>()</code>.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_108">XML</a>()</code>, <code><a href="#HTMLifier_102">setText</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new()
+spellBook.setXML("&lt;spell&gt;&lt;name&gt;fireball&lt;/name&gt;&lt;/spell&gt;")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_104"></a><blockquote>
+						<b>String</b><blockquote>	
+						<tt>String(<i>pretty_print</i>)</tt><p>
+						Returns text including nested element tags, but without the enclosing tags.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>pretty_print</i>
+								-&nbsp;An optional parameter indicating whether the XML elements should be indented to make the text more readable.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							A spellBook element would return everything but the tags for the spellbook itself: "<tt>&lt;spell&gt;&lt;name&gt;fireball&lt;/name&gt;&lt;/spell&gt;</tt>".<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_108">XML</a>()</code>, <code><a href="#HTMLifier_106">Text</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/spell_text = spellBook.String()</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_105"></a><blockquote>
+						<b>Tag</b><blockquote>
+						<tt>Tag()</tt><p>
+						The name of the element.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							If the element is <tt>&lt;booktitle&gt;</tt>, then the tag is "booktitle". In Document Object Model (DOM) terminology, the tag is also known as the "generic identifier", but we don't use such ugly language around here.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_101">setTag</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>for (var/XML/Element/child in spellBook.ChildElements())
+    var/child_tag = child.Tag()
+    world &lt;&lt; "Found [child_tag]"</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_106"></a><blockquote>
+						<b>Text</b><blockquote>	
+						<tt>Text(<i>escaped</i>)</tt><p>
+						Returns all text, removing any element tags.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>escaped</i>
+								-&nbsp;An optional parameter indicating whether entities should be escaped.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							This is often useful if you want to display XML text to a player without worrying about showing them any internal tags. It often saves some code to use <code><a href="#HTMLifier_93">FirstChildText</a>()</code> instead.<p>
+							By default the text returned does not have entities escaped. That is, characters like &lt;&gt; are returned as themselves, &lt;&gt;. If <i>escaped</i> is set to 1, then characters like &lt;&gt; are returned in their entity form, as they are be stored in the XML, &amp;lt;&amp;gt;.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_102">setText</a>()</code>, <code><a href="#HTMLifier_108">XML</a>()</code>, <code><a href="#HTMLifier_104">String</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("spellbook", "&lt;spell&gt;&lt;name&gt;Fireball&lt;/name&gt;&lt;damage&gt;1&lt;/damage&gt;&lt;/spell&gt;")
+var/XML/Element/spell = spellBook.FirstChild("spell")
+	
+var/XML/Element/name = spell.FirstChild("name")
+var/XML/Element/damage = spell.FirstChild("damage")
+	
+world &lt;&lt; "You were hit by a [name.Text()] spell for [damage.Text()] damage!"</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_107"></a><blockquote>
+						<b>WriteToFile</b><blockquote>	
+						<tt>WriteToFile(<i>file</i>)</tt><p>
+						Write the XML for this element to the specified file.<p>
+						<font size="-1"><b>Returns:</b><br></font>Nothing.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>file</i>
+								-&nbsp;The name of the file.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							Calls <code><a href="#HTMLifier_108">XML</a>()</code> and writes the results to the specified file. Deletes any file already existing at that location.<p>
+							Call this on the root element to write out the entire XML document.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_108">XML</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/XML/Element/spellBook = new("&lt;spell&gt;&lt;name&gt;fireball&lt;/name&gt;&lt;/spell&gt;")
+spellBook.WriteToFile("spellbook.xml")</pre>
+					</blockquote><hr></blockquote>
+
+					<a name="HTMLifier_108"></a><blockquote>
+						<b>XML</b><blockquote>	
+						<tt>XML(<i>pretty_print</i>)</tt><p>
+						Returns all text including enclosing tags and nested element tags.<p>
+						<font size="-1"><b>Returns:</b><br></font>A text string.<p>
+						<font size="-1"><b>Parameters:</b><br></font>
+							
+								<i>pretty_print</i>
+								-&nbsp;An optional parameter indicating whether the XML elements should be indented to make the text more readable.<br>
+							
+						<p>
+						<font size="-1"><b>Discussion:</b><br></font>
+							Use this to get the complete XML string from the element. A spellBook element might return "<tt>&lt;spellbook&gt;&lt;spell&gt;&lt;name&gt;fireball&lt;/name&gt;&lt;/spell&gt;&lt;/spellbook&gt;</tt>". Entities (characters like &lt;&gt;) are returned in their entity form (&amp;lt;&amp;gt;), since that is required for the XML to be legal.<p>
+							Call <code>XML()</code> on the root element to get the entire document.<p>
+						
+						<font size="-1"><b>See Also:</b></font><br><code><a href="#HTMLifier_103">setXML</a>()</code>, <code><a href="#HTMLifier_106">Text</a>()</code>, <code><a href="#HTMLifier_104">String</a>()</code><br><br>
+						<font size="-1"><b>Example:</b></font><br><pre>var/xml_text = spellBook.XML()</pre>
+					</blockquote><hr></blockquote>
+
+				
+			
+		
+	
+</body></html>

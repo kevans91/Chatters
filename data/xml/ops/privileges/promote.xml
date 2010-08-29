@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Promote" monitor="1" approve="1">
+		<desc>Promote Chatter</desc>
+		<execute>$n was promoted to $r by $u.</execute>
+		<command>Promote</command>
+		<elect by="All" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

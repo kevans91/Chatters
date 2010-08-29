@@ -1,0 +1,1 @@
+<xml><oprank name="AutoOP" pos="2" color="#CC0000" approve="1"><desc>Auto Operator</desc><promote>$n was promoted to $r by $u.</promote><demote>$n was demoted to $r by $u.</demote><elect by="ChanOP" orhigher="1" max="2"/><privileges><privilege name="Mute"/><privilege name="Voice"/><privilege name="Kick"/></privileges></oprank></xml>

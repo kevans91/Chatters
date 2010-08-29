@@ -1,0 +1,8 @@
+<xml>
+	<oppriv name="Mute" monitor="1" approve="1">
+		<desc>Mute Chatter</desc>
+		<execute>$n was muted by $u.</execute>
+		<command>Mute</command>
+		<elect by="All" min_votes="3" min_delay="3000" margin="66"/>
+	</oppriv>
+</xml>

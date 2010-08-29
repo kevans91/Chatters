@@ -1,0 +1,62 @@
+"a" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/paint_title{tag = "icon-title1"; icon_state = "title1"},/area)
+"b" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-br"; icon_state = "br"},/turf/paint_title{tag = "icon-title2"; icon_state = "title2"},/area)
+"c" = (/turf/window{tag = "icon-13"; icon_state = "13"},/turf/paint_title{tag = "icon-title3"; icon_state = "title3"},/area)
+"d" = (/turf/window{tag = "icon-13"; icon_state = "13"},/turf/paint_title{tag = "icon-title4"; icon_state = "title4"},/area)
+"e" = (/turf/window{tag = "icon-13"; icon_state = "13"},/turf/paint_title{tag = "icon-title5"; icon_state = "title5"},/area)
+"f" = (/turf/window{tag = "icon-13"; icon_state = "13"},/turf/paint_title{tag = "icon-title6"; icon_state = "title6"},/area)
+"g" = (/turf/window{tag = "icon-13"; icon_state = "13"},/area)
+"h" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-b"; icon_state = "b"},/area)
+"i" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-bl"; icon_state = "bl"},/area)
+"j" = (/obj/window_button,/obj/window_button/tool/select,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"k" = (/obj/window_button,/obj/window_button/tool/arrow,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"l" = (/turf/canvas,/area)
+"m" = (/turf/window{tag = "icon-3"; icon_state = "3"},/area)
+"n" = (/turf/window,/area)
+"o" = (/turf/window{tag = "icon-7"; icon_state = "7"},/area)
+"p" = (/obj/window_button,/obj/window_button/tool/pencil,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"q" = (/obj/window_button,/obj/window_button/tool/bucket,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"r" = (/turf/window{tag = "icon-7"; icon_state = "7"},/turf/window{tag = "icon-r"; icon_state = "r"},/area)
+"s" = (/turf/window{tag = "icon-12"; icon_state = "12"},/area)
+"t" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-l"; icon_state = "l"},/area)
+"u" = (/obj/window_button,/obj/window_button/tool/eraser,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"v" = (/obj/window_button,/obj/window_button/tool/dropper,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"w" = (/obj/window_button,/obj/window_button/tool/swap,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"x" = (/obj/window_button,/obj/window_button/tool/line,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"y" = (/obj/window_button,/obj/window_button/tool/rect,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"z" = (/obj/window_button,/obj/window_button/tool/frect,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"A" = (/obj/window_button,/obj/window_button/tool/oval,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"B" = (/obj/window_button,/obj/window_button/tool/foval,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"C" = (/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"D" = (/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"E" = (/obj/SecondaryColor{tag = "Secondary Color"; name = "Secondary Color"; text = "#FFFFFF"},/obj/colorbox/Secondary,/turf/window{tag = "icon-15"; icon_state = "15"},/area)
+"F" = (/obj/PrimaryColor{tag = "Primary Color"; name = "Primary Color"; text = "#000000"},/obj/colorbox/Primary,/obj/colorbox/Switch,/turf/window{tag = "icon-11"; icon_state = "11"},/area)
+"G" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-tr"; icon_state = "tr"},/area)
+"H" = (/obj/window_button,/obj/window_button/push/left,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"I" = (/obj/window_button,/obj/window_button/push/right,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"J" = (/obj/window_button,/obj/window_button/push/up,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"K" = (/obj/window_button,/obj/window_button/push/down,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"L" = (/obj/window_button,/obj/window_button/push/horiz,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"M" = (/obj/window_button,/obj/window_button/push/vert,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"N" = (/obj/window_button,/obj/window_button/push/neg90,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"O" = (/obj/window_button,/obj/window_button/push/pos90,/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"P" = (/turf/window{tag = "icon-11"; icon_state = "11"},/obj/window_button,/obj/window_button/toggle/grid,/turf/window{tag = "icon-tl"; icon_state = "tl"},/area)
+"Q" = (/turf/window{tag = "icon-15"; icon_state = "15"},/obj/pallete{tag = "icon-A"; name = "pallete"; text = "p"; icon_state = "A"},/obj/pallete{tag = "icon-B"; name = "pallete"; text = "p"; icon_state = "B"},/obj/pallete{tag = "icon-C"; name = "pallete"; text = "p"; icon_state = "C"},/obj/pallete{tag = "icon-D"; name = "pallete"; text = "p"; icon_state = "D"},/turf/pallete_left,/area)
+"R" = (/turf/window{tag = "icon-15"; icon_state = "15"},/obj/pallete{tag = "icon-A"; name = "pallete"; text = "p"; icon_state = "A"},/obj/pallete{tag = "icon-B"; name = "pallete"; text = "p"; icon_state = "B"},/obj/pallete{tag = "icon-C"; name = "pallete"; text = "p"; icon_state = "C"},/obj/pallete{tag = "icon-D"; name = "pallete"; text = "p"; icon_state = "D"},/turf/pallete,/area)
+"S" = (/turf/window{tag = "icon-15"; icon_state = "15"},/obj/pallete{tag = "icon-A"; icon_state = "A"},/obj/pallete{tag = "icon-B"; icon_state = "B"},/obj/pallete{tag = "icon-C"; icon_state = "C"},/obj/pallete{tag = "icon-D"; icon_state = "D"},/turf/pallete,/area)
+"T" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/pallete_right,/area)
+"U" = (/turf/window{tag = "icon-14"; icon_state = "14"},/area)
+"V" = (/turf/window{tag = "icon-15"; icon_state = "15"},/turf/window{tag = "icon-tl"; icon_state = "tl"},/area)
+
+(1,1,1) = {"
+abcdefgggghgi
+jkllllllllmno
+pqllllllllrst
+uvllllllllmno
+wxllllllllrst
+yzllllllllmno
+ABllllllllrst
+CDllllllllmno
+EFllllllllrst
+CGHIJKLMNOPlo
+CCQRSSSSSTGUV
+"}

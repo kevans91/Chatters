@@ -1,0 +1,1 @@
+<xml><oprank name="SuperOP" pos="1" color="#CC00CC" approve="1"><desc>Super Operator</desc><promote>$n was promoted to $r by $u.</promote><demote>$n was demoted to $r by $u.</demote><privileges><privilege name="Mute"/><privilege name="Voice"/><privilege name="Kick"/><privilege name="Ban"/><privilege name="Unban"/></privileges></oprank></xml>
