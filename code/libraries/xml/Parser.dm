@@ -175,7 +175,7 @@ XML/Parser
 
 		if (!string) return
 
-		if (findText(string, "]]>"))
+		if (findtextEx(string, "]]>"))
 			// Forget this whole sequence.
 			scan_offset = scan_offset_start
 			return
@@ -227,7 +227,7 @@ XML/Parser
 		var/value = Scan_AttValue()
 		if (value != -1)
 			// Does this have illegal < in it?
-			if (findText(value, "<"))
+			if (findtextEx(value, "<"))
 				RegisterError("Attribute value cannot have the \"<\" character; use &lt; instead.")
 				return
 
@@ -505,7 +505,7 @@ XML/Parser
 
 		for (var/item in items)
 			var/end = scan_offset + lentext(item)
-			var/position = findText(text, item, scan_offset, end)
+			var/position = findtextEx(text, item, scan_offset, end)
 			if (position)
 				scan_offset = end
 				return item
@@ -544,7 +544,7 @@ XML/Parser
 
 		for (var/item in items)
 			var/end = scan_offset + lentext(item)
-			var/position = findText(text, item, scan_offset, end)
+			var/position = findtextEx(text, item, scan_offset, end)
 			if (position)
 				return item
 

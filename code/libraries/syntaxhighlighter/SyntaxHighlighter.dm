@@ -134,7 +134,7 @@ proc/TrimLeadingTabs(code)
 				maxleadspace=0
 			else if(maxleadspace<0 || curspace<maxleadspace)
 				maxleadspace=curspace
-			cur=findText(code,"\n",cur+1)
+			cur=findtextEx(code,"\n",cur+1)
 			if(!cur) break
 		++cur
 	if(maxleadtabs<=0 && maxleadspace<=0) return code
@@ -145,7 +145,7 @@ proc/TrimLeadingTabs(code)
 			++cur; continue
 		code=copytext(code,1,cur)+copytext(code,cur+maxleadtabs)
 		tlen-=maxleadtabs
-		cur=findText(code,"\n",cur)||tlen
+		cur=findtextEx(code,"\n",cur)||tlen
 		++cur
 	return code
 
@@ -182,11 +182,11 @@ proc/HighlightCode(code, tabsize=4, showtabs, embed)
 	var/nNumBegin=0
 	var/nCodeBegin=1
 	var/ch,ch2
-	var/j=findText(code,ascii2text(13))
+	var/j=findtextEx(code,ascii2text(13))
 	var/col=1
 	while(j)
 		code=copytext(code,1,j)+copytext(code,j+1)
-		j=findText(code,ascii2text(13),j)
+		j=findtextEx(code,ascii2text(13),j)
 	var/nLength=length(code)
 	for(var/I=1,I<=nLength+1,++I)
 		if(I>nLength) ch=10

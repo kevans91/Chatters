@@ -246,7 +246,7 @@ XML/Element
 
 			// Delimeter can be " or ' depending on whether the value uses one of those characters.
 			var/delimiter = "\""
-			if (findText(value, "\"")) delimiter = "'"
+			if (findtextEx(value, "\"")) delimiter = "'"
 
 			string += " [attribute]=[delimiter][value][delimiter]"
 

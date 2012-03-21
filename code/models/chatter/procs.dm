@@ -305,7 +305,12 @@ mob
 							if(hh>12 || !hh)
 								hh = hh%12
 								am = FALSE
-							if(!hh) hh = 12
+
+							if(!hh)
+								hh = 12
+								am = TRUE
+							else if(hh == 12)
+								am = FALSE
 							hh = "[hh]"
 						else
 							hh = time2text(timestamp, "hh")

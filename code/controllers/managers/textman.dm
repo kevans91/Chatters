@@ -51,6 +51,12 @@ TextManager
 				var/part2 = copytext(msg, pos+1)
 				msg = part1+part2
 				pos = findtext(msg, ascii2text(10))
+			pos = findtext(msg, "\t")
+			while(pos)
+				var/part1 = copytext(msg, 1, pos)
+				var/part2 = copytext(msg, pos+1)
+				msg = part1+part2
+				pos = findtext(msg, "\t")
 			msg = html_encode(msg)
 			return msg
 
@@ -77,28 +83,31 @@ TextManager
 					continue
 				var/temp = c
 				for(var/L in links)
-					var/pos = findtext(c, "[L]:")
+					var/pos = findtext(temp, "[L]:")
+
 					while(pos)
 						var/end = pos+length(L)+1
-						var/Tend = findtext(c, " ", end)
-						if(!Tend) Tend = length(c)+1
-						var/part1 = copytext(c, 1, pos)
-						var/query = copytext(c, end, Tend)
-						if(findText(query, "<IMG")) // temp bug fix, breaks links :(
-							pos = findtext(c, "[L]:",Tend)// would rather not parse
+						var/Tend = findtext(temp, " ", end)
+						if(!Tend) Tend = length(temp)+1
+						var/part1 = copytext(temp, 1, pos)
+						var/query = copytext(temp, end, Tend)
+						if(findtextEx(query, "<IMG")) // temp bug fix, breaks links :(
+							pos = findtext(temp, "[L]:",Tend)// would rather not parse
 							continue				// smileys instead of breaking links
-						var/part2 = copytext(c, Tend)
+						var/part2 = copytext(temp, Tend)
 						var/replace = findtext(links[L], "$s")
 						var/link_part1
 						var/link_part2
 						if(!replace)
 							temp = part1+"<a href=\""+links[L]+query+"\">[L]:[query]</a>"+part2
+							Tend = length(part1+"<a href=\""+links[L]+query+"\">[L]:[query]</a>")
 						else
 							link_part1 = copytext(links[L], 1, replace)
 							link_part2 = copytext(links[L], replace+2)
 							temp = part1+"<a href=\""+link_part1+query+link_part2+"\">[L]:[query]</a>"+part2
+							Tend = length(part1+"<a href=\""+link_part1+query+link_part2+"\">[L]:[query]</a>")
 						if(length(part2))
-							pos = findtext(c, "[L]:",Tend)
+							pos = findtext(temp, "[L]:",Tend)
 						else
 							pos = 0
 				R += temp
@@ -107,6 +116,10 @@ TextManager
 
 
 		ParseCode(msg)
+				/**
+					msg: blah[code]foo[/code]bar
+					return val: list("blah", "foo" = "code", "bar")
+				**/
 			if(!msg) return
 			var/list/L = new()
 			var/pos = findtext(msg, "\[code]")
@@ -136,7 +149,7 @@ TextManager
 			for(var/T in tags)
 				var/pos = findtext(msg, T)
 				while(pos)
-					var/end = findtext(msg, tags[T])
+					var/end = findtext(msg, tags[T], pos + 1)
 					if(!end) end = length(msg)+1
 					if(T == "\[code]")
 						if(end > pos+6)
@@ -151,7 +164,9 @@ TextManager
 								if(end < length(msg))
 									temp += copytext(msg, end+7)
 							msg = temp
-
+						else
+							// Empty tags
+							msg = copytext(msg, 1, pos) + copytext(msg, end + length(tags[T]))
 					else if(T == "\[#")
 						var/Tend = findtext(msg, "]", pos, pos+6)
 						if(!Tend) Tend = findtext(msg, "]", pos, pos+9)
@@ -165,6 +180,8 @@ TextManager
 								temp += html[html[i]]
 								temp += copytext(msg, end+length(tags[T]))
 							msg = temp
+						else if(end == Tend + 1 && end <= length(msg))
+							msg = copytext(msg, 1, pos) + copytext(msg, end + length(tags[T]))
 
 					else if(pos+length(T) < end)
 						if((T == "\[img]") && !Images)

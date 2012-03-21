@@ -162,7 +162,7 @@ proc
 	dd_hasPrefix(text, prefix)
 		var/start = 1
 		var/end = lentext(prefix) + 1
-		return findText(text, prefix, start, end)
+		return findtextEx(text, prefix, start, end)
 
 
     /////////////////////
@@ -174,7 +174,7 @@ proc
 
 	dd_hasSuffix(text, suffix)
 		var/start = length(text) - length(suffix)
-		if (start) return findText(text, suffix, start)
+		if (start) return findtextEx(text, suffix, start)
 
 	/////////////////////////////
 	// Turning text into lists //
@@ -207,7 +207,7 @@ proc
 		var/findPosition    = 1
 		var/buggyText
 		while (1)															// Loop forever.
-			findPosition = findText(text, separator, searchPosition, 0)
+			findPosition = findtextEx(text, separator, searchPosition, 0)
 			buggyText = copytext(text, searchPosition, findPosition)		// Everything from searchPosition to findPosition goes into a list element.
 			textList += "[buggyText]"										// Working around weird problem where "text" != "text" after this copytext().
 

@@ -218,7 +218,7 @@ Settings
 					C._24hr_time = FALSE
 					winset(C, "system.12Hour", "is-checked=true")
 					winset(C, "system.24Hour", "is-checked=false")
-				C << output(C.ParseTime(), "system.time")
+				C << output(TextMan.strip_html(C.ParseTime()), "system.time")
 
 			SetTimeOffset(t as num|null)
 				set hidden = 1
@@ -226,7 +226,7 @@ Settings
 				var/mob/chatter/C = usr
 				if(!C) return
 				C.time_offset = t
-				C << output(C.ParseTime(), "system.time")
+				C << output(TextMan.strip_html(C.ParseTime()), "system.time")
 				winset(C, "system.offset", "text=[C.time_offset]")
 
 			SetAutoAFK(t as num|null)
