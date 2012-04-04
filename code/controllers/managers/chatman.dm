@@ -13,7 +13,7 @@ ChatterManager
 				if(!Source || !Source.showcodes) return
 				var/target = href_list["target"]
 				var/index = text2num(href_list["index"])
-				var/code = Source.showcodes[index]
+				var/code = (M.show_highlight ? Source.highlightedshowcodes[index] : Source.showcodes[index])
 				var/pub = href_list["type"]
 				if(pub == "Private")
 					if(ckey(M.name) != ckey(Source.showcodes[code]))
@@ -21,7 +21,7 @@ ChatterManager
 				var/html = {"
 					<html><head><title>From: [Source.name]
 					- [href_list["type"]] Code Window</title>[M.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000"): null]\
-					</head><body><pre>[M.show_highlight ? HighlightCode(code) : code]</pre></body></html>"}
+					</head><body><pre>[code]</pre></body></html>"}
 				var/window = "window=[Source.name]_[href_list["type"]]_code"
 				M << browse(html, window)
 			if("see_text")

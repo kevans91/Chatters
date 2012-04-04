@@ -540,9 +540,15 @@ mob
 						if(!showcodes) showcodes = new
 						showcodes += message
 						showcodes[message] = C.name
+
+						if(!highlightedshowcodes) highlightedshowcodes = new
+						var/highlighted = HighlightCode(message)
+						highlightedshowcodes += highlighted
+						highlightedshowcodes[highlighted] = C.name
+
 						var/html = "<html><head><title>To: [C.name] \
 							- Private Code Window</title>[src.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000") : null]\
-							</head><body><pre>[src.show_highlight ? HighlightCode(message): message]</pre></body></html>"
+							</head><body><pre>[src.show_highlight ? highlighted : message]</pre></body></html>"
 						var/window = "window=[C.name]_private"
 						//winclone(src, "show_window", window)
 						//winset(src, window, "is-visible=true;")
@@ -552,14 +558,21 @@ mob
 						im.Display(src)
 						MsgMan.RouteMsg(src, C, "Click for my <a href='byond://?dest=chatman&action=see_code&target=[src.name]&index=[src.showcodes.len]&type=Private'>Show Code Window</a>.",1)
 				else
-					if(!src.Chan || Chan.ismute(src)) return
+					if(!src.Chan || Chan.ismute(src))
+						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
+						return
 					var/message = input("Enter your code below:", "Show Code in the browser") as message | null
 					if(!message) return
 					if(!showcodes) showcodes = new
 					showcodes += message
+
+					if(!highlightedshowcodes) highlightedshowcodes = new
+					var/highlighted = HighlightCode(message)
+					highlightedshowcodes += highlighted
+
 					var/html = "<title>To: [src.Chan.name] \
 						 - Public Code Window</title>[src.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000") : null]\
-						 <pre>[src.show_highlight ? HighlightCode(message) : message]</pre>"
+						 <pre>[src.show_highlight ? highlighted : message]</pre>"
 					var/window = "window=[src.name]_public"
 					//winclone(src, "show_window", window)
 					//winset(src, window, "is-visible=true;")
@@ -626,7 +639,9 @@ mob
 						MsgMan.RouteMsg(src, C, "Click for my <a href='byond://?dest=chatman&action=see_text&target=[src.name]&index=[src.showtexts.len]&type=Private'>Show Text Window</a>.",1)
 						return
 				else
-					if(!src.Chan || Chan.ismute(src)) return
+					if(!src.Chan || Chan.ismute(src))
+						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
+						return
 					var/message = input("Enter your text below:","Show Text in the browser") as message | null
 					if(!message) return
 

@@ -321,7 +321,7 @@ proc/s_smileys(text as text,var/test,icon/smileys)
 	for(smiley in s_smileys)
 		var/B
 		for(B in smiley.smileys)
-			if(!findtext(text,B)) continue
+			if(!B || !length(B) || !findtext(text,B)) continue
 
 			found_smileys++
 

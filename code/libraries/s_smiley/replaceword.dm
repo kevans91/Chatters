@@ -62,7 +62,7 @@ proc/replaceWord(String, Search, Replace)
 	//anything in the ignore list is assumed to be a part of a word
 	var/list/Ignores = list("'","1","2","3","4","5","6","7","8","9",",",".")
 
-	for(var/Pos = 1, Pos <= String_len-Search_len+1, Pos++)
+	for(var/Pos = 1, Pos <= String_len-Search_len+1, Pos++:)
 		var/Char = copytext(String, Pos, Pos+1) //determine if this is a break between words
 		if(isalphabetic(Char) || Ignores.Find(Char) || findtextEx(Search, Char))
 			if(!last_Char)

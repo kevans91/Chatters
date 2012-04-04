@@ -189,6 +189,7 @@ proc/HighlightCode(code, tabsize=4, showtabs, embed)
 		j=findtextEx(code,ascii2text(13),j)
 	var/nLength=length(code)
 	for(var/I=1,I<=nLength+1,++I)
+		if(I%50) sleep(0)
 		if(I>nLength) ch=10
 		else ch=text2ascii(code,I)
 		if(linebegin)

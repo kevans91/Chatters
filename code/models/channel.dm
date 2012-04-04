@@ -96,12 +96,27 @@ Channel
 			winclone(C, "channel", ckey(name))
 			winclone(C, "who", "[ckey(name)].who")
 			winclone(C, "chat", "[ckey(name)].chat")
-			winset(C, "[ckey(name)].default_input", "is-default=true;")
-			winset(C, "[ckey(name)].chat.default_output", "is-default=true;")
+			var/window = ckey(name)
+			winset(C, null, "[window].default_input.is-default=true;\
+							[window].chat.default_output.is-default=true;\
+							[window].chat.default_output.is-disabled=false;\
+							[window].topic_label.text='[TextMan.escapeQuotes(topic)]';\
+							[window].child.left=[window].chat;\
+							[window].child.right=[window].who;\
+							default.size=[C.winsize];\
+							default.can-resize=true;\
+							default.title='[name] - Chatters';\
+							default.menu=menu;\
+							default.child.pos=0,0;\
+							default.child.size=[C.winsize];\
+							default.child.left=[ckey(name)];")
+/*			winset(C, "[ckey(name)].default_input", "is-default=true;")
+			winset(C, "[ckey(name)].chat.default_output", "is-default=true;is-disabled=false.")
 			winset(C, "[ckey(name)].topic_label", "text='[TextMan.escapeQuotes(topic)]';")
 			winset(C, "[ckey(name)].child", "left=[ckey(name)].chat; right=[ckey(name)].who")
 			winset(C, "default", "size=[C.winsize];can-resize=true;title='[name] - Chatters';menu=menu;")
 			winset(C, "default.child", "pos=0,0;size=[C.winsize];left=[ckey(name)];")
+*/
 			if(Host == C) winset(C, "default", "menu=host")
 
 			for(var/p in typesof(/Player/proc)-/Player/proc)
@@ -116,11 +131,24 @@ Channel
 						var/OpPrivilege/P = OpMan.op_privileges[priv]
 						C.verbs += text2path("/Operator/proc/[P.command]")
 
+			if(!C.telnet && winget(C, "[ckey(name)].default_input", "is-disabled") == "true")
+						// Returning from a kick/ban
+				var/size = winget(C, "[ckey(name)].child", "size")
+				var/X = copytext(size, 1, findtext(size,"x"))
+				var/Y = text2num(copytext(size, findtext(size, "x")+1)) - 44
+				winset(C, null, "[window].toggle_quickbar.is-visible=true;\
+								[window].set.is-visible=true;\
+								[window].help.is-visible=true;\
+								[window].default_input.is-disabled=false;\
+								[window].child.size=[X]x[Y];\
+								[window].child.pos=0,0;")
+				C.ToggleQuickBar(1)
+
 			if(!C.quickbar)
 				C.quickbar = TRUE
 				C.ToggleQuickBar(1)
-				if(Host == C) winset(C, "host.quickbar_toggle", "is-checked=false;")
-				else winset(C, "menu.quickbar_toggle", "is-checked=false;")
+//				if(Host == C) winset(C, "host.quickbar_toggle", "is-checked=false;")
+//				else winset(C, "menu.quickbar_toggle", "is-checked=false;")
 
 			if(!C.showwho)
 				C.showwho = TRUE
@@ -145,7 +173,6 @@ Channel
 			winshow(C, ckey(name), 1)
 
 			winset(C, "[ckey(C.Chan.name)].chat.default_output", "style='[TextMan.escapeQuotes(C.default_output_style)]';max-lines='[C.max_output]';")
-
 			if(C.show_title)
 				if(C.show_colors)
 					C << output({"<b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b>
@@ -193,8 +220,8 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 			world.status = "[Home.name] founded by [Home.founder] - [Home.chatters.len] chatter\s"
 
 			MapMan.Join(C)
-			winset(C, "[ckey(Home.name)].default_input", "text='> '")
-			winset(C, "[ckey(Home.name)].default_input", "focus=true")
+
+			winset(C, "[ckey(Home.name)].default_input", "text='> ';focus=true;")
 
 			chanbot.Say("[C.name] has joined [name]")
 			chanbot.Say("You have joined [name] founded by [founder]",C)
@@ -223,6 +250,10 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 			chanbot.Say("[C.name] has quit [name]")
 			NetMan.Report("quit", C.name)
+
+			world << "[C] quitting"
+			if(C && ChatMan.istelnet(C.key))
+				C.Logout()
 
 		UpdateWho()
 
@@ -293,6 +324,9 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 				return L
 
 		Say(mob/chatter/C, msg, clean, window)
+			if(ismute(C))
+				chanbot.Say("I'm sorry, but you appear to be muted.",C)
+				return
 
 			if(length(msg)>512)
 				var/part2 = copytext(msg, 513)
@@ -312,8 +346,6 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 			msg = TextMan.ParseLinks(msg)
 
 			if(!window) window = "[ckey(name)].chat.default_output"
-
-			if(ismute(C)) return
 
 			for(var/mob/chatter/c in chatters)
 				if(c.ignoring(C) & CHAT_IGNORE) continue
@@ -343,6 +375,10 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 
 		Me(mob/chatter/C, msg, clean, window)
+			if(ismute(C))
+				chanbot.Say("I'm sorry, but you appear to be muted.",C)
+				return
+
 			if(!clean) msg = TextMan.Sanitize(msg)
 
 			var/raw_msg = msg
@@ -353,8 +389,6 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 			msg = TextMan.ParseLinks(msg)
 			chanbot.SpamTimer(C, msg)
-
-			if(ismute(C)) return
 
 			if(!window) window = "[ckey(name)].chat.default_output"
 
@@ -384,6 +418,10 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 							c << output(Parsedmsg, "[window]")
 
 		My(mob/chatter/C, msg, clean, window)
+			if(ismute(C))
+				chanbot.Say("I'm sorry, but you appear to be muted.",C)
+				return
+
 			if(!clean) msg = TextMan.Sanitize(msg)
 
 			var/raw_msg = msg
@@ -394,8 +432,6 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 			msg = TextMan.ParseLinks(msg)
 			chanbot.SpamTimer(C, msg)
-
-			if(ismute(C)) return
 
 			if(!window) window = "[ckey(name)].chat.default_output"
 
@@ -651,7 +687,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 								var/size = winget(C, "[ckey(name)].child", "size")
 								var/X = copytext(size, 1, findtext(size,"x"))
-								var/Y = text2num(copytext(size, findtext(size, "x")+1))+44
+								var/Y = text2num(copytext(size, findtext(size, "x")+1))+36
 								winset(C, "[ckey(name)].child", "size=[X]x[Y];pos=0,0")
 
 								C << output("You have been kicked from [name].", "[ckey(name)].chat.default_output")

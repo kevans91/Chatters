@@ -91,6 +91,7 @@ mob
 
 				tmp/msgHandlers
 				tmp/showcodes
+				tmp/highlightedshowcodes
 				tmp/showtexts
 				tmp/Tags = list("\[b]" = "\[/b]",
 								"\[i]" = "\[/i]",
