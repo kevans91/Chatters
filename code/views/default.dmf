@@ -879,8 +879,8 @@ window "channel"
 		type = INPUT
 		pos = 0,460
 		size = 520x20
-		anchor1 = 0,96
-		anchor2 = 81,100
+		anchor1 = 0,100
+		anchor2 = 100,100
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -904,7 +904,7 @@ window "channel"
 		pos = 0,0
 		size = 508x20
 		anchor1 = 0,0
-		anchor2 = 79,4
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -929,8 +929,8 @@ window "channel"
 		type = LABEL
 		pos = 512,0
 		size = 128x20
-		anchor1 = 80,0
-		anchor2 = 100,4
+		anchor1 = 100,0
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -955,8 +955,8 @@ window "channel"
 		type = CHILD
 		pos = 0,20
 		size = 640x420
-		anchor1 = 0,4
-		anchor2 = 100,92
+		anchor1 = 0,0
+		anchor2 = 100,100
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -981,8 +981,8 @@ window "channel"
 		type = BUTTON
 		pos = 0,442
 		size = 16x16
-		anchor1 = 0,92
-		anchor2 = 3,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1007,10 +1007,10 @@ window "channel"
 		button-type = pushbox
 	elem "tag2"
 		type = BUTTON
-		pos = 20,442
+		pos = 19,442
 		size = 16x16
-		anchor1 = 3,92
-		anchor2 = 6,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1035,10 +1035,10 @@ window "channel"
 		button-type = pushbox
 	elem "tag3"
 		type = BUTTON
-		pos = 40,442
+		pos = 38,442
 		size = 16x16
-		anchor1 = 6,92
-		anchor2 = 9,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1063,10 +1063,10 @@ window "channel"
 		button-type = pushbox
 	elem "tag4"
 		type = BUTTON
-		pos = 60,442
+		pos = 57,442
 		size = 16x16
-		anchor1 = 9,92
-		anchor2 = 12,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1091,10 +1091,10 @@ window "channel"
 		button-type = pushbox
 	elem "smiley1"
 		type = BUTTON
-		pos = 120,441
+		pos = 112,441
 		size = 18x18
-		anchor1 = 19,92
-		anchor2 = 22,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1119,10 +1119,10 @@ window "channel"
 		button-type = pushbutton
 	elem "smiley2"
 		type = BUTTON
-		pos = 140,441
+		pos = 134,441
 		size = 18x18
-		anchor1 = 22,92
-		anchor2 = 25,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1147,10 +1147,10 @@ window "channel"
 		button-type = pushbutton
 	elem "smiley3"
 		type = BUTTON
-		pos = 160,441
+		pos = 156,441
 		size = 18x18
-		anchor1 = 25,92
-		anchor2 = 28,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1175,10 +1175,10 @@ window "channel"
 		button-type = pushbutton
 	elem "smiley4"
 		type = BUTTON
-		pos = 180,441
+		pos = 178,441
 		size = 18x18
-		anchor1 = 28,92
-		anchor2 = 31,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1205,8 +1205,8 @@ window "channel"
 		type = BUTTON
 		pos = 200,441
 		size = 18x18
-		anchor1 = 31,92
-		anchor2 = 34,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1231,10 +1231,10 @@ window "channel"
 		button-type = pushbutton
 	elem "smiley6"
 		type = BUTTON
-		pos = 220,441
+		pos = 222,441
 		size = 18x18
-		anchor1 = 34,92
-		anchor2 = 37,96
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1261,8 +1261,8 @@ window "channel"
 		type = BUTTON
 		pos = 244,442
 		size = 16x16
-		anchor1 = 38,92
-		anchor2 = 41,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1289,8 +1289,8 @@ window "channel"
 		type = BUTTON
 		pos = 264,442
 		size = 16x16
-		anchor1 = 41,92
-		anchor2 = 44,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1317,8 +1317,8 @@ window "channel"
 		type = BUTTON
 		pos = 284,442
 		size = 16x16
-		anchor1 = 44,92
-		anchor2 = 47,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1345,8 +1345,8 @@ window "channel"
 		type = BUTTON
 		pos = 304,442
 		size = 16x16
-		anchor1 = 48,92
-		anchor2 = 50,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1373,8 +1373,8 @@ window "channel"
 		type = BUTTON
 		pos = 324,442
 		size = 16x16
-		anchor1 = 51,92
-		anchor2 = 53,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1401,8 +1401,8 @@ window "channel"
 		type = BUTTON
 		pos = 344,442
 		size = 16x16
-		anchor1 = 54,92
-		anchor2 = 56,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1429,8 +1429,8 @@ window "channel"
 		type = BUTTON
 		pos = 364,442
 		size = 16x16
-		anchor1 = 57,92
-		anchor2 = 59,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1457,8 +1457,8 @@ window "channel"
 		type = BUTTON
 		pos = 579,462
 		size = 40x16
-		anchor1 = 90,96
-		anchor2 = 97,100
+		anchor1 = 100,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1485,8 +1485,8 @@ window "channel"
 		type = BUTTON
 		pos = 524,462
 		size = 52x16
-		anchor1 = 82,96
-		anchor2 = 90,100
+		anchor1 = 100,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1513,8 +1513,8 @@ window "channel"
 		type = BUTTON
 		pos = 622,462
 		size = 16x16
-		anchor1 = 97,96
-		anchor2 = 100,100
+		anchor1 = 100,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1539,10 +1539,10 @@ window "channel"
 		button-type = pushbutton
 	elem "tag5"
 		type = BUTTON
-		pos = 80,442
+		pos = 76,442
 		size = 32x16
-		anchor1 = 13,92
-		anchor2 = 18,95
+		anchor1 = 0,100
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -1570,7 +1570,7 @@ window "channel"
 		pos = 0,0
 		size = 128x20
 		anchor1 = 0,0
-		anchor2 = 20,4
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
