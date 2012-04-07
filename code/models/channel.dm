@@ -251,7 +251,6 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 			chanbot.Say("[C.name] has quit [name]")
 			NetMan.Report("quit", C.name)
 
-			world << "[C] quitting"
 			if(C && ChatMan.istelnet(C.key))
 				C.Logout()
 
