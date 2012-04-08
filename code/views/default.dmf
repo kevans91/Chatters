@@ -16384,7 +16384,7 @@ window "ops_general"
 	elem "ops_general"
 		type = MAIN
 		pos = 281,0
-		size = 476x384
+		size = 438x365
 		anchor1 = none
 		anchor2 = none
 		font-family = ""
@@ -16449,7 +16449,7 @@ window "ops_general"
 	elem "label16"
 		type = LABEL
 		pos = 4,28
-		size = 464x6
+		size = 426x6
 		anchor1 = 0,0
 		anchor2 = 100,0
 		font-family = ""
@@ -16474,7 +16474,7 @@ window "ops_general"
 		text-wrap = false
 	elem "button16"
 		type = BUTTON
-		pos = 408,8
+		pos = 370,8
 		size = 60x16
 		anchor1 = 100,0
 		anchor2 = 100,0
@@ -16580,8 +16580,8 @@ window "ops_general"
 		text-wrap = false
 	elem "rank_select"
 		type = GRID
-		pos = 248,248
-		size = 120x100
+		pos = 183,320
+		size = 120x40
 		anchor1 = none
 		anchor2 = none
 		font-family = ""
@@ -16611,10 +16611,10 @@ window "ops_general"
 		is-list = false
 	elem "child"
 		type = CHILD
-		pos = 28,64
-		size = 416x252
-		anchor1 = 0,0
-		anchor2 = 100,82
+		pos = 8,64
+		size = 424x252
+		anchor1 = none
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -16637,7 +16637,7 @@ window "ops_general"
 		lock = none
 	elem "rank"
 		type = GRID
-		pos = 248,348
+		pos = 56,344
 		size = 120x20
 		anchor1 = none
 		anchor2 = none
@@ -16668,10 +16668,10 @@ window "ops_general"
 		is-list = false
 	elem "remove_op_button"
 		type = BUTTON
-		pos = 384,320
+		pos = 374,321
 		size = 60x20
-		anchor1 = 100,82
-		anchor2 = 100,82
+		anchor1 = none
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -16696,10 +16696,10 @@ window "ops_general"
 		button-type = pushbutton
 	elem "new_op_button"
 		type = BUTTON
-		pos = 312,320
+		pos = 309,320
 		size = 60x20
-		anchor1 = 100,82
-		anchor2 = 100,82
+		anchor1 = none
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""
@@ -16724,7 +16724,7 @@ window "ops_general"
 		button-type = pushbutton
 	elem "name"
 		type = INPUT
-		pos = 72,348
+		pos = 56,320
 		size = 120x20
 		anchor1 = 0,0
 		anchor2 = 0,0
@@ -16748,7 +16748,7 @@ window "ops_general"
 		no-command = false
 	elem "name_label"
 		type = LABEL
-		pos = 28,348
+		pos = 12,320
 		size = 36x20
 		anchor1 = 0,0
 		anchor2 = 0,0
@@ -16774,7 +16774,7 @@ window "ops_general"
 		text-wrap = false
 	elem "rank_label"
 		type = LABEL
-		pos = 208,348
+		pos = 16,344
 		size = 32x20
 		anchor1 = none
 		anchor2 = none
@@ -16800,10 +16800,10 @@ window "ops_general"
 		text-wrap = false
 	elem "update"
 		type = BUTTON
-		pos = 384,352
+		pos = 340,344
 		size = 60x20
-		anchor1 = 100,82
-		anchor2 = 100,82
+		anchor1 = none
+		anchor2 = none
 		font-family = ""
 		font-size = 0
 		font-style = ""

@@ -1,6 +1,5 @@
 Operators
 	Ranks
-
 		proc
 			UpdateOperatorRanks()
 				set hidden = 1
@@ -64,11 +63,15 @@ Operators
 				set hidden = 1
 				var/mob/chatter/C = usr
 				if(!C) return
-				winset(C, "ops_ranks.info_left", "is-visible=false")
+/*				winset(C, "ops_ranks.info_left", "is-visible=false")
 				winset(C, "ops_ranks.info", "is-visible=false")
 				winset(C, "ops_ranks.info_right", "is-visible=false")
+*/
+				winset(C, null, "ops_ranks.info_left.is-visible=false;\
+									ops_ranks.info.is-visible=false;\
+									ops_ranks.info_right.is-visible=false;")
 
-				winset(C, "ops_ranks.name_label", "is-visible=true")
+/*				winset(C, "ops_ranks.name_label", "is-visible=true")
 				winset(C, "ops_ranks.name", "is-visible=true")
 				winset(C, "ops_ranks.description_label", "is-visible=true")
 				winset(C, "ops_ranks.description", "is-visible=true")
@@ -80,9 +83,7 @@ Operators
 				winset(C, "ops_ranks.color_button", "is-visible=true")
 				winset(C, "ops_ranks.color", "is-visible=true")
 				winset(C, "ops_ranks.temporary", "is-visible=true")
-				winset(C, "ops_ranks.expires_label", "is-visible=true")
 				winset(C, "ops_ranks.expires", "is-visible=true")
-				winset(C, "ops_ranks.days_label", "is-visible=true")
 				winset(C, "ops_ranks.electable", "is-visible=true")
 				winset(C, "ops_ranks.electable_by", "is-visible=true")
 				winset(C, "ops_ranks.or_higher", "is-visible=true")
@@ -95,15 +96,76 @@ Operators
 				winset(C, "ops_ranks.privileges", "is-visible=true")
 				winset(C, "ops_ranks.add_priv_button", "is-visible=true")
 				winset(C, "ops_ranks.remove_priv_button", "is-visible=true")
+*/
+				winset(C, null, "ops_ranks.name_label.is-visible=true;\
+									ops_ranks.name.is-visible=true;\
+									ops_ranks.description_label.is-visible=true;\
+									ops_ranks.description.is-visible=true;\
+									ops_ranks.promote_label.is-visible=true;\
+									ops_ranks.promote.is-visible=true;\
+									ops_ranks.demote_label.is-visible=true;\
+									ops_ranks.demote.is-visible=true;\
+									ops_ranks.color_label.is-visible=true;\
+									ops_ranks.color_button.is-visible=true;\
+									ops_ranks.color.is-visible=true;\
+									ops_ranks.temporary.is-visible=true;\
+									ops_ranks.expires_label.is-visible=true;\
+									ops_ranks.expires.is-visible=true;\
+									ops_ranks.days_label.is-visible=true;\
+									ops_ranks.electable.is-visible=true;\
+									ops_ranks.electable_by.is-visible=true;\
+									ops_ranks.or_higher.is-visible=true;\
+									ops_ranks.or_lower.is-visible=true;\
+									ops_ranks.max_elect_label.is-visible=true;\
+									ops_ranks.max_electable.is-visible=true;\
+									ops_ranks.monitor.is-visible=true;\
+									ops_ranks.auto_approve.is-visible=true;\
+									ops_ranks.privileges_label.is-visible=true;\
+									ops_ranks.privileges.is-visible=true;\
+									ops_ranks.add_priv_button.is-visible=true;\
+									ops_ranks.remove_priv_button.is-visible=true;")
 
 			HideOpRankForm()
 				set hidden = 1
 				var/mob/chatter/C = usr
 				if(!C) return
-				winset(C, "ops_ranks.info_left", "is-visible=true")
+				winset(C, null, "ops_ranks.info_left.is-visible=true;\
+									ops_ranks.info.is-visible=true;\
+									ops_ranks.info_right.is-visible=true;")
+
+/*				winset(C, "ops_ranks.info_left", "is-visible=true")
 				winset(C, "ops_ranks.info", "is-visible=true")
 				winset(C, "ops_ranks.info_right", "is-visible=true")
+*/
+				winset(C, null, "ops_ranks.name_label.is-visible=false;\
+									ops_ranks.name.is-visible=false;\
+									ops_ranks.description_label.is-visible=false;\
+									ops_ranks.description.is-visible=false;\
+									ops_ranks.promote_label.is-visible=false;\
+									ops_ranks.promote.is-visible=false;\
+									ops_ranks.demote_label.is-visible=false;\
+									ops_ranks.demote.is-visible=false;\
+									ops_ranks.color_label.is-visible=false;\
+									ops_ranks.color_button.is-visible=false;\
+									ops_ranks.color.is-visible=false;\
+									ops_ranks.temporary.is-visible=false;\
+									ops_ranks.expires_label.is-visible=false;\
+									ops_ranks.expires.is-visible=false;\
+									ops_ranks.days_label.is-visible=false;\
+									ops_ranks.electable.is-visible=false;\
+									ops_ranks.electable_by.is-visible=false;\
+									ops_ranks.or_higher.is-visible=false;\
+									ops_ranks.or_lower.is-visible=false;\
+									ops_ranks.max_elect_label.is-visible=false;\
+									ops_ranks.max_electable.is-visible=false;\
+									ops_ranks.monitor.is-visible=false;\
+									ops_ranks.auto_approve.is-visible=false;\
+									ops_ranks.privileges_label.is-visible=false;\
+									ops_ranks.privileges.is-visible=false;\
+									ops_ranks.add_priv_button.is-visible=false;\
+									ops_ranks.remove_priv_button.is-visible=false;")
 
+/*
 				winset(C, "ops_ranks.name_label", "is-visible=false")
 				winset(C, "ops_ranks.name", "is-visible=false")
 				winset(C, "ops_ranks.description_label", "is-visible=false")
@@ -131,7 +193,7 @@ Operators
 				winset(C, "ops_ranks.privileges", "is-visible=false")
 				winset(C, "ops_ranks.add_priv_button", "is-visible=false")
 				winset(C, "ops_ranks.remove_priv_button", "is-visible=false")
-
+*/
 			UpdateOpRanks()
 				set hidden = 1
 				var/mob/chatter/C = usr
@@ -150,6 +212,22 @@ Operators
 						C << output(Rank.select, "ops_ranks.ranks")
 				winset(C, "ops_ranks.ranks", "cells=1x[i]")
 				if(C.RankSelect)
+					winset(C, null, "ops_ranks.name.text='[escapeQuotes(C.RankSelect.name)]';\
+									ops_ranks.description.text='[escapeQuotes(C.RankSelect.desc)]'\
+									ops_ranks.promote.text='[escapeQuotes(C.RankSelect.promote)]'\
+									ops_ranks.demote.text='[escapeQuotes(C.RankSelect.demote)]'\
+									ops_ranks.color_button.background-color='[escapeQuotes(C.RankSelect.color)]'\
+									ops_ranks.color.text='[escapeQuotes(C.RankSelect.color)]'\
+									ops_ranks.temporary.is-checked='[C.RankSelect.temp? "true" : "false"]'\
+									ops_ranks.expires.text='[C.RankSelect.expires]'\
+									ops_ranks.electable.is-checked='[C.RankSelect.elect? "true" : "false"]'\
+									ops_ranks.electable_by.text='[escapeQuotes(C.RankSelect.elect_by)]'\
+									ops_ranks.or_higher.is-checked='[C.RankSelect.or_higher? "true" : "false"]'\
+									ops_ranks.or_lower.is-checked='[C.RankSelect.or_lower? "true" : "false"]'\
+									ops_ranks.max_electable.text='[C.RankSelect.max_elect]'\
+									ops_ranks.monitor.is-checked='[C.RankSelect.monitor? "true" : "false"]'\
+									ops_ranks.auto_approve.is-checked='[C.RankSelect.auto_approve? "true" : "false"]'")
+/*
 					winset(C, "ops_ranks.name", "text='[escapeQuotes(C.RankSelect.name)]'")
 					winset(C, "ops_ranks.description", "text='[escapeQuotes(C.RankSelect.desc)]'")
 					winset(C, "ops_ranks.promote", "text='[escapeQuotes(C.RankSelect.promote)]'")
@@ -165,34 +243,44 @@ Operators
 					winset(C, "ops_ranks.max_electable", "text='[C.RankSelect.max_elect]'")
 					winset(C, "ops_ranks.monitor", "is-checked='[C.RankSelect.monitor? "true" : "false"]'")
 					winset(C, "ops_ranks.auto_approve", "is-checked='[C.RankSelect.auto_approve? "true" : "false"]'")
+*/
 					if(!C.RankSelect.temp)
-						winset(C, "ops_ranks.expires_label", "is-disabled=true;text-color=#C0C0C0")
-						winset(C, "ops_ranks.expires", "is-disabled=true;background-color=#C0C0C0")
-						winset(C, "ops_ranks.days_label", "is-disabled=true")
+						winset(C, null, 	"ops_ranks.expires_label.is-disabled=true;\
+											ops_ranks.expires-label.text-color=#C0C0C0\
+											ops_ranks.expires.is-disabled=true;\
+											ops_ranks.expires.background-color=#C0C0C0;\
+											ops_ranks.days_label.is-disabled=true;")
 					else
-						winset(C, "ops_ranks.expires_label", "is-disabled=false;text-color=#333333")
-						winset(C, "ops_ranks.expires", "is-disabled=false;background-color=#FFFFFF")
-						winset(C, "ops_ranks.days_label", "is-disabled=false")
+						winset(C, null, 	"ops_ranks.expires_label.is-disabled=false;\
+											ops_ranks.expires-label.text-color=#333333\
+											ops_ranks.expires.is-disabled=false;\
+											ops_ranks.expires.background-color=#FFFFFF;\
+											ops_ranks.days_label.is-disabled=false;")
 					if(!C.RankSelect.elect)
-						winset(C, "ops_ranks.electable_by", "is-disabled=true;background-color=#C0C0C0")
-						winset(C, "ops_ranks.or_higher", "is-disabled=true")
-						winset(C, "ops_ranks.or_lower", "is-disabled=true")
-						winset(C, "ops_ranks.max_elect_label", "is-disabled=true")
-						winset(C, "ops_ranks.max_electable", "is-disabled=true;background-color=#C0C0C0")
+						winset(C, null, "ops_ranks.electable.is-checked=false;\
+										ops_ranks.electable_by.is-disabled=true;\
+										ops_ranks.electable_by.background-color=#C0C0C0;\
+										ops_ranks.or_higher.is-disabled=true;\
+										ops_ranks.or_lower.is-disabled=true;\
+										ops_ranks.max_elect_label.is-disabled=true;\
+										ops_ranks.max_electable.is-disabled=true;\
+										ops_ranks.max_electable.background-color=#C0C0C0;")
 					else
-						winset(C, "ops_ranks.electable_by", "is-disabled=false;background-color=#FFFFFF")
-						winset(C, "ops_ranks.or_higher", "is-disabled=false")
-						winset(C, "ops_ranks.or_lower", "is-disabled=false")
-						winset(C, "ops_ranks.max_elect_label", "is-disabled=false")
-						winset(C, "ops_ranks.max_electable", "is-disabled=false;background-color=#FFFFFF")
+						winset(C, null, "ops_ranks.electable.is-checked=true;\
+										ops_ranks.electable_by.is-disabled=false;\
+										ops_ranks.electable_by.background-color=#FFFFFF;\
+										ops_ranks.or_higher.is-disabled=false;\
+										ops_ranks.or_lower.is-disabled=false;\
+										ops_ranks.max_elect_label.is-disabled=false;\
+										ops_ranks.max_electable.is-disabled=false;\
+										ops_ranks.max_electable.background-color=#FFFFFF;")
 					i=0
 					for(var/priv in C.RankSelect.privs)
 						var/OpPrivilege/Priv = OpMan.op_privileges[priv]
 						if(isnull(Priv)) continue
 						Priv.ranklist = 1
 						if(Priv == C.PrivSelect)
-							winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}'")
-							winset(C, "ops_ranks.privileges", "current-cell='1,[++i]'")
+							winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}';current-cell='1,[++i]")
 							C << output(Priv.select, "ops_ranks.privileges")
 							winset(C, "ops_ranks.privileges", "style=''")
 						else
@@ -210,8 +298,7 @@ Operators
 					if(isnull(Priv)) continue
 					Priv.ranklist = 1
 					if(Priv == C.PrivSelect)
-						winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}'")
-						winset(C, "ops_ranks.privileges", "current-cell='1,[++i]'")
+						winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}';current-cell='1,[++i]'")
 						C << output(Priv.select, "ops_ranks.privileges")
 						winset(C, "ops_ranks.privileges", "style=''")
 					else
