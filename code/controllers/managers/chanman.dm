@@ -49,6 +49,7 @@ ChannelManager
 			if("checkedname")
 				var/result = href_list["result"]
 				if(NameResult)
+					world.log << "Failed the name check."
 					world.visibility = 0
 					NetMan.Status = FAILED
 					if(Host && Host.client)
@@ -87,11 +88,14 @@ ChannelManager
 			Home.LoadOps()
 			SaveChan(Home)
 			BotMan.SaveBot(Home.chanbot)
-			call(Host,"Join")(Home)
-			winshow(Host, "open_chan", 0)
-			world.status = "[Home.name] founded by [Home.founder] - [Home.chatters.len] chatter\s"
-			if(Home.publicity == "public") world.visibility = 1
-			winset(Host, "main_menu.info_top", "text='Publishing channel to the network...'")
+			if(Host && Host.client)
+				call(Host,"Join")(Home)
+				winshow(Host, "open_chan", 0)
+				winset(Host, "main_menu.info_top", "text='Publishing channel to the network...'")
+			world.status = "[Home.name] founded by [Home.founder] - [(Home.chatters ? Home.chatters.len : 0)] chatter\s"
+			if(Home.publicity == "public")
+				world.log << "Home channel is LIVE"
+				world.visibility = 1
 			var/savefile/F = new("packet")
 			F["founder"] << Home.founder
 			F["name"] << Home.name
@@ -99,7 +103,7 @@ ChannelManager
 			F["topic"] << Home.topic
 			F["password"] << Home.pass
 			F["locked"] << Home.locked
-			F["chatters"] << Home.chatters.len
+			F["chatters"] << (Home.chatters ? Home.chatters.len : 0)
 			F["supernode"] << Home.SuperNode
 			F["maxnodes"] << Home.MaxNodes
 			NetMan.Status = CONNECTING
@@ -235,6 +239,10 @@ ChannelManager
 							"TelAtmpts"=telnet_attempts,
 							"SuperNode"=SuperNode,
 							"MaxNodes"=MaxNodes))
+						world.log << "My publicity: [Publicity]"
+						if(Publicity == "public")
+							world.log << "Opening world to public"
+							world.visibility = 1
 
 						Home.chanbot.SetName(botName)
 						Home.chanbot.SetNameColor("#"+botNameColor)
@@ -269,7 +277,6 @@ ChannelManager
 							var/e = num2hex(world.port)
 
 							world.status = "<span style=\"color:#2a4680;\">[lowertext(a+b+c+d+e)]</span><br>[Home.name] founded by [Home.founder]"
-							if(Home.publicity == "public") world.visibility = 1
 							var/savefile/F = new()
 							F["founder"] << Home.founder
 							F["name"] << Home.name
@@ -293,4 +300,4 @@ ChannelManager
 							if(NetMan.Status == CONNECTING) NetMan.Status = FAILED
 					else
 						Home = LoadChan(HomeChan, telnet_pass, telnet_attempts)
-
+						ProcessChan()

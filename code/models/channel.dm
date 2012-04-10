@@ -539,7 +539,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 							return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -582,7 +582,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -621,7 +621,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -641,7 +641,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -660,7 +660,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -704,7 +704,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1
@@ -753,7 +753,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 					if(nominations.len < Priv.min_votes) return
 					var/list/results = new()
 					for(var/Ballot/B in nominations)
-						if(!B.target in results)
+						if(!(B.target in results))
 							results[B.target] = 1
 						else
 							results[B.target] += 1

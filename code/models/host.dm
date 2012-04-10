@@ -86,6 +86,7 @@ Host
 
 		SetNetworkPublicity(t as text|null)
 			set hidden = 1
+			world << "Setting network publicity to [t]"
 			switch(t)
 				if("public")
 					world.visibility = 1

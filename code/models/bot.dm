@@ -375,6 +375,7 @@ _____________________ \[end of announcement\] _____________________
 
 
 		SetPublicity(newValue,save)
+			world << "Setting publicity to [newValue]"
 			switch(newValue)
 				if("public")
 					Chan.publicity = newValue

@@ -11,7 +11,7 @@ world
 
 	mob = /mob/Temp		 // default temporary mob
 	turf = /turf/void // default temporary turf
-
+	visibility = 0		// Set to 1 in LoadServerCfg if visible, leave otherwise.
 
 	New()
 		var/rsc_check = VerifyResources()
@@ -44,7 +44,6 @@ world
 		if(isnull(Port))
 			NetMan.Disconnect()
 			return
-		visibility = 0
 		Port = NetMan.PreConnect(Port)
 		var/oldport = port
 		..()
