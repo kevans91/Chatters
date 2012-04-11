@@ -259,7 +259,6 @@ _____________________ \[end of announcement\] _____________________
 					var/Y = text2num(copytext(size, findtext(size, "x")+1))+44
 					winset(C, "[ckey(M.Chan.name)].child", "size=[X]x[Y];pos=0,0")
 
-					C << output("\n\n", "[ckey(M.Chan.name)].chat.default_output")
 					C << output("You have been banned from [M.Chan.name] by [M.name]", "[ckey(M.Chan.name)].chat.default_output")
 					C << output("Reason: [reason]", "[ckey(M.Chan.name)].chat.default_output")
 					C << output("<font color=red>Connection closed.", "[ckey(M.Chan.name)].chat.default_output")
