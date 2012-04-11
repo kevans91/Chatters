@@ -445,7 +445,7 @@ Ballot
 
 	New(Voter, VoterIP, Priv, Target)
 		..()
-		if(!Voter || !VoterIP || !Priv || !Target) return
+		if(!Voter || !Priv || !Target) return
 		voter = Voter
 		voter_ip = VoterIP
 		privilege = Priv

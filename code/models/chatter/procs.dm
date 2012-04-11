@@ -167,10 +167,14 @@ mob
 							if(R.name == P.elect_by)
 								ByRank = R
 								break
-						if((Rank.pos < ByRank.pos) && (!P.or_lower))
-							usr << output("Voting Failed. You are not authorized to vote [P.command].", "[ckey(Chan.name)].chat.default_output")
-							return FALSE
-						else if((Rank.pos > ByRank.pos) && (!P.or_higher))
+						if(ByRank)
+							if((Rank.pos < ByRank.pos) && (!P.or_lower))
+								usr << output("Voting Failed. You are not authorized to vote [P.command].", "[ckey(Chan.name)].chat.default_output")
+								return FALSE
+							else if((Rank.pos > ByRank.pos) && (!P.or_higher))
+								usr << output("Voting Failed. You are not authorized to vote [P.command].", "[ckey(Chan.name)].chat.default_output")
+								return FALSE
+						else if(!P.or_lower || P.or_higher)
 							usr << output("Voting Failed. You are not authorized to vote [P.command].", "[ckey(Chan.name)].chat.default_output")
 							return FALSE
 				if((Rank == "All") && TargetRank != Rank)
