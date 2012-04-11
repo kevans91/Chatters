@@ -341,4 +341,5 @@ ChannelManager
 */
 									var/OpRank/Rank = Home.op_ranks[rankIndex]
 									Home.operators[opKey] = new/Op(opList[Name], Rank)
-n
+					// TODO: Remove this once the Chatters Network is properly implemented.
+					world.OpenPort(NetMan.Port)

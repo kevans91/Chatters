@@ -199,7 +199,7 @@ Click Help for more information.", "main_menu_output.output")
 
 
 		Disconnect()
-			world.OpenPort()
+			if(port) world.OpenPort(0)
 			Status = null
 			world.Export("[addr]:[port]?dest=chanman&action=delserver")
 			if(Host)
