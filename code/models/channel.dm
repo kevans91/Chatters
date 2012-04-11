@@ -476,7 +476,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 				GameMan.UpdateWho(src)
 			if(!ismute(C))
 				for(var/mob/chatter/c in chatters)
-					if(!c.ignoring(C) & CHAT_IGNORE)
+					if(!(c.ignoring(C) & CHAT_IGNORE))
 						if(!c.filter)
 							c << output("<font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>   [c.ParseTime()]   Reason: [raw_msg]", "[ckey(name)].chat.default_output")
 						else if(c.filter == 1)
@@ -497,7 +497,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 				GameMan.UpdateWho(src)
 			if(!ismute(C))
 				for(var/mob/chatter/c in chatters)
-					if(!c.ignoring(C))
+					if(!(c.ignoring(C) & CHAT_IGNORE))
 						c << output("<font color=[C.name_color]>[C.name]</font> is back from <b>AFK</b> after [round(((world.realtime - C.away_at)/600),1)] minute\s of inactivity.", "[ckey(name)].chat.default_output")
 			C.away_at = null
 			C << output("Your activity status is now set to Active Chatter.", "[ckey(name)].chat.default_output")

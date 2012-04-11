@@ -49,7 +49,6 @@ ChannelManager
 			if("checkedname")
 				var/result = href_list["result"]
 				if(NameResult)
-					world.log << "Failed the name check."
 					world.visibility = 0
 					NetMan.Status = FAILED
 					if(Host && Host.client)
@@ -93,9 +92,7 @@ ChannelManager
 				winshow(Host, "open_chan", 0)
 				winset(Host, "main_menu.info_top", "text='Publishing channel to the network...'")
 			world.status = "[Home.name] founded by [Home.founder] - [(Home.chatters ? Home.chatters.len : 0)] chatter\s"
-			if(Home.publicity == "public")
-				world.log << "Home channel is LIVE"
-				world.visibility = 1
+			if(Home.publicity != "public") world.visibility = 0
 			var/savefile/F = new("packet")
 			F["founder"] << Home.founder
 			F["name"] << Home.name
@@ -239,10 +236,7 @@ ChannelManager
 							"TelAtmpts"=telnet_attempts,
 							"SuperNode"=SuperNode,
 							"MaxNodes"=MaxNodes))
-						world.log << "My publicity: [Publicity]"
-						if(Publicity == "public")
-							world.log << "Opening world to public"
-							world.visibility = 1
+						if(Publicity != "public") world.visibility = 0
 
 						Home.chanbot.SetName(botName)
 						Home.chanbot.SetNameColor("#"+botNameColor)
