@@ -185,27 +185,23 @@ Channel
 			winset(C, "[ckey(C.Chan.name)].chat.default_output", "style='[TextMan.escapeQuotes(C.default_output_style)]';max-lines='[C.max_output]';")
 			if(C.show_title)
 				if(C.show_colors)
-					C << output({"<b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b>
-<b><font color='#0000ff'>[world.name] - Created by Xooxer</font></b>
-	<b><font color='#0000ff'>and the BYOND Community</font></b>
-<b>[TextMan.fadetext("Still the greatest chat program on BYOND!", list("102000000","255000000","102000000","000000000","000000255"))]</b>
-Visit the <a href='http://www.byond.com/members/Chatters'>Chatters Portal</a>!
-Source available on the <a href='http://code.google.com/p/chatters/'>Chatters Repository</a>.
-Copyright © 2008 Andrew "Xooxer" Arnold
-<b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b>
-<font color=red>- All Rights  Reserved -</font>
+					C << output({"<span style='text-align: center;'><b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b></span>
+<span style='text-align: center;'><b><font color='#0000ff'>[world.name] - Created by Xooxer</font></b></span><span style='text-align: center;'><b><font color='#0000ff'>and the BYOND Community</font></b></span>
+<span style='text-align: center;'><b>[TextMan.fadetext("Still the greatest chat program on BYOND!", list("102000000","255000000","102000000","000000000","000000255"))]</b></span>
+<span style='text-align: center;'>Source available on the <a href='http://www.github.com/kevans91/Chatters/'>Chatters Repository</a>.</span>
+<span style='text-align: center;'>Copyright © 2008 Andrew "Xooxer" Arnold</span>
+<span style='text-align: center;'><b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b></span>
+<span style='text-align: center;'><font color=red>- All Rights  Reserved -</font></span>
 "}, "[ckey(name)].chat.default_output")
 
 				else
-					C << output({"<b>##########################################</b>
-<b>[world.name] - Created by Xooxer</b>
-	<b>and the BYOND Community</b>
-<b>Still the greatest chat program on BYOND!</b>
-Visit the <a href='http://www.byond.com/members/Chatters'>Chatters Portal</a>!
-Source available on the <a href='http://code.google.com/p/chatters/'>Chatters Repository</a>.
-Copyright © 2008 Andrew "Xooxer" Arnold
-<b>##########################################</b>
-- All Rights  Reserved -
+					C << output({"<span style='text-align: center;'><b>##########################################</b></span>
+<span style='text-align: center;'><b>[world.name] - Created by Xooxer</b></span><span style='text-align: center;'><b>and the BYOND Community</b></span>
+<span style='text-align: center;'><b>Still the greatest chat program on BYOND!</b></span>
+<span style='text-align: center;'>Source available on the <a href='http://www.github.com/kevans91/Chatters/'>Chatters Repository</a>.</span>
+<span style='text-align: center;'>Copyright © 2008 Andrew "Xooxer" Arnold</span>
+<span style='text-align: center;'><b>##########################################</b></span>
+<span style='text-align: center;'>- All Rights  Reserved -</span>
 "}, "[ckey(name)].chat.default_output")
 
 			if(C.show_welcome)

@@ -129,7 +129,6 @@ ChannelManager
 
 		SaveChan(Channel/Chan)
 			var/savefile/S = new("./data/saves/channels/[ckey(Chan.name)].sav")
-			world.log << "Saving channel!"
 			S["founder"]	<< Chan.founder
 			S["name"]		<< Chan.name
 			S["publicity"]	<< Chan.publicity
@@ -145,7 +144,6 @@ ChannelManager
 			S["banned"]		<< Chan.banned
 			if(Chan.operators && Chan.operators.len)
 				var/list/ops = new()
-				world.log << "Saving [Chan.operators.len] ops."
 				for(var/cKey in Chan.operators)
 					var/Op/O = Chan.operators[cKey]
 					ops += O.name
@@ -343,3 +341,4 @@ ChannelManager
 */
 									var/OpRank/Rank = Home.op_ranks[rankIndex]
 									Home.operators[opKey] = new/Op(opList[Name], Rank)
+n

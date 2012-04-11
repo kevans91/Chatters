@@ -3,3 +3,6 @@ changes
 *.rsc
 *.int
 *.lk
+data/saves/logs
+data/saves/channels
+packet
