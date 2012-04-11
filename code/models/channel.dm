@@ -72,19 +72,21 @@ Channel
 			SuperNode = text2num(params["SuperNode"]) ? 1 : 0
 			MaxNodes = text2num(params["MaxNodes"])
 		..()
-		chanbot = new(src)
+		chanbot = new /Bot(src)
 		if(SuperNode) nodes = new()
 
 	proc
 		LoadOps()
 			op_ranks = OpMan.op_ranks
 			var/savefile/S = new("./data/saves/channels/[ckey(name)].sav")
-			var/list/ops = new()
+			var/list/ops = null
 			S["operators"]  >> ops
-			operators = listOpen(operators)
-			for(var/Name in ops)
-				var/OpRank/Rank = op_ranks[ops[Name]]
-				operators[ckey(Name)] = new/Op(Name, Rank)
+			if(ops)
+				operators = listOpen(operators)
+				for(var/Name in ops)
+					var/rankIndex = ops[Name]
+					var/OpRank/Rank = op_ranks[rankIndex]
+					operators[ckey(Name)] = new/Op(Name, Rank)
 
 		Join(mob/chatter/C)
 			if(!C || !C.client)
@@ -117,6 +119,14 @@ Channel
 			winset(C, "default", "size=[C.winsize];can-resize=true;title='[name] - Chatters';menu=menu;")
 			winset(C, "default.child", "pos=0,0;size=[C.winsize];left=[ckey(name)];")
 */
+
+			if(C.ckey in banned)
+				C << output("<font color='red'>Sorry, you are banned from this channel.</font>", "[ckey(name)].chat.default_output")
+				C << output("<font color='red'>Connection closed.</font>", "[ckey(name)].chat.default_output")
+				del C
+				return
+
+
 			if(Host == C) winset(C, "default", "menu=host")
 
 			for(var/p in typesof(/Player/proc)-/Player/proc)
@@ -205,12 +215,6 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 
 			if(C.show_qotd) TextMan.QOTD(C)
 
-			if(C.ckey in banned)
-				C << output("<font color='red'>Sorry, you are banned from this channel.</font>", "[ckey(name)].chat.default_output")
-				C << output("<font color='red'>Connection closed.</font>", "[ckey(name)].chat.default_output")
-				del C
-				return
-
 			if(!chatters) chatters = new()
 			chatters += C
 			chatters = SortWho(chatters)
@@ -226,7 +230,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 			chanbot.Say("[C.name] has joined [name]")
 			chanbot.Say("You have joined [name] founded by [founder]",C)
 			chanbot.Say("[topic]",C)
-			EventMan.Parse(C, C.onJoin)
+			if(!Home.ismute(C)) EventMan.Parse(C, C.onJoin)
 			NetMan.Report("join", C.name)
 
 		Quit(mob/chatter/C)
@@ -240,7 +244,7 @@ Copyright © 2008 Andrew "Xooxer" Arnold
 				var/Op/O = operators[C.ckey]
 				if(O.Rank.temp) operators -= C.ckey
 
-			EventMan.Parse(C, C.onQuit)
+			if(!Home.ismute(C)) EventMan.Parse(C, C.onQuit)
 			C.Chan = null
 
 			if(chatters) chatters -= C

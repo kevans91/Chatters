@@ -418,10 +418,7 @@ Op
 
 	New(Name, OpRank/newRank)
 		if(!Home || !Name || !newRank) return
-		var/list/op_ranks
-		if(Home.op_ranks) op_ranks = Home.op_ranks
-		else op_ranks = OpMan.op_ranks
-		for(var/OpRank/R in op_ranks)
+		for(var/OpRank/R in Home.op_ranks)
 			if(newRank == R)
 				Rank = R
 				break

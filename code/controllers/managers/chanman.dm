@@ -129,6 +129,7 @@ ChannelManager
 
 		SaveChan(Channel/Chan)
 			var/savefile/S = new("./data/saves/channels/[ckey(Chan.name)].sav")
+			world.log << "Saving channel!"
 			S["founder"]	<< Chan.founder
 			S["name"]		<< Chan.name
 			S["publicity"]	<< Chan.publicity
@@ -142,12 +143,14 @@ ChannelManager
 			S["telatmpts"]	<< Chan.telnet_attempts
 			S["mute"]		<< Chan.mute
 			S["banned"]		<< Chan.banned
-			var/list/ops = new()
-			for(var/cKey in Chan.operators)
-				var/Op/O = Chan.operators[cKey]
-				ops += O.name
-				ops[O.name] = O.Rank.pos
-			S["operators"]  << ops
+			if(Chan.operators && Chan.operators.len)
+				var/list/ops = new()
+				world.log << "Saving [Chan.operators.len] ops."
+				for(var/cKey in Chan.operators)
+					var/Op/O = Chan.operators[cKey]
+					ops += O.name
+					ops[O.name] = O.Rank.pos
+				S["operators"]  << ops
 
 		LoadChan(chan, telpass, telatmpts)
 			var/savefile/S = new("./data/saves/channels/[ckey(chan)].sav")
@@ -163,10 +166,10 @@ ChannelManager
 			S["locked"]		>> Chan.locked
 			Chan.telnet_pass = telnet_pass
 			Chan.telnet_attempts = telnet_attempts
-			S["mute"]		>> Chan.mute
-			S["banned"]		>> Chan.banned
 			if(!Chan.telnet_pass && telpass) Chan.telnet_pass = telpass
 			if(!Chan.telnet_attempts && telatmpts) Chan.telnet_attempts = telatmpts
+			S["mute"]		>> Chan.mute
+			S["banned"]		>> Chan.banned
 			return Chan
 
 		LoadServerCfg()
@@ -180,17 +183,14 @@ ChannelManager
 
 			var/list/D = params2list(config["devs"])
 			if(D && D.len)
+
 				if(!devs) devs = new
 				for(var/d in D) devs += ckey(D[d])
 
-		//	var/list/O = params2list(config["ops"])
+			var/list/muteList = params2list(config["mute"])
+			var/list/banList = params2list(config["bans"])
+			var/list/opList = params2list(config["ops"])
 		//	if(O && O.len) sleep()
-
-		//	var/list/M = params2list(config["mute"])
-		//	if(M && M.len) sleep()
-
-		//	var/list/B = params2list(config["bans"])
-		//	if(B && B.len) sleep()
 
 			var/list/S = params2list(config["server"])
 			if(S && S.len)
@@ -248,6 +248,29 @@ ChannelManager
 						Home.chanbot.SetMaxMsgs(botMaxMsgs)
 						Home.chanbot.SetMinDelay(botMinDelay)
 
+						if(muteList && muteList.len)
+							Home.mute = new
+							for(var/i in muteList)
+								Home.mute += ckey(i)
+
+						if(banList && banList.len)
+							Home.banned = new
+							for(var/i in banList)
+								Home.banned += ckey(i)
+
+						if(opList && opList.len)
+							Home.operators = new
+							for(var/Name in opList)
+								if(!findtext(Name, "_"))
+									var/opKey = ckey(opList[Name])
+									var/rankIndex = text2num(opList["[Name]_level"])
+/*									var/rankPrivs = opList[Name + "_privs"]	// Not sure what to do with this.
+									if(rankPrivs != "default")
+										// Do something
+*/
+									var/OpRank/Rank = Home.op_ranks[rankIndex]
+									Home.operators[opKey] = new/Op(opList[Name], Rank)
+
 						if(NetMan.Status != FAILED) spawn()
 							NetMan.Status = CONTACTING
 							var/retries = NetMan.retry
@@ -294,4 +317,29 @@ ChannelManager
 							if(NetMan.Status == CONNECTING) NetMan.Status = FAILED
 					else
 						Home = LoadChan(HomeChan, telnet_pass, telnet_attempts)
-						ProcessChan()
+						Home.chanbot = BotMan.LoadBot(Home)
+						Home.LoadOps()
+						if(muteList && muteList.len)
+							Home.mute = listOpen(Home.mute)
+							for(var/i in muteList)
+								var/cval = ckey(i)
+								if(!(cval in Home.mute)) Home.mute += cval
+
+						if(banList && banList.len)
+							Home.banned = listOpen(Home.banned)
+							for(var/i in banList)
+								var/cval = ckey(i)
+								if(!(cval in Home.banned)) Home.banned += cval
+
+						if(opList && opList.len)
+							Home.operators = listOpen(Home.operators)
+							for(var/Name in opList)
+								if(!findtext(Name, "_"))
+									var/opKey = ckey(opList[Name])
+									var/rankIndex = text2num(opList["[Name]_level"])
+/*									var/rankPrivs = opList[Name + "_privs"]	// Not sure what to do with this.
+									if(rankPrivs != "default")
+										// Do something
+*/
+									var/OpRank/Rank = Home.op_ranks[rankIndex]
+									Home.operators[opKey] = new/Op(opList[Name], Rank)
