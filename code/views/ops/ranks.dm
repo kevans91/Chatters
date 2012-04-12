@@ -122,8 +122,9 @@ Operators
 									ops_ranks.auto_approve.is-visible=true;\
 									ops_ranks.privileges_label.is-visible=true;\
 									ops_ranks.privileges.is-visible=true;\
-									ops_ranks.add_priv_button.is-visible=true;\
-									ops_ranks.remove_priv_button.is-visible=true;")
+									ops_ranks.rankPrivs.is-visible=true;\
+									ops_ranks.leftPriv.is-visible=true;\
+									ops_ranks.rightPriv.is-visible=true;")
 
 			HideOpRankForm()
 				set hidden = 1
@@ -162,8 +163,9 @@ Operators
 									ops_ranks.auto_approve.is-visible=false;\
 									ops_ranks.privileges_label.is-visible=false;\
 									ops_ranks.privileges.is-visible=false;\
-									ops_ranks.add_priv_button.is-visible=false;\
-									ops_ranks.remove_priv_button.is-visible=false;")
+									ops_ranks.rankPrivs.is-visible=false;\
+									ops_ranks.leftPriv.is-visible=false;\
+									ops_ranks.rightPriv.is-visible=false;")
 
 /*
 				winset(C, "ops_ranks.name_label", "is-visible=false")
@@ -213,20 +215,20 @@ Operators
 				winset(C, "ops_ranks.ranks", "cells=1x[i]")
 				if(C.RankSelect)
 					winset(C, null, "ops_ranks.name.text='[escapeQuotes(C.RankSelect.name)]';\
-									ops_ranks.description.text='[escapeQuotes(C.RankSelect.desc)]'\
-									ops_ranks.promote.text='[escapeQuotes(C.RankSelect.promote)]'\
-									ops_ranks.demote.text='[escapeQuotes(C.RankSelect.demote)]'\
-									ops_ranks.color_button.background-color='[escapeQuotes(C.RankSelect.color)]'\
-									ops_ranks.color.text='[escapeQuotes(C.RankSelect.color)]'\
-									ops_ranks.temporary.is-checked='[C.RankSelect.temp? "true" : "false"]'\
-									ops_ranks.expires.text='[C.RankSelect.expires]'\
-									ops_ranks.electable.is-checked='[C.RankSelect.elect? "true" : "false"]'\
-									ops_ranks.electable_by.text='[escapeQuotes(C.RankSelect.elect_by)]'\
-									ops_ranks.or_higher.is-checked='[C.RankSelect.or_higher? "true" : "false"]'\
-									ops_ranks.or_lower.is-checked='[C.RankSelect.or_lower? "true" : "false"]'\
-									ops_ranks.max_electable.text='[C.RankSelect.max_elect]'\
-									ops_ranks.monitor.is-checked='[C.RankSelect.monitor? "true" : "false"]'\
-									ops_ranks.auto_approve.is-checked='[C.RankSelect.auto_approve? "true" : "false"]'")
+									ops_ranks.description.text='[escapeQuotes(C.RankSelect.desc)]';\
+									ops_ranks.promote.text='[escapeQuotes(C.RankSelect.promote)]';\
+									ops_ranks.demote.text='[escapeQuotes(C.RankSelect.demote)]';\
+									ops_ranks.color_button.background-color='[escapeQuotes(C.RankSelect.color)]';\
+									ops_ranks.color.text='[escapeQuotes(C.RankSelect.color)]';\
+									ops_ranks.temporary.is-checked='[C.RankSelect.temp? "true" : "false"]';\
+									ops_ranks.expires.text='[C.RankSelect.expires]';\
+									ops_ranks.electable.is-checked='[C.RankSelect.elect? "true" : "false"]';\
+									ops_ranks.electable_by.text='[escapeQuotes(C.RankSelect.elect_by)]';\
+									ops_ranks.or_higher.is-checked='[C.RankSelect.or_higher? "true" : "false"]';\
+									ops_ranks.or_lower.is-checked='[C.RankSelect.or_lower? "true" : "false"]';\
+									ops_ranks.max_electable.text='[C.RankSelect.max_elect]';\
+									ops_ranks.monitor.is-checked='[C.RankSelect.monitor? "true" : "false"]';\
+									ops_ranks.auto_approve.is-checked='[C.RankSelect.auto_approve? "true" : "false"]';")
 /*
 					winset(C, "ops_ranks.name", "text='[escapeQuotes(C.RankSelect.name)]'")
 					winset(C, "ops_ranks.description", "text='[escapeQuotes(C.RankSelect.desc)]'")
@@ -246,13 +248,13 @@ Operators
 */
 					if(!C.RankSelect.temp)
 						winset(C, null, 	"ops_ranks.expires_label.is-disabled=true;\
-											ops_ranks.expires-label.text-color=#C0C0C0\
+											ops_ranks.expires_label.text-color=#C0C0C0\
 											ops_ranks.expires.is-disabled=true;\
 											ops_ranks.expires.background-color=#C0C0C0;\
 											ops_ranks.days_label.is-disabled=true;")
 					else
 						winset(C, null, 	"ops_ranks.expires_label.is-disabled=false;\
-											ops_ranks.expires-label.text-color=#333333\
+											ops_ranks.expires_label.text-color=#333333\
 											ops_ranks.expires.is-disabled=false;\
 											ops_ranks.expires.background-color=#FFFFFF;\
 											ops_ranks.days_label.is-disabled=false;")
@@ -274,37 +276,63 @@ Operators
 										ops_ranks.max_elect_label.is-disabled=false;\
 										ops_ranks.max_electable.is-disabled=false;\
 										ops_ranks.max_electable.background-color=#FFFFFF;")
-					i=0
+					i = 0
+					for(var/priv in OpMan.op_privileges)
+						var/OpPrivilege/Priv = OpMan.op_privileges[priv]
+						if(isnull(Priv)) continue
+						if(!(priv in C.RankSelect.privs))
+							Priv.ranklist = 1
+							if(Priv == C.PrivSelectLeft)
+								winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}'")
+								C << output(Priv.select, "ops_ranks.privileges:1,[++i]")
+								winset(C, "ops_ranks.privileges", "style=''")
+							else
+								C << output(Priv.select, "ops_ranks.privileges:1,[++i]")
+					winset(C, "ops_ranks.privileges", "cells=1x[i]")
+					i = 0
 					for(var/priv in C.RankSelect.privs)
 						var/OpPrivilege/Priv = OpMan.op_privileges[priv]
 						if(isnull(Priv)) continue
 						Priv.ranklist = 1
-						if(Priv == C.PrivSelect)
-							winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}';current-cell='1,[++i]")
-							C << output(Priv.select, "ops_ranks.privileges")
-							winset(C, "ops_ranks.privileges", "style=''")
+						if(Priv == C.PrivSelectRight)
+							winset(C, "ops_ranks.rankPrivs", "style='body{background-color:#000066;color:#FFFFFF;}")
+							C << output(Priv.select, "ops_ranks.rankPrivs;1,[++i]")
+							winset(C, "ops_ranks.rankPrivs", "style=''")
 						else
-							winset(C, "ops_ranks.privileges", "current-cell='1,[++i]'")
-							C << output(Priv.select, "ops_ranks.privileges")
-					winset(C, "ops_ranks.privileges", "cells=1x[i]")
+							winset(C, "ops_ranks.rankPrivs", "current-cell='1,[++i]'")
+							C << output(Priv.select, "ops_ranks.rankPrivs")
+					winset(C, "ops_ranks.rankPrivs", "cells=1x[i]")
 
 			UpdateOpRankPrivileges()
 				set hidden = 1
 				var/mob/chatter/C = usr
 				if(!C) return
 				var/i=0
+				for(var/priv in OpMan.op_privileges)
+					var/OpPrivilege/Priv = OpMan.op_privileges[priv]
+					if(isnull(Priv)) continue
+					if(!(priv in C.RankSelect.privs))
+						Priv.ranklist = 1
+						if(Priv == C.PrivSelectLeft)
+							winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}'")
+							C << output(Priv.select, "ops_ranks.privileges:1,[++i]")
+							winset(C, "ops_ranks.privileges", "style=''")
+						else
+							C << output(Priv.select, "ops_ranks.privileges:1,[++i]")
+				winset(C, "ops_ranks.privileges", "cells=1x[i]")
+				i = 0
 				for(var/priv in C.RankSelect.privs)
 					var/OpPrivilege/Priv = OpMan.op_privileges[priv]
 					if(isnull(Priv)) continue
 					Priv.ranklist = 1
-					if(Priv == C.PrivSelect)
-						winset(C, "ops_ranks.privileges", "style='body{background-color:#000066;color:#FFFFFF;}';current-cell='1,[++i]'")
-						C << output(Priv.select, "ops_ranks.privileges")
-						winset(C, "ops_ranks.privileges", "style=''")
+					if(Priv == C.PrivSelectRight)
+						winset(C, "ops_ranks.rankPrivs", "style='body{background-color:#000066;color:#FFFFFF;}';current-cell='1,[++i]'")
+						C << output(Priv.select, "ops_ranks.rankPrivs")
+						winset(C, "ops_ranks.rankPrivs", "style=''")
 					else
-						winset(C, "ops_ranks.privileges", "current-cell='1,[++i]'")
-						C << output(Priv.select, "ops_ranks.privileges")
-				winset(C, "ops_ranks.privileges", "cells=1x[i]")
+						C << output(Priv.select, "ops_ranks.rankPrivs:1,[++i]")
+
+				winset(C, "ops_ranks.rankPrivs", "cells=1x[i]")
 
 			DeleteOpRank()
 				set hidden = 1
@@ -327,20 +355,22 @@ Operators
 			AddOpRankPrivilege()
 				set hidden = 1
 				var/mob/chatter/C = usr
-				if(!C || !C.RankSelect) return
-				var/priv = input(C, "Select a privilege to add.", "Add Privilege") as null | anything in OpMan.op_privileges
-				if(!priv) return
+				if(!C || !C.RankSelect || !C.PrivSelectLeft) return
+				var/OpPrivilege/priv = C.PrivSelectLeft
 				C.RankSelect.privs = listOpen(C.RankSelect.privs)
-				C.RankSelect.privs += priv
-				spawn(10) call(C, "UpdateOpRankPrivileges")()
+				C.RankSelect.privs += priv.name
+				C.PrivSelectLeft = null
+				call(C, "UpdateOpRankPrivileges")()
 
 			RemoveOpRankPrivilege()
 				set hidden = 1
 				var/mob/chatter/C = usr
-				if(!C || !C.RankSelect || !C.PrivSelect) return
-				C.RankSelect.privs -= C.PrivSelect.name
+				if(!C || !C.RankSelect || !C.PrivSelectRight) return
+				C.RankSelect.privs -= C.PrivSelectRight.name
+				C.PrivSelectRight = null
 				listClose(C.RankSelect.privs)
 				call(C, "UpdateOpRankPrivileges")()
+
 
 			SetOpRankName(t as text|null)
 				set hidden = 1

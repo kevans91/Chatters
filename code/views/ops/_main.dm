@@ -23,6 +23,8 @@ OpsView
 					winset(C, "ops.monitor_button", "is-checked=false;")
 					winset(C, "ops.child", "left=ops_ranks")
 					C.RankSelect = null
+					C.PrivSelectLeft = null
+					C.PrivSelectRight = null
 					call(C, "UpdateOpRanks")()
 					call(C, "HideOpRankForm")()
 				if("privileges")
@@ -33,7 +35,8 @@ OpsView
 					winset(C, "ops.actions_button", "is-checked=false;")
 					winset(C, "ops.monitor_button", "is-checked=false;")
 					winset(C, "ops.child", "left=ops_privileges")
-					C.PrivSelect = null
+					C.PrivSelectLeft = null
+					C.PrivSelectRight = null
 					call(C, "UpdateOpPrivileges")()
 					call(C, "HideOpPrivilegeForm")()
 				if("actions")

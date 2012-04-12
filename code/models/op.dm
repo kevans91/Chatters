@@ -388,18 +388,19 @@ OpPrivilege
 		select = new(src)
 
 	proc
-		Click(mob/chatter/C)
+		Click(mob/chatter/C, loc, ctl)
 			if(ranklist)
-				C << output(name, "ops_ranks.privileges")
-				C.PrivSelect = src
+				C << output(name, ctl)
+				if(ctl == "ops_ranks.privileges") C.PrivSelectLeft = src
+				else C.PrivSelectRight = src
 				call(C, "UpdateOpRankPrivileges")()
 			else
-				C << output(name, "ops_privileges.privileges")
-				C.PrivSelect = src
+				C << output(name, ctl)
+				C.PrivSelectRight = src
 				call(C, "ShowOpPrivilegeForm")()
 				call(C, "UpdateOpPrivileges")()
 
-		DblClick(mob/chatter/C)
+		DblClick(mob/chatter/C, loc, ctl)
 
 OpAction
 

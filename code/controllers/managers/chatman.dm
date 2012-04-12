@@ -8,6 +8,7 @@ ChatterManager
 		..()
 		switch(href_list["action"])
 			if("see_code")
+
 				var/mob/chatter/M = Get(href_list["source"])
 				var/mob/chatter/Source = Get(href_list["target"])
 				if(!Source || !Source.showcodes) return

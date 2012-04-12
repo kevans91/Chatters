@@ -61,7 +61,9 @@ mob
 			tmp/Painter/Painter
 
 			tmp/OpRank/RankSelect
-			tmp/OpPrivilege/PrivSelect
+			tmp/OpPrivilege/PrivSelectLeft
+			tmp/OpPrivilege/PrivSelectRight
+
 			tmp/obj/OpNameSelect/NameSelect
 			tmp/game_color
 			tmp/afk = FALSE

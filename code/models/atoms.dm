@@ -21,11 +21,11 @@ obj
 			name = source.name
 			..()
 
-		Click()
-			source.Click(usr)
+		Click(location, ctl)
+			source.Click(usr, location, ctl)
 
-		DblClick()
-			source.DblClick(usr)
+		DblClick(location, ctl)
+			source.DblClick(usr, location, ctl)
 
 	help
 		icon = './resources/icons/atoms/objects.dmi'
