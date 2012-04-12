@@ -1459,8 +1459,8 @@ window "channel"
 		button-type = pushbox
 	elem "help"
 		type = BUTTON
-		pos = 579,462
-		size = 40x16
+		pos = 577,461
+		size = 42x16
 		anchor1 = 100,100
 		anchor2 = none
 		font-family = ""
@@ -1487,7 +1487,7 @@ window "channel"
 		button-type = pushbutton
 	elem "set"
 		type = BUTTON
-		pos = 524,462
+		pos = 523,461
 		size = 52x16
 		anchor1 = 100,100
 		anchor2 = none
@@ -1515,7 +1515,7 @@ window "channel"
 		button-type = pushbutton
 	elem "toggle_quickbar"
 		type = BUTTON
-		pos = 622,462
+		pos = 622,461
 		size = 16x16
 		anchor1 = 100,100
 		anchor2 = none
@@ -10334,7 +10334,7 @@ window "events"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -10829,7 +10829,7 @@ window "filters"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -12242,7 +12242,7 @@ window "general"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -14331,7 +14331,7 @@ window "icons"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -16132,7 +16132,7 @@ window "ops"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -16351,7 +16351,7 @@ window "ops_actions"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -16495,10 +16495,10 @@ window "ops_general"
 		drop-zone = false
 		right-click = false
 		saved-params = ""
-		on-size = ""
+		on-size = "Help"
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -16585,7 +16585,7 @@ window "ops_general"
 	elem "rank_select"
 		type = GRID
 		pos = 183,320
-		size = 120x40
+		size = 120x42
 		anchor1 = none
 		anchor2 = none
 		font-family = "Times New Roman"
@@ -17084,7 +17084,7 @@ window "ops_privileges"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -17989,7 +17989,7 @@ window "ops_ranks"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -20281,7 +20281,7 @@ window "security"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -20978,7 +20978,7 @@ window "style_colors"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -21783,7 +21783,7 @@ window "style_default"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -22422,7 +22422,7 @@ window "style_formats"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
@@ -22811,7 +22811,7 @@ window "system"
 		on-size = ""
 		text = "Help"
 		image = ""
-		command = ""
+		command = "Help"
 		is-flat = true
 		stretch = false
 		is-checked = false
