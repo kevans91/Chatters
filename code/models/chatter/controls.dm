@@ -2,6 +2,7 @@
 mob
 	chatter
 		verb
+
 			SwapPanes(nosave as num|null)
 				set hidden = 1
 				if(!src.Chan) return

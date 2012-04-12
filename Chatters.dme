@@ -6,10 +6,50 @@
 // END_INTERNALS
 // BEGIN_FILE_DIR
 #define FILE_DIR .
+#define FILE_DIR "code"
+#define FILE_DIR "code/controllers"
+#define FILE_DIR "code/controllers/managers"
+#define FILE_DIR "code/libraries"
+#define FILE_DIR "code/libraries/rc5"
+#define FILE_DIR "code/libraries/s_smiley"
+#define FILE_DIR "code/libraries/swapmaps"
+#define FILE_DIR "code/libraries/syntaxhighlighter"
+#define FILE_DIR "code/libraries/test"
+#define FILE_DIR "code/libraries/texthandling"
+#define FILE_DIR "code/libraries/xml"
+#define FILE_DIR "code/libraries/zipfile"
+#define FILE_DIR "code/models"
+#define FILE_DIR "code/models/chatter"
+#define FILE_DIR "code/models/painter"
+#define FILE_DIR "code/views"
+#define FILE_DIR "code/views/color"
+#define FILE_DIR "code/views/games"
+#define FILE_DIR "code/views/help"
+#define FILE_DIR "code/views/open_chan"
+#define FILE_DIR "code/views/ops"
+#define FILE_DIR "code/views/paint"
+#define FILE_DIR "code/views/set"
+#define FILE_DIR "code/views/set/style"
+#define FILE_DIR "data"
+#define FILE_DIR "data/sndfx"
+#define FILE_DIR "resources"
+#define FILE_DIR "resources/icons"
+#define FILE_DIR "resources/icons/atoms"
+#define FILE_DIR "resources/icons/paint"
+#define FILE_DIR "resources/icons/smileys"
+#define FILE_DIR "resources/images"
+#define FILE_DIR "resources/images/hangman"
+#define FILE_DIR "resources/images/interface"
+#define FILE_DIR "resources/images/interface/arrows"
+#define FILE_DIR "resources/images/interface/locks"
+#define FILE_DIR "resources/images/menu"
+#define FILE_DIR "resources/images/smileys"
+#define FILE_DIR "resources/maps"
 // END_FILE_DIR
 #define FILE_DIR "resources"
 
 // BEGIN_PREFERENCES
+#define DEBUG
 // END_PREFERENCES
 
 // BEGIN_INCLUDE
@@ -56,6 +96,7 @@
 #include "code\models\messenger.dm"
 #include "code\models\op.dm"
 #include "code\models\player.dm"
+#include "code\models\showcode_snippet.dm"
 #include "code\models\tempmob.dm"
 #include "code\models\chatter\_main.dm"
 #include "code\models\chatter\commands.dm"

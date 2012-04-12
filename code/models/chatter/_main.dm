@@ -90,9 +90,6 @@ mob
 				filtered_words
 
 				tmp/msgHandlers
-				tmp/showcodes
-				tmp/highlightedshowcodes
-				tmp/showtexts
 				tmp/Tags = list("\[b]" = "\[/b]",
 								"\[i]" = "\[/i]",
 								"\[u]" = "\[/u]",

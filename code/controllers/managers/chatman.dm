@@ -7,41 +7,17 @@ ChatterManager
 	Topic(href, href_list)
 		..()
 		switch(href_list["action"])
-			if("see_code")
-				var/mob/chatter/M = Get(href_list["source"])
-				var/mob/chatter/Source = Get(href_list["target"])
-				if(!Source || !Source.showcodes) return
-				var/target = href_list["target"]
-				var/index = text2num(href_list["index"])
-				var/code = (M.show_highlight ? Source.highlightedshowcodes[index] : Source.showcodes[index])
-				var/pub = href_list["type"]
-				if(pub == "Private")
-					if(ckey(M.name) != ckey(Source.showcodes[code]))
-						if(M.name != target) return
-				var/html = {"
-					<html><head><title>From: [Source.name]
-					- [href_list["type"]] Code Window</title>[M.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000"): null]\
-					</head><body><pre>[code]</pre></body></html>"}
-				var/window = "window=[Source.name]_[href_list["type"]]_code"
-				M << browse(html, window)
-			if("see_text")
-				var/mob/chatter/M = Get(href_list["source"])
-				var/mob/chatter/Source = Get(href_list["target"])
-				if(!Source || !Source.showtexts) return
-				var/target = href_list["target"]
-				var/index = text2num(href_list["index"])
-				var/text = Source.showtexts[index]
-				var/pub = href_list["type"]
-				if(pub == "Private")
-					if(ckey(M.name) != ckey(Source.showtexts[text]))
-						if(M.name != target) return
-				var/html = {"
-					<html><head><title>From: [Source.name]
-					- [href_list["type"]] Text Window</title></head>
-					<body>[text]</body></html>"}
-				var/window = "window=[Source.name]_[href_list["type"]]_text"
-				M << browse(html, window)
+			if("showcode") {
+				var/mob/chatter/Target = locate(href_list["target"])
+				var/showcode_snippet/snippet = Home.showcodes[text2num(href_list["index"])]
 
+				if (snippet.target && !snippet.target == Target.ckey) {
+					// This is a private message they are not allowed to view.
+					return
+				} else {
+					Target << browse(snippet.ReturnHtml(), "window=showcode_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
+				}
+			}
 
 	proc
 		Usher(mob/Temp/T)

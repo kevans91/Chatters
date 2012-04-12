@@ -520,6 +520,8 @@ mob
 
 			ShowCode(t as text|null|mob in Home.chatters)
 				if(afk) ReturnAFK()
+
+				var/showcode_snippet/S = new
 				if(t)
 					var/mob/chatter/C
 					if(ismob(t)) C = t
@@ -535,50 +537,16 @@ mob
 							src << "<b>Unable to show code!</b>"
 							src << "[C.name] is ignoring you."
 							return
-						var/message = input("Enter your code below:","Show Code in the browser") as message | null
-						if(!message) return
-						if(!showcodes) showcodes = new
-						showcodes += message
-						showcodes[message] = C.name
-
-						if(!highlightedshowcodes) highlightedshowcodes = new
-						var/highlighted = HighlightCode(message)
-						highlightedshowcodes += highlighted
-						highlightedshowcodes[highlighted] = C.name
-
-						var/html = "<html><head><title>To: [C.name] \
-							- Private Code Window</title>[src.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000") : null]\
-							</head><body><pre>[src.show_highlight ? highlighted : message]</pre></body></html>"
-						var/window = "window=[C.name]_private"
-						//winclone(src, "show_window", window)
-						//winset(src, window, "is-visible=true;")
-						//src << output(html, "[window].browser")
-						src << browse(html, window)
-						var/Messenger/im = new(src, C.name)
-						im.Display(src)
-						MsgMan.RouteMsg(src, C, "Click for my <a href='byond://?dest=chatman&action=see_code&target=[src.name]&index=[src.showcodes.len]&type=Private'>Show Code Window</a>.",1)
+					S.target = C.name
 				else
 					if(!src.Chan || Chan.ismute(src))
 						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
 						return
-					var/message = input("Enter your code below:", "Show Code in the browser") as message | null
-					if(!message) return
-					if(!showcodes) showcodes = new
-					showcodes += message
 
-					if(!highlightedshowcodes) highlightedshowcodes = new
-					var/highlighted = HighlightCode(message)
-					highlightedshowcodes += highlighted
-
-					var/html = "<title>To: [src.Chan.name] \
-						 - Public Code Window</title>[src.show_highlight ? DefaultHighlightStyles(".ident", "color:#000", ".number", "color:#000") : null]\
-						 <pre>[src.show_highlight ? highlighted : message]</pre>"
-					var/window = "window=[src.name]_public"
-					//winclone(src, "show_window", window)
-					//winset(src, window, "is-visible=true;")
-					//src << output(html, "[window].browser")
-					src << browse(html, window)
-					Chan.Say(src, "Click for my <a href='byond://?dest=chatman&action=see_code&target=[src.name]&index=[src.showcodes.len]&type=Public'>Show Code Window</a>.",1)
+				var/iCode = input("Paste your code below") as message
+				S.owner = "[src.name]"
+				S.code = iCode
+				S.Send()
 
 			afk(msg as text|null)
 				if(!Chan) return
@@ -587,86 +555,3 @@ mob
 					Home.GoAFK(src, msg)
 				else
 					ReturnAFK()
-
-			ShowText(t as text | null|mob in Home.chatters)
-				if(afk) ReturnAFK()
-				if(t)
-					var/mob/chatter/C
-					if(ismob(t)) C = t
-					else C = ChatMan.Get(t)
-					if(!C)
-						if(src.Chan)
-							src << output("[t] is not currently online.", "[ckey(src.Chan.name)].chat.default_output")
-						else
-							alert(src, "[t] is not currently online.", "Unable to locate chatter")
-					else
-						var/ign = C.ignoring(src)
-						if(ign && CHAT_IGNORE)
-							src << "<b>Unable to show text!</b>"
-							src << "[C.name] is ignoring you."
-							return
-						var/message = input("Enter your text below:","Show Text in the browser") as message | null
-						if(!message) return
-						var/list/L = text2list(message)	// replaces newline characters with <br> tags
-						for(var/l = 1, l <= L.len, l++) // and tab characters with 8 non-breaking spaces
-							if(text2ascii(L[l]) == 10)	// newline character
-								L[l] = "<br>"			// replace with html
-							if(text2ascii(L[l]) == 9)
-								L[l] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-							if(text2ascii(L[l]) == 32)
-								L[l] = "&nbsp;"
-						message = list2text(L)
-
-						message = TextMan.check_links(message)
-
-						message = TextMan.remove_script(message)
-
-						if(!showtexts) showtexts = new
-						showtexts += message
-						showtexts[message] = C.name
-
-						var/html = {"
-								<html><head><title>To: [src.Chan.name] - Private Text Window</title></head>
-								<body>[message]</body></html>
-									"}
-						var/window = "window=[src.name]_private"
-						//winclone(src, "browser", window)
-						//winshow(src, window, 1)
-						//src << output(html, "[window].browse")
-						src << browse(html, window)
-						var/Messenger/im = new(src, C.name)
-						im.Display(src)
-						MsgMan.RouteMsg(src, C, "Click for my <a href='byond://?dest=chatman&action=see_text&target=[src.name]&index=[src.showtexts.len]&type=Private'>Show Text Window</a>.",1)
-						return
-				else
-					if(!src.Chan || Chan.ismute(src))
-						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
-						return
-					var/message = input("Enter your text below:","Show Text in the browser") as message | null
-					if(!message) return
-
-					var/list/L = text2list(message)	// replaces newline characters with <br> tags
-					for(var/l = 1, l <= L.len, l++) // and tab characters with 8 non-breaking spaces
-						if(text2ascii(L[l]) == 10)	// newline character
-							L[l] = "<br>"			// replace with html
-						if(text2ascii(L[l]) == 9)
-							L[l] = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-						if((l+1<L.len) && (text2ascii(L[l]) == 32) && (text2ascii(L[l+1]) == 32))
-							L[l] = "&nbsp;"
-					message = list2text(L)
-
-					message = TextMan.remove_script(message)
-
-					if(!showtexts) showtexts = new
-					showtexts += message
-
-					var/html = {"
-							<html><head><title>To: [src.Chan.name] - Public Text Window</title></head>
-							<body>[message]</body></html>
-								"}
-					var/window = "window=[src.name]_public"
-					//winclone(src, "browser", window)
-					//winshow(src, window, 1)
-					//src << output(html, "[window].browse")
-					src << browse(html, window)
-					Chan.Say(src, "Click for my <a href='byond://?dest=chatman&action=see_text&target=[src.name]&index=[src.showtexts.len]&type=Public'>Show Text Window</a>.",1)
