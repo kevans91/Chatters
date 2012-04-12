@@ -188,7 +188,6 @@ ChannelManager
 			var/list/muteList = params2list(config["mute"])
 			var/list/banList = params2list(config["bans"])
 			var/list/opList = params2list(config["ops"])
-		//	if(O && O.len) sleep()
 
 			var/list/S = params2list(config["server"])
 			if(S && S.len)

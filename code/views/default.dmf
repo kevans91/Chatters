@@ -46,6 +46,10 @@ macro "macro"
 		command = ".south"
 		is-disabled = false
 
+macro "macro1"
+
+macro "macro2"
+
 macro "paint"
 	elem 
 		name = "CTRL+Y"
@@ -13182,7 +13186,7 @@ window "help"
 		text-color = #333333
 		background-color = none
 		is-visible = true
-		is-disabled = true
+		is-disabled = false
 		is-transparent = false
 		is-default = false
 		border = line
@@ -13210,7 +13214,7 @@ window "help"
 		text-color = #333333
 		background-color = none
 		is-visible = true
-		is-disabled = true
+		is-disabled = false
 		is-transparent = false
 		is-default = false
 		border = line

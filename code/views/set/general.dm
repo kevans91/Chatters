@@ -62,7 +62,14 @@ Settings
 				var/mob/chatter/C = usr
 				if(!C) return
 				C.picture = t
-				winset(C, "general.picture", "text='[t]'")
+				C << output(null, "general.output")
+				if(C.picture)
+					C << output("<img src='[C.picture]' width=64 height=64>\...", "general.output")
+				else
+					src << browse_rsc('./resources/images/noimage.png', "noimage.png")
+					C << output("<img src='noimage.png' width=64 height=64>\...", "general.output")
+				winset(C, "general.picture", "text='[TextMan.escapeQuotes(C.picture)]'")
+//				winset(C, "general.picture", "text='[t]'")
 
 			SetAge(t as text|null)
 				set hidden = 1
