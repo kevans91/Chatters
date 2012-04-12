@@ -127,6 +127,14 @@ mob
 				var/mob/C
 				if(ismob(target)) C = target
 				else C = ChatMan.Get(target)
+				for(var/i=1,i<=3,i++)
+					if(!client) continue
+					winset(src, "cim_[C.ckey].tag[i]", "is-checked=false")
+				for(var/i=1,i<=7,i++)
+					if(!client) continue
+					winset(src, "cim_[C.ckey].color[i]", "is-checked=false;text=")
+					var/N = src.Colors[i]
+					src.Colors[N] = null
 				if(!C)
 					if(src.Chan)
 						src << output("[target] is not currently online.", "[ckey(src.Chan.name)].chat.default_output")
@@ -175,7 +183,7 @@ mob
 						S["msg"] << msg
 						S["to"] << C
 
-						src << output(src.ParseMsg(src, msg, src.say_format), "cim_[ckey(C)].output")
+						src << output(src.ParseMsg(src, msg, src.say_format), "cim_[C.ckey].output")
 						world.Export("[NetMan.Chatters[C]]?dest=msgman&action=msg",S)
 
 			Ignore(mob/target as text|null|mob in Home.chatters, scope as text|null|anything in list("im", "chat", "fade", "colors", "smileys", "images", "files", "full"))
