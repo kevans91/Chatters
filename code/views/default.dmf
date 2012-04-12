@@ -9853,7 +9853,7 @@ window "contents_output"
 window "credits"
 	elem "credits"
 		type = MAIN
-		pos = 281,0
+		pos = 375,71
 		size = 320x240
 		anchor1 = none
 		anchor2 = none

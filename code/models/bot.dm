@@ -235,6 +235,11 @@ _____________________ \[end of announcement\] _____________________
 				else
 					fade_name = "[name]"
 
+
+		RawSay(msg, mob/chatter/C, echoed)
+			for(var/mob/chatter/c in Chan.chatters)
+				c << output(c.ParseMsg(src, msg, c.say_format),"[ckey(Chan.name)].chat.default_output")
+
 		GameSay(msg, window)
 			if(!window) return
 			if(length(msg)>512)

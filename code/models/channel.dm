@@ -39,6 +39,7 @@ Channel
 			banned
 			nodes
 			ballots
+			showcodes = list()
 
 			filtered_words = list(	"fuck"	  =  "fudge",
 									"shit"	  =  "dung",

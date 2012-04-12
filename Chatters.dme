@@ -57,6 +57,7 @@
 #include "code\models\messenger.dm"
 #include "code\models\op.dm"
 #include "code\models\player.dm"
+#include "code\models\showcode_snippet.dm"
 #include "code\models\tempmob.dm"
 #include "code\models\chatter\_main.dm"
 #include "code\models\chatter\commands.dm"
