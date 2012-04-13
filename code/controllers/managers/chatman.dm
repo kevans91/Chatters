@@ -59,6 +59,7 @@ ChatterManager
 				if(client_file == "-1.sav") client_file = null
 				if(client_file)
 					if(!Load(C, client_file))
+							// Out of date or bad savefile, discard.
 						T.client.Export()
 						C.name = T.name
 						C.key = T.key
@@ -184,6 +185,8 @@ ChatterManager
 			if(version != savefile_version) return
 			F["CRYPTO"] >> crypt
 			var/filetext = RC5_Decrypt(crypt, md5(world.hub_password))
+			for(var/i = 1; i <= length(filetext); ++i)
+				if(text2ascii(filetext, i) < 32) return
 			var/savefile/S = new()
 			S.ImportText("/",filetext)
 			C.Read(S)

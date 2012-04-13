@@ -1,4 +1,3 @@
-
 HelpView
 	proc
 		Display(mob/chatter/C, page, query)

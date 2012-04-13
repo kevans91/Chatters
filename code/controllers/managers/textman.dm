@@ -18,8 +18,8 @@ TextManager
 						"<code>"="</code>",
 						"<img src='"="'>")
 
-			links = list("id"		= "http://developer.byond.com/forum/index.cgi?id=$s",
-						 "hub"		= "http://developer.byond.com/hub/$s",
+			links = list("id"		= "http://www.byond.com/forum/?post=%s",
+						 "hub"		= "http://www.byond.com/games/%s",
 						 "people"	= "http://www.byond.com/people/$s",
 						 "wiki"		= "http://en.wikipedia.org/wiki/$s",
 						 "google"	= "http://www.google.com/search?q=$s",
@@ -34,7 +34,7 @@ TextManager
 						 "bash"		= "http://www.bash.org/?$s",
 						 "bbash"	= "http://gazoot.byondhome.com/bbash/?quote=$s",
 						 "condo"	= "http://gazoot.byondhome.com/condo/site.dmb?browse&owner=$s",
-						 "issue"	= "http://code.google.com/p/chatters/issues/detail?id=$s")
+						 "issue"	= "https://github.com/kevans91/Chatters/issues/$s")
 
 	proc
 		Sanitize(msg)

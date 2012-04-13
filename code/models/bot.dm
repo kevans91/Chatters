@@ -106,7 +106,7 @@ Bot
 		ViewLog()
 			set hidden = 1
 			if(!LogMan.logfile || !fexists("./data/saves/logs/log.txt"))
-				usr << output("No log file exists.", "consoloe.output")
+				usr << output("No log file exists.", "console.output")
 				return
 			else
 				usr << browse("<title>Chatters Error Log (log.txt)</title><pre>[file2text("./data/saves/logs/log.txt")]</pre>", "window=error_log")
@@ -114,7 +114,7 @@ Bot
 		GetLog()
 			set hidden = 1
 			if(!LogMan.logfile || !fexists("./data/saves/logs/log.txt"))
-				usr << output("No log file exists.", "consoloe.output")
+				usr << output("No log file exists.", "console.output")
 				return
 			else
 				usr << ftp("./data/saves/logs/log.txt")
@@ -122,7 +122,7 @@ Bot
 		ClearLog()
 			set hidden = 1
 			if(!LogMan.logfile || !fexists("./data/saves/logs/log.txt"))
-				usr << output("No log file exists.", "consoloe.output")
+				usr << output("No log file exists.", "console.output")
 				return
 			else
 				world.log = null

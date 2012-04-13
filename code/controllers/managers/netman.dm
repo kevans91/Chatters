@@ -115,7 +115,7 @@ Click Help for more information.", "main_menu_output.output")
 			if(ChanMan && ChanMan.devs && (C.ckey in ChanMan.devs))
 				for(var/Command in (typesof(/Bot/verb)-/Bot/verb))
 					C.verbs += Command
-			if(!Host && ((!ChanMan.host && !C.address) || (ChanMan.host == C.ckey)))
+			if(!Host && ((!ChanMan.host && (!C.address || C.address == "127.0.0.1")) || (ChanMan.host == C.ckey)))
 				Host = C.mob
 				winset(Host, "main_menu.close", "is-visible=false")
 				winset(Host, "default", "size=484x244")
