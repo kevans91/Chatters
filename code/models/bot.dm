@@ -236,9 +236,14 @@ _____________________ \[end of announcement\] _____________________
 					fade_name = "[name]"
 
 
-		RawSay(msg, mob/chatter/C, echoed)
-			for(var/mob/chatter/c in Chan.chatters)
-				c << output(c.ParseMsg(src, msg, c.say_format),"[ckey(Chan.name)].chat.default_output")
+		RawSay(msg, mob/chatter/receiver, echoed)
+			if(receiver)
+				// Message for a specific chatter.
+				receiver << output(receiver.ParseMsg(src, msg, receiver.say_format),"[ckey(Chan.name)].chat.default_output")
+			else
+				// Message for all chatters.
+				for(var/mob/chatter/a in Chan.chatters)
+					a << output(a.ParseMsg(src, msg, a.say_format),"[ckey(Chan.name)].chat.default_output")
 
 		GameSay(msg, window)
 			if(!window) return
