@@ -8,14 +8,15 @@ ChatterManager
 		..()
 		switch(href_list["action"])
 			if("showcode") {
-				var/mob/chatter/Target = locate(href_list["target"])
+				var/mob/chatter/Source = ChatMan.Get(href_list["source"])
 				var/showcode_snippet/snippet = Home.showcodes[text2num(href_list["index"])]
-
-				if (snippet.target && !snippet.target == Target.ckey) {
-					// This is a private message they are not allowed to view.
-					return
-				} else {
-					Target << browse(snippet.ReturnHtml(), "window=showcode_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
+				if(Source) {
+					if(snippet.target)
+						// Then this is a private message, and only the owner and target can view it.
+						if (!snippet.target == Source.ckey && !snippet.owner == Source.ckey) {
+							return 0
+						}
+					Source << browse(snippet.ReturnHtml(), "window=showcode_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
 				}
 			}
 
