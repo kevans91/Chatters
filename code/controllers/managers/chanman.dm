@@ -280,7 +280,7 @@ ChannelManager
 							if(NetMan.Status == CONTACTING)
 								NetMan.Status = FAILED
 								return
-
+/*
 							var/a_pos = findtext(world.address, ".", 1)
 							var/b_pos = findtext(world.address, ".", a_pos+1)
 							var/c_pos = findtext(world.address, ".", b_pos+1)
@@ -291,6 +291,7 @@ ChannelManager
 							var/e = num2hex(world.port)
 
 							world.status = "<span style=\"color:#2a4680;\">[lowertext(a+b+c+d+e)]</span><br>[Home.name] founded by [Home.founder]"
+*/
 							var/savefile/F = new()
 							F["founder"] << Home.founder
 							F["name"] << Home.name

@@ -179,34 +179,18 @@ ChatterManager
 
 		Load(mob/chatter/C, client_file)
 			var/savefile/F = new(client_file)
-			var/crypt
-			var/version
-			F["version"] >> version
-			if(version != savefile_version) return
-			F["CRYPTO"] >> crypt
-			var/filetext = RC5_Decrypt(crypt, md5(world.hub_password))
-			for(var/i = 1; i <= length(filetext); ++i)
-				if(text2ascii(filetext, i) < 32) return
-			var/savefile/S = new()
-			S.ImportText("/",filetext)
-			C.Read(S)
+			C.Read(F)
 			return TRUE
 
 		Save(mob/chatter/C)
 			var/savefile/S = new()
 			C.Write(S)
 			sleep(5)
-			var/filetext = S.ExportText("/")
-			var/crypt = RC5_Encrypt(filetext, md5(world.hub_password))
-			var/savefile/F = new()
-			F["version"] << savefile_version
-			F["CRYPTO"] << crypt
-			C.client.Export(F)
+			C.client.Export(S)
 
 
 		EditSave(var/save)
 			if(!save) return
 			var/savefile/F = new(save)
-			var/crypt
-			F["CRYPTO"] >> crypt
-			return RC5_Decrypt(crypt, md5(world.hub_password))
+			var/text = F.ExportText("/")
+			return text

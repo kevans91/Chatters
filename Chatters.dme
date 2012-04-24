@@ -34,7 +34,6 @@
 #include "code\controllers\managers\opman.dm"
 #include "code\controllers\managers\paintman.dm"
 #include "code\controllers\managers\textman.dm"
-#include "code\libraries\rc5\rc5.dm"
 #include "code\libraries\s_smiley\alphabetics.dm"
 #include "code\libraries\s_smiley\replacetext.dm"
 #include "code\libraries\s_smiley\replaceword.dm"

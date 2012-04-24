@@ -14,7 +14,7 @@ Host
 			if(!Host || !Host.Painter) return
 			Host << ftp(Host.Painter.Paint.redo_buffer, "./resources/icons/paint/redo.dmi")
 
-		addrTest()
+/*		addrTest()
 			var/a_pos = findtext(world.address, ".", 1)
 			var/b_pos = findtext(world.address, ".", a_pos+1)
 			var/c_pos = findtext(world.address, ".", b_pos+1)
@@ -26,6 +26,7 @@ Host
 			debug(lowertext(a+b+c+d+e))
 			debug(world.address+":[world.port]")
 			debug(md5(world.address+":[world.port]"))
+*/
 
 		NewChan()
 			set hidden = 1
