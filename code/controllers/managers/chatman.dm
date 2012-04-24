@@ -179,6 +179,7 @@ ChatterManager
 
 		Load(mob/chatter/C, client_file)
 			var/savefile/F = new(client_file)
+			if("CRYPTO" in F.dir) return FALSE
 			C.Read(F)
 			return TRUE
 
