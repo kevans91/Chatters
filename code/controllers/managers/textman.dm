@@ -18,7 +18,7 @@ TextManager
 						"<code>"="</code>",
 						"<img src='"="'>")
 
-			links = list("id"		= "http://www.byond.com/forum/?post=%s",
+			links = list("id"		= "http://www.byond.com/forum/?post=$s",
 						 "hub"		= "http://www.byond.com/games/$s",
 						 "people"	= "http://www.byond.com/people/$s",
 						 "wiki"		= "http://en.wikipedia.org/wiki/$s",
