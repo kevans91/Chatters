@@ -179,13 +179,31 @@ ChatterManager
 
 		Load(mob/chatter/C, client_file)
 			var/savefile/F = new(client_file)
-			if("CRYPTO" in F.dir) return FALSE
-			C.Read(F)
-			return TRUE
+			var/version
+			F["version"] >> version
+
+			if(version == "0.1.5" && ("CRYPTO" in F.dir))
+				var/crypto
+				F["CRYPTO"] >> crypto
+				crypto = RC5_Decrypt(crypto, md5(world.hub_password))
+				for(var/i = 1; i <= length(crypto); ++i)
+					if(text2ascii(crypto, i) < 32) return FALSE
+				F.dir -= "CRYPTO"
+				F.ImportText("/",  crypto)
+				C.Read(F)
+						// Save an updated savefile.
+				Save(C)
+				return TRUE
+			else if(version == savefile_version)
+				C.Read(F)
+				return TRUE
+			else
+				return FALSE
 
 		Save(mob/chatter/C)
 			var/savefile/S = new()
 			C.Write(S)
+			S["version"] << savefile_version
 			sleep(5)
 			C.client.Export(S)
 

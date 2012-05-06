@@ -115,7 +115,7 @@ var/global
 	PaintManager/PaintMan
 	TextManager/TextMan
 
-	savefile_version = "0.1.5" // savefile versioning to reduce needless wipes
+	savefile_version = "0.1.6" // savefile versioning to reduce needless wipes
 
 
 
