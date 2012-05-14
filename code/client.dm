@@ -6,8 +6,7 @@ client
 	preload_rsc = 0
 
 	Topic(href,href_list[],hsrc)
-		..()
-		href += "&source=[mob.name]"
+		href += "&source=[url_encode(mob.key)]"
 		href_list = params2list(href)
 		Console.Topic(href,href_list)
 
