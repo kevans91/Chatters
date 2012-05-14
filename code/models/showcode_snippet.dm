@@ -42,8 +42,8 @@
 	proc/Send(code = 0)
 		if(!target)
 			// This is shown to the channel.
-			Home.chanbot.RawSay("[owner] has posted a [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&target=\ref[ChatMan.Get(owner)]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>")
+			Home.chanbot.RawSay("[owner] has posted a [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>")
 		else
 			var/Messenger/im = new(ChatMan.Get(owner), target)
 			im.Display(ChatMan.Get(owner))
-			MsgMan.RouteMsg(ChatMan.Get(owner), ChatMan.Get(target), "[owner] has semt a private [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&target=\ref[ChatMan.Get(owner)]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>", 0)
+			MsgMan.RouteMsg(ChatMan.Get(owner), ChatMan.Get(target), "[owner] has sent a private [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&target=[url_encode(target)]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>", 0)
