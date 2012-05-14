@@ -545,7 +545,7 @@ mob
 							src << "<b>Unable to show code!</b>"
 							src << "[C.name] is ignoring you."
 							return
-					S.target = C.name
+					S.target = C.key
 				else
 					if(!src.Chan || Chan.ismute(src))
 						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
@@ -575,7 +575,7 @@ mob
 							src << "<b>Unable to show code!</b>"
 							src << "[C.name] is ignoring you."
 							return
-					S.target = C.name
+					S.target = C.key
 				else
 					if(!src.Chan || Chan.ismute(src))
 						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
