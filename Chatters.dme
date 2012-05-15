@@ -10,7 +10,6 @@
 #define FILE_DIR "resources"
 
 // BEGIN_PREFERENCES
-#define DEBUG
 // END_PREFERENCES
 
 // BEGIN_INCLUDE

@@ -524,11 +524,11 @@ mob
 					winset(src, "profile.description", "text=' [TextMan.escapeQuotes(C.description)]")
 					winset(src, "profile.interests", "text=' [TextMan.escapeQuotes(C.interests)]")
 					winset(src, "profile", "is-visible=true")
+					winset(src, "profile.show_button", "command='ShowCode \"[C.name]\"';")
 					winset(src, "profile.im_button", "command='IM \"[C.name]\"';")
 
 			ShowCode(t as text|null|mob in Home.chatters)
 				if(afk) ReturnAFK()
-
 				var/showcode_snippet/S = new
 				if(t)
 					var/mob/chatter/C
@@ -545,7 +545,7 @@ mob
 							src << "<b>Unable to show code!</b>"
 							src << "[C.name] is ignoring you."
 							return
-					S.target = C.name
+					S.target = C.ckey
 				else
 					if(!src.Chan || Chan.ismute(src))
 						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)
@@ -575,7 +575,7 @@ mob
 							src << "<b>Unable to show code!</b>"
 							src << "[C.name] is ignoring you."
 							return
-					S.target = C.name
+					S.target = C.ckey
 				else
 					if(!src.Chan || Chan.ismute(src))
 						if(src.Chan) src.Chan.chanbot.Say("I'm sorry, but you appear to be muted.", src)

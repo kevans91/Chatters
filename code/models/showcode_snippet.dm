@@ -46,4 +46,4 @@
 		else
 			var/Messenger/im = new(ChatMan.Get(owner), target)
 			im.Display(ChatMan.Get(owner))
-			MsgMan.RouteMsg(ChatMan.Get(owner), ChatMan.Get(target), "[owner] has semt a private [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&target=\ref[ChatMan.Get(owner)]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>", 0)
+			MsgMan.RouteMsg(ChatMan.Get(owner), ChatMan.Get(target), "[owner] has semt a private [code ? "code" : "text"] snippet.  <a href='byond://?src=\ref[ChatMan]&target=\ref[ChatMan.Get(owner)]&action=show[code ? "code" : "text"]&index=[id]'>Show [code ? "Code" : "Text"]</a>", 1)

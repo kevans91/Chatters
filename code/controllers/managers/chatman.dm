@@ -10,19 +10,19 @@ ChatterManager
 			if("showcode")
 				var/mob/chatter/Target = locate(href_list["target"])
 				var/showcode_snippet/snippet = Home.showcodes[text2num(href_list["index"])]
-				if (snippet.target && snippet.target != Target.ckey)
+				if (snippet.target && snippet.target != usr.ckey && usr.ckey != Target.ckey)
 					// This is a private message they are not allowed to view.
 					return
 				else
-					Target << browse(snippet.ReturnHtml(Target, 1), "window=showcode_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
+					usr << browse(snippet.ReturnHtml(Target, 1), "window=showcode_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
 			if("showtext")
 				var/mob/chatter/Target = locate(href_list["target"])
 				var/showcode_snippet/snippet = Home.showcodes[text2num(href_list["index"])]
-				if (snippet.target && snippet.target != Target.ckey)
+				if (snippet.target && snippet.target != usr.ckey && usr.ckey != Target.ckey)
 					// This is a private message they are not allowed to view.
 					return
 				else
-					Target << browse(snippet.ReturnHtml(Target), "window=showtext_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
+					usr << browse(snippet.ReturnHtml(Target), "window=showtext_[snippet.id];display=1;size=800x500;border=1;can_close=1;can_resize=1;titlebar=1")
 
 	proc
 		Usher(mob/Temp/T)

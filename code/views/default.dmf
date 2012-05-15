@@ -19561,7 +19561,7 @@ window "profile"
 		is-checked = false
 		group = ""
 		button-type = pushbutton
-	elem "button11"
+	elem "show_button"
 		type = BUTTON
 		pos = 92,264
 		size = 60x20
