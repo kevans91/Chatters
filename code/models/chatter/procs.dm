@@ -300,7 +300,7 @@ mob
 
 
 			ParseTime(hide_ticker)
-				var/timestamp = world.timeofday + src.time_offset * 36000
+				var/timestamp = round(world.timeofday + src.time_offset * 36000, 1)
 				var/c = hide_ticker ? " " : ":"
 				
 				if (_24hr_time)
