@@ -479,11 +479,11 @@ Channel
 				for(var/mob/chatter/c in chatters)
 					if(!(c.ignoring(C) & CHAT_IGNORE))
 						if(!c.filter)
-							c << output("<font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>   [c.ParseTime()]   Reason: [raw_msg]", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [raw_msg])", "[ckey(name)].chat.default_output")
 						else if(c.filter == 1)
-							c << output("<font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>   [c.ParseTime()]   Reason: [TextMan.FilterChat(raw_msg,c)]", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [TextMan.FilterChat(raw_msg,c)])", "[ckey(name)].chat.default_output")
 						else
-							c << output("<font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>   [c.ParseTime()]   Reason: [msg]", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [msg])", "[ckey(name)].chat.default_output")
 			C << output("Your activity status is now set to Away From Keyboard.", "[ckey(name)].chat.default_output")
 
 
