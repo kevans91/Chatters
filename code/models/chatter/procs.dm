@@ -300,43 +300,19 @@ mob
 
 
 			ParseTime(hide_ticker)
-				var/parsed_msg = "", hh, mm, ss, am = TRUE, timestamp = world.timeofday+(src.time_offset*36000)
-
-				for(var/t in time_format)
-					if(t == "hh")
-						if(!_24hr_time)
-							hh = text2num(time2text(timestamp, "hh"))
-							if(hh>12 || !hh)
-								hh = hh%12
-								am = FALSE
-
-							if(!hh)
-								hh = 12
-								am = TRUE
-							else if(hh == 12)
-								am = FALSE
-							hh = "[hh]"
-						else
-							hh = time2text(timestamp, "hh")
-						if(!("mm" in time_format) && !("ss" in time_format) && !_24hr_time)
-							hh +=" [am ? "am" : "pm"]"
-						parsed_msg += hh
-					else if(t == "mm")
-						mm = time2text(timestamp, "mm")
-						if(!("ss" in time_format) && !_24hr_time)
-							mm += " [am ? "am" : "pm"]"
-						parsed_msg += mm
-					else if(t == "ss")
-						ss = time2text(timestamp, "ss")
-						if(!_24hr_time)
-							ss += " [am ? "am" : "pm"]"
-						parsed_msg += ss
-					else if((t == ":") && hide_ticker)
-						parsed_msg += " "
-					else
-						parsed_msg += t
-
-				return parsed_msg
+				var/timestamp = world.timeofday + src.time_offset * 36000
+				var/c = hide_ticker ? " " : ":"
+				
+				if (_24hr_time)
+					return time2text(timestamp, "<b>\[</b>hh[c]mm[c]ss<b>\]</b>")
+				
+				var/hour = text2num(time2text(timestamp, "hh"))
+				var/ampm = (hour > 11) ? "pm" : "am"
+				hour = (hour % 12) || 12
+				if (hour < 10)
+					hour = "0[hour]"
+				
+				return time2text(timestamp, "<b>\[</b>[hour][c]mm[c]ss [ampm]<b>\]</b>")
 
 
 			ignoring(mob/M)
