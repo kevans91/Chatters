@@ -2,12 +2,12 @@
 TextManager
 	var
 		list
-			tags = list("\[b]"="\[/b]",
+			tags = list("\[code]"="\[/code]",
+						"\[b]"="\[/b]",
 						"\[i]"="\[/i]",
 						"\[u]"="\[/u]",
 						"\[s]"="\[/s]",
 						"\[#"="\[/#]",
-						"\[code]"="\[/code]",
 						"\[img]"="\[/img]")
 
 			html = list("<b>"="</b>",
@@ -260,37 +260,27 @@ TextManager
 		// Simple string matching procedure.
 		// Crashed, C*a*h*d will match.
 		// Crashed, Crah*d will not (missing s).
-		// Crashed, Crash* will match.
-		// Crashed, Crash will not (missing ed).
 		Match(string, pattern)
-			if(!string || !pattern) return 0
-
 			var parts[] = list()
 			var find = findtext(pattern, "*")
-			var startWild = find == 1
-			var endWild = text2ascii(pattern, length(pattern)) == 42 // '*'
 
 			while(find)
-				if(find > 1) parts += copytext(pattern, 1, find)
+				var part = copytext(pattern, 1, find)
+				parts += part
 				pattern = copytext(pattern, find + 1)
 				find = findtext(pattern, "*")
 
-			if(pattern) parts += pattern
+			parts += pattern
 
-			if(!parts.len) return 1 // "*" pattern
+			if(!length(parts)) return 0
 
-			find = findtext(string, parts[1])
-			if(!find || (!startWild && find != 1)) return 0
-
-			find += length(parts[1])
-			parts.Cut(1, 2)
-
+			find = 1
 			for(var/part in parts)
-				find = findtext(string, part, find)
-				if(find) find += length(part)
-				else return 0
+				find = findtext(string, part, find) + length(part)
+				if(find == length(part))
+					return 0
 
-			return endWild || find == length(string)+1
+			return 1
 
 		fadetext(var/text, var/list/colors)
 			if(!colors) return text
