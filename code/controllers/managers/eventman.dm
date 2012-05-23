@@ -1,24 +1,46 @@
 
 EventManager
-
+	var
+		const
+			CH_LPAREN = 40
+			CH_RPAREN = 42
+			CH_QUOTES = 34
+			CH_SPACE = 32
+			CH_BACKSLSH = 92
 	proc
 		Parse(mob/chatter/C, event)
-			var/start_len = 2
-			var/start_parenth = findtext(event,"(\"")
-			if(!start_parenth)
-				start_parenth = findtext(event,"( \"")
-				start_len = 3
-			if(!start_parenth)
-				start_parenth = findtext(event,"( ")
-			if(!start_parenth)
-				start_parenth = findtext(event,"(")
-				start_len = 1
-			var/cmd = copytext(event, 1, start_parenth)
-			var/end_parenth = findtext(event, "\")")
-			if(!end_parenth) end_parenth = findtext(event,"\" )")
-			if(!end_parenth) end_parenth = findtext(event," )")
-			if(!end_parenth) end_parenth = findtext(event,")")
-			var/params = copytext(event, start_parenth+start_len,end_parenth)
+			var/cmd = ""
+			var/cmd_end = 0
+			for(var/i = 1; i <= length(event); ++i)
+				var/ch = text2ascii(event, i)
+				if(ch == CH_LPAREN)
+					cmd_end = i
+					break
+				else if(ch == CH_QUOTES)
+					cmd_end = i
+					break
+				else if(ch == CH_SPACE)
+					cmd_end = i
+					break
+				else
+					cmd += ascii2text(ch)
+
+			var
+				text = 0
+				endtext = 0
+
+			for(var/i = cmd_end + 1; i <= length(event); ++i)
+				var/ch = text2ascii(event, i)
+				if(!text && ch != CH_SPACE && ch != CH_QUOTES)
+					text = i
+				else if(!text && ch == CH_QUOTES)
+					text = i + 1
+				else if(text && ch == CH_QUOTES)
+					if(text2ascii(event, i - 1) != CH_BACKSLSH)
+						endtext = i
+						break
+			if(!endtext) return
+			var/params = copytext(event, text, endtext)
 			for(var/v in C.verbs)
 				if(ckey(cmd) == ckey(v:name))
 					call(C, v:name)(params)
