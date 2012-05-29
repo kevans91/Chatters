@@ -28,13 +28,22 @@
 				<body><pre><code>[html_encode(src.code)]</code></pre></body>
 				</html>
 				"}
+		else if(code)
+			html = {"
+				<html>
+				<head>
+				<title>[owner]'s Showcode</title>
+				</head>
+				<body><pre><code>[src.code]</code></pre></body>
+				</html>
+				"}
 		else
 			html = {"
 				<html>
 				<head>
-				<title>[owner]'s Show[code ? "code" : "text"]</title>
+				<title>[owner]'s Showtext</title>
 				</head>
-				<body><pre><code>[src.code]</pre></body>
+				<body>[src.code]</body>
 				</html>
 				"}
 		return html
