@@ -1,4 +1,3 @@
-
 mob
 	chatter
 		verb
@@ -593,3 +592,8 @@ mob
 					Home.GoAFK(src, msg)
 				else
 					ReturnAFK()
+			Filter(msg as text|null)
+				switch(ckey(msg))
+					if("on","1") filter=2
+					if("off","0") filter=0
+				src << "Filter set [msg]"
