@@ -41,6 +41,5 @@ MessageManager
 		isIgnoring(Name)
 			var/timeout = 300
 			isIgnoredResult = null
-			world.Export("[NetMan.Chatters[Name]]?dest=msgman&action=isIgnored&name=[Name]")
 			while(isnull(isIgnoredResult) && timeout--) sleep(1)
 			return isIgnoredResult

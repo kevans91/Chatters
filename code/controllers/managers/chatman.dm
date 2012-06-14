@@ -64,7 +64,6 @@ ChatterManager
 
 		Get(chatter, local)
 			if(!length(chatter)) return
-			if(!Home || !Home.chatters && NetMan.Status != CONNECTED) return
 
 			if(Home && Home.chatters)
 				var first_char = text2ascii(copytext(chatter, 1, 2))
@@ -92,32 +91,6 @@ ChatterManager
 					// Partial non-case-sensitive key search
 					for(var/mob/chatter/C in Home.chatters)
 						if(TextMan.Match(C.ckey, chatter)) return C
-
-			if(!local && NetMan.Status == CONNECTED)
-				if(!NetMan || !NetMan.Chatters || !NetMan.Chatters.len)
-					return
-				// Exact key search.
-				for(var/mob/chatter/C in world)
-					if(ckey(C.name) == ckey(chatter)) return C
-
-				// Partial case-sensitive key search
-				for(var/mob/chatter/C in world)
-					if(TextMan.Match(C.key, chatter)) return C
-
-				// Partial non-case-sensitive key search
-				for(var/mob/chatter/C in world)
-					if(TextMan.Match(C.ckey, chatter)) return C
-				// Exact key search.
-				for(var/C in NetMan.Chatters)
-					if(ckey(C) == ckey(chatter)) return C
-
-				// Partial case-sensitive key search
-				for(var/C in NetMan.Chatters)
-					if(TextMan.Match(C, chatter)) return C
-
-				// Partial non-case-sensitive key search
-				for(var/C in NetMan.Chatters)
-					if(TextMan.Match(ckey(C), chatter)) return C
 
 
 		Rank(chatter)

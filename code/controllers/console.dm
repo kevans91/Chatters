@@ -7,7 +7,7 @@ ServerConsole	// main controller
 		TextMan  = new()
 		BotMan   = new()
 		OpMan    = new()
-		ChanMan  = new()
+		ChanMan  = new(src)
 		ChatMan  = new()
 		ErrMan   = new()
 		EventMan = new()
@@ -16,7 +16,6 @@ ServerConsole	// main controller
 		LogMan   = new()
 		MapMan   = new()
 		MsgMan   = new()
-		NetMan   = new()
 		PaintMan = new()
 
 	Del()
@@ -30,7 +29,6 @@ ServerConsole	// main controller
 		del(LogMan)
 		del(MapMan)
 		del(MsgMan)
-		del(NetMan)
 		del(PaintMan)
 		del(TextMan)
 		del(ListMan)
@@ -48,8 +46,6 @@ ServerConsole	// main controller
 				HelpMan.Topic(href, href_list)
 			if("msgman")
 				MsgMan.Topic(href, href_list)
-			if("netman")
-				NetMan.Topic(href, href_list)
 
 
 	proc

@@ -9,8 +9,7 @@ HelpManager
 
 	New()
 		..()
-		spawn()
-			LoadXML()
+		LoadXML()
 
 	Topic(href, href_list)
 		..()

@@ -26,10 +26,9 @@ NetworkManager
 			Chatters
 
 
-	New()
+	New(var/ServerConsole/console)
 		..()
-		spawn()
-			LoadNetworkCfg()
+		LoadNetworkCfg(console)
 
 	Topic(href, href_list)
 		..()
@@ -90,8 +89,8 @@ Click Help for more information.", "main_menu_output.output")
 				Query("getchatters")
 
 	proc
-		LoadNetworkCfg()
-			var/list/config = Console.LoadCFG("./data/saves/network.cfg")
+		LoadNetworkCfg(var/ServerConsole/console)
+			var/list/config = console.LoadCFG("./data/saves/network.cfg")
 			if(!config || !config.len) ErrMan.Topic("100")
 
 			var/list/Main = params2list(config["main"])

@@ -183,7 +183,6 @@ mob
 						S["to"] << C
 
 						src << output(src.ParseMsg(src, msg, src.say_format), "cim_[C.ckey].output")
-						world.Export("[NetMan.Chatters[C]]?dest=msgman&action=msg",S)
 
 			Ignore(mob/target as text|null|mob in Home.chatters, scope as text|null|anything in list("im", "chat", "fade", "colors", "smileys", "images", "files", "full"))
 				if(!target)
