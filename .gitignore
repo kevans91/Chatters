@@ -3,6 +3,7 @@ changes
 *.rsc
 *.int
 *.lk
+Chatters.zip
 data/saves/logs
 data/saves/channels
 packet
