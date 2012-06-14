@@ -256,21 +256,11 @@ Channel
 
 		UpdateWho()
 
-			//telnet update who
-			var chatter_array[] = list()
-			for(var/mob/chatter/C in chatters)
-				chatter_array += "[dd_replacetext(C.name, " ", "+")][C.afk ? "~" : ""]"
-			var display = dd_list2text(chatter_array, ",")
-
-
 			for(var/mob/chatter/C in chatters)
 
 				var/active = chatters.len
 
-				if(ChatMan.istelnet(C.key))
-					C << ".who [display]"
-
-				else
+				if(!ChatMan.istelnet(C.key))
 					for(var/i=1, i<=chatters.len, i++)
 						var/mob/chatter/c = chatters[i]
 						if(isnull(c))

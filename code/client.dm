@@ -13,16 +13,17 @@ client
 
 
 	Command(command)
-		if(ChatMan.istelnet(key) && VERBOSE) //verbose
-			src << "<font color='purple'>[command]</font>"
-
-		var pos = findtext(command, " ")
-		var cmd = copytext(command, 1, pos)
-		var params
-		if(pos) params = copytext(command, pos + 1)
-		for(var/v in mob.verbs)
-			if(ckey(cmd) == ckey(v:name))
-				call(mob, v:name)(params)
+		var/success=0
+		if(findtext(command,"/",1,2))
+			var/pos = findtext(command, " ")
+			var/cmd = copytext(command, 2, pos)
+			var/params
+			if(pos) params = copytext(command, pos + 1)
+			for(var/v in mob.verbs)
+				if(ckey(cmd) == ckey(v:name))
+					call(mob, v:name)(params)
+					success=1
+		if(!success) call(mob, "Say")(command)
 		..(command)
 
 	verb

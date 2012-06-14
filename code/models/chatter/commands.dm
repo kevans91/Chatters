@@ -65,8 +65,8 @@ mob
 
 			login(telnet_key as text|null)
 				set hidden = 1
-				if(!telnet_key) return
-				if(!telnet) return
+				if(!telnet_key || !telnet) return
+				for(var/client/C) if(C.key && C.key==telnet_key) return
 				var/savefile/S = new("./data/saves/tel.net")
 				if(!S || !length(S)) return
 				var/list/L = new
@@ -596,4 +596,7 @@ mob
 				switch(ckey(msg))
 					if("on","1") filter=2
 					if("off","0") filter=0
-				src << "Filter set [msg]"
+					else
+						if(!filter) filter=2
+						else filter=0
+				src << "Filter is now [filter ? "on" : "off"]."
