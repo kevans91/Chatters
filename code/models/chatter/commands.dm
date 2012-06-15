@@ -596,7 +596,5 @@ mob
 				switch(ckey(msg))
 					if("on","1") filter=2
 					if("off","0") filter=0
-					else
-						if(!filter) filter=2
-						else filter=0
+					else filter=(!filter && 2)
 				src << "Filter is now [filter ? "on" : "off"]."
