@@ -25,8 +25,3 @@ client
 					success=1
 		if(!success) call(mob, "Say")(command)
 		..(command)
-
-	verb
-		who()
-			var /mob/chatter/c = mob
-			c.Chan.UpdateWho()
