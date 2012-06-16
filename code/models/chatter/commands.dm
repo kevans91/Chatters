@@ -66,7 +66,7 @@ mob
 			login(telnet_key as text|null)
 				set hidden = 1
 				if(!telnet_key || !telnet) return
-				for(var/client/C) if(C.key && C.key==telnet_key) return
+				for(var/mob/chatter/C in Home.chatters) if((C.key && C.key==telnet_key) || C.name==telnet_key) return
 				var/savefile/S = new("./data/saves/tel.net")
 				if(!S || !length(S)) return
 				var/list/L = new
