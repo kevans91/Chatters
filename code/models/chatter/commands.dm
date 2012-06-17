@@ -65,10 +65,26 @@ mob
 							alert("File ([file]) rejected by [C.name].","File Transfer Failed")
 
 			Set()
+				if(telnet) return
 				call(usr, "ShowSet")()
 
 			Help()
-				ShowHelp()
+				if(!telnet) ShowHelp()
+				else
+					src << {"//--------------------Help--------------------\\
+All input is, by default, parsed into the chat. Input preceded by a backslash (/), up to the first space, will be interpreted as a command. If none is found, it shall be parsed into the chat.
+
+Valid Commands:
+<b>Login name</b> - Attempts to login as \[name\].
+<b>Say message</b> - Sends message to chat.
+<b>Me/My emote</b> - Emotes: "\[Name\] \[emote\]!" / "\[Name\]'s \[emote\]!"
+<b>Who</b> - Displays list of current chatters.
+<b>Fiter state</b> - Toggles the swearing filter. Valid states: on, off, 1, 0. All others simply toggle the filter.
+<b>Ignore/Unignore chatter</b> - Ignore or stop ignoring specified chatter.
+<b>Ignoring</b> - Displays list of ignored chatters.
+<b>Look</b> - Displays information about the room.
+\\---------------------------------------------//
+"}
 
 			Cmail()
 				//ShowChattersMail()
@@ -97,6 +113,7 @@ mob
 				Chan.My(src, msg)
 
 			IM(target as text|null|mob in Home.chatters, msg as text|null)
+				if(telnet) return
 				if(!target)
 					var/Messenger/im = new(src)
 					im.Display(src)
@@ -478,7 +495,7 @@ mob
 
 
 			LookAt(t as text|null|mob in Home.chatters)
-				if(!t) return
+				if(!t || telnet) return
 				var/mob/chatter/C
 				if(ismob(t)) C = t
 				else C = ChatMan.Get(t)
@@ -505,6 +522,7 @@ mob
 					winset(src, "profile.im_button", "command='IM \"[C.name]\"';")
 
 			ShowCode(t as text|null|mob in Home.chatters)
+				if(telnet) return
 				if(afk) ReturnAFK()
 				var/showcode_snippet/S = new
 				if(t)
@@ -534,8 +552,8 @@ mob
 				S.Send(1)
 
 			ShowText(t as text|null|mob in Home.chatters)
+				if(telnet) return
 				if(afk) ReturnAFK()
-
 				var/showcode_snippet/S = new
 				if(t)
 					var/mob/chatter/C
@@ -564,7 +582,7 @@ mob
 				S.Send()
 
 			afk(msg as text|null)
-				if(!Chan) return
+				if(!Chan || telnet) return
 				if(!afk)
 					if(!msg) msg = auto_reason
 					Home.GoAFK(src, msg)
