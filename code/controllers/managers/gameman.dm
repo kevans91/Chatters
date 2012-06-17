@@ -23,22 +23,12 @@ GameManager
 
 		UpdateWho(Channel/Chan)
 			if(!Chan || !Chan.players || !Chan.players.len) return
-			//telnet update who
-			var chatter_array[] = list()
-			for(var/mob/chatter/C in Chan.players)
-				chatter_array += "[dd_replacetext(C.name, " ", "+")][C.afk ? "~" : ""]"
-			var display = dd_list2text(chatter_array, ",")
-
-
 			for(var/mob/chatter/C in Chan.players)
 
 				var/players = 0
 				var/idle = 0
 
-				if(ChatMan.istelnet(C.key))
-					C << ".who [display]"
-
-				else
+				if(!ChatMan.istelnet(C.key))
 					for(var/i=1, i<=Chan.players.len, i++)
 						var/mob/chatter/c = Chan.players[i]
 						if(C.client) winset(C, "games_who.grid", "current-cell=1,[i]")
