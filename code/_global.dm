@@ -110,6 +110,7 @@ var/global
 	LogManager/LogMan
 	MapManager/MapMan
 	MessageManager/MsgMan
+	NetworkManager/NetMan
 	OperatorManager/OpMan
 	PaintManager/PaintMan
 	TextManager/TextMan

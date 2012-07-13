@@ -236,6 +236,7 @@ mob
 
 			ShowPublicChannels()
 				set hidden = 1
+				NetMan.UpdatePubChans(src)
 				winshow(src, "pub_chans", 1)
 
 			HidePublicChannels()

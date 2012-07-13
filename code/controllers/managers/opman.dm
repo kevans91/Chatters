@@ -8,7 +8,8 @@ OperatorManager
 
 	New()
 		..()
-		LoadXML()
+		spawn()
+			LoadXML()
 
 	proc
 		LoadXML()

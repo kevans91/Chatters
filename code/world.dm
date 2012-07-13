@@ -29,6 +29,7 @@ world
 		swapmaps_mode = SWAPMAPS_SAV // set SwapMaps to use savfiles
 
 	Del()
+		Export("[NetMan.addr]:[NetMan.port]?dest=chanman&action=delserver")
 		del(Console) // last ditch effort to save before the world dies
 		..()
 
@@ -41,6 +42,10 @@ world
 
 	OpenPort(Port)
 		if(isnull(Port))
+			NetMan.Disconnect()
 			return
+		Port = NetMan.PreConnect(Port)
+		var/oldport = port
 		..()
+		NetMan.PostConnect(Port, oldport)
 

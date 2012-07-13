@@ -207,6 +207,8 @@ Channel
 			if(C.show_welcome)
 				C << output("[time2text(world.realtime+C.time_offset, list2text(C.long_date_format))]\n<b>Welcome, [C.name]!</b>\n", "[ckey(name)].chat.default_output")
 
+			if(C.show_motd) NetMan.MOTD(C)
+
 			if(C.show_qotd) TextMan.QOTD(C)
 
 			if(!chatters) chatters = new()
@@ -225,6 +227,7 @@ Channel
 			chanbot.Say("You have joined [name] founded by [founder]",C)
 			chanbot.Say("[topic]",C)
 			if(!Home.ismute(C)) EventMan.Parse(C, C.onJoin)
+			NetMan.Report("join", C.name)
 
 		Quit(mob/chatter/C)
 			if(!C)
@@ -246,6 +249,7 @@ Channel
 			UpdateWho()
 
 			chanbot.Say("[C.name] has quit [name]")
+			NetMan.Report("quit", C.name)
 
 			if(C && ChatMan.istelnet(C.key))
 				C.Logout()

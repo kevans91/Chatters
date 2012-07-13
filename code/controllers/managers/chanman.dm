@@ -1,15 +1,15 @@
 
 ChannelManager
 	var/host
-	var/port
 	var/telnet_pass
 	var/telnet_attempts
 	var/NameResult=1
 	var/list/devs
 
-	New(var/ServerConsole/console)
+	New()
 		..()
-		LoadServerCfg(console)
+		spawn()
+			LoadServerCfg()
 
 	Del()
 		if(Home) SaveChan(Home)
@@ -18,6 +18,13 @@ ChannelManager
 	Topic(href, href_list[])
 		..()
 		switch(href_list["action"])
+			if("namecheck")
+				if(NetMan.Status != CONNECTED)
+					alert(Host, "You are not currently connected to the Chatters network. You may create a private channel, but you may need to change its name if you wish go connect publicly to the network.", "Unable to Check Name")
+					return
+				var/result = isTaken(href_list["Name"])
+				if(result) alert(Host, "[href_list["Name"]] is already in use.", "Name Taken")
+				else alert(Host, "[href_list["Name"]] is free!", "Name Available")
 			if("newchan")
 				NewChan(href_list)
 			if("loadchan")
@@ -30,6 +37,26 @@ ChannelManager
 				var/OpenChannel/OC = new()
 				OC.Display("load_chan")
 				del(OC)
+			if("connected")
+				NetMan.Status = CONNECTED
+				if(Host && Host.client)
+					winset(Host, "main_menu.info_top", "text='Channel successfully published to the network.'")
+					sleep(30)
+					winset(Host, "main_menu.info_top", "text='Connected to the Chatters Network on port [world.port]'")
+					Host << output("Hosting [Home.name]", "main_menu_output.output")
+				NetMan.Query("getchans")
+				NetMan.Query("getchatters")
+			if("checkedname")
+				var/result = href_list["result"]
+				if(NameResult)
+					world.visibility = 0
+					NetMan.Status = FAILED
+					if(Host && Host.client)
+						spawn() alert(Host, "The name you chose for your channel is already in use. Plaese choose a different name before reconnecting to the network.","Network Disconnected")
+
+				else
+					if(result == "true") NameResult = TRUE
+					else NameResult = FALSE
 
 	proc
 		NewChan(list/params)
@@ -41,7 +68,11 @@ ChannelManager
 			fdel("./data/saves/channels/[chan].sav")
 
 		isTaken(Name)
-			return 0
+			var/timeout = 300
+			NameResult = null
+			world.Export("[NetMan.addr]:[NetMan.port]?dest=chanman&action=checkname&name=[Name]")
+			while(isnull(NameResult) && timeout--) sleep(1)
+			return NameResult
 
 		Join(mob/chatter/C, Channel/Chan)
 			Chan.Join(C)
@@ -72,6 +103,29 @@ ChannelManager
 			F["chatters"] << (Home.chatters ? Home.chatters.len : 0)
 			F["supernode"] << Home.SuperNode
 			F["maxnodes"] << Home.MaxNodes
+			NetMan.Status = CONNECTING
+			var/retries = NetMan.retry
+			spawn(20)
+				do
+					world.Export("[NetMan.addr]:[NetMan.port]?dest=chanman&action=connect",F)
+					sleep(NetMan.timeout)
+					if(NetMan.Status == CONNECTING)
+						if(Host && Host.client) winset(Host, "main_menu.info_top", "text='Connection timed out.'")
+						sleep(20)
+						if(!--retries) break
+						if(NetMan.Status == CONNECTING)
+							if(Host && Host.client) winset(Host, "main_menu.info_top", "text='Publishing channel to the network...'")
+				while(NetMan.Status == CONNECTING)
+				if(NetMan.Status == CONNECTING || NetMan.Status == FAILED)
+					NetMan.Status = FAILED
+					if(Host && Host.client)
+						winset(Host, "main_menu.info_top", "text='Problem contacting network!'")
+						winset(Host, "main_menu.cim", "is-disabled=true;")
+						winset(Host, "main_menu.public_chans", "is-disabled=true;")
+						winset(Host, "main_menu.cmail", "is-disabled=true;")
+						winset(Host, "main_menu.info_bottom", "text=")
+				fdel("packet")
+
 
 		SaveChan(Channel/Chan)
 			var/savefile/S = new("./data/saves/channels/[ckey(Chan.name)].sav")
@@ -116,14 +170,14 @@ ChannelManager
 			S["banned"]		>> Chan.banned
 			return Chan
 
-		LoadServerCfg(var/ServerConsole/console)
-			var/list/config = console.LoadCFG("./data/saves/server.cfg")
+		LoadServerCfg()
+			var/list/config = Console.LoadCFG("./data/saves/server.cfg")
 			if(!config || !config.len) return
 
 			var/list/H = params2list(config["main"])
 			if(!H || !H.len) return
 			host = ckey(H["host"])
-			port = text2num(H["port"])
+			NetMan.Port = text2num(H["port"])
 
 			var/list/D = params2list(config["devs"])
 			if(D && D.len)
@@ -214,6 +268,30 @@ ChannelManager
 									var/OpRank/Rank = Home.op_ranks[rankIndex]
 									Home.operators[opKey] = new/Op(opList[Name], Rank)
 
+						if(NetMan.Status != FAILED) spawn()
+							NetMan.Status = CONTACTING
+							var/retries = NetMan.retry
+							sleep(10)
+							do
+								world.Export("[NetMan.addr]:[NetMan.port]?dest=netman&action=newserver")
+								sleep(NetMan.timeout)
+								if(NetMan.Status == CONTACTING) if(!--retries) break
+							while(NetMan.Status == CONTACTING)
+							if(NetMan.Status == CONTACTING)
+								NetMan.Status = FAILED
+								return
+/*
+							var/a_pos = findtext(world.address, ".", 1)
+							var/b_pos = findtext(world.address, ".", a_pos+1)
+							var/c_pos = findtext(world.address, ".", b_pos+1)
+							var/a = num2hex(text2num(copytext(world.address, 1, a_pos))) + ascii2text(rand(103,122))
+							var/b = num2hex(text2num(copytext(world.address, a_pos+1, b_pos))) + ascii2text(rand(103,122))
+							var/c = num2hex(text2num(copytext(world.address, b_pos+1, c_pos))) + ascii2text(rand(103,122))
+							var/d = num2hex(text2num(copytext(world.address, c_pos+1))) + ascii2text(rand(103,122))
+							var/e = num2hex(world.port)
+
+							world.status = "<span style=\"color:#2a4680;\">[lowertext(a+b+c+d+e)]</span><br>[Home.name] founded by [Home.founder]"
+*/
 							var/savefile/F = new()
 							F["founder"] << Home.founder
 							F["name"] << Home.name
@@ -227,6 +305,14 @@ ChannelManager
 								F["chatters"] << Home.chatters.len
 							else
 								F["chatters"] << 0
+							NetMan.Status = CONNECTING
+							sleep(20)
+							do
+								world.Export("[NetMan.addr]:[NetMan.port]?dest=chanman&action=connect",F)
+								sleep(NetMan.timeout)
+								if(NetMan.Status == CONNECTING) if(!--retries) break
+							while(NetMan.Status == CONNECTING)
+							if(NetMan.Status == CONNECTING) NetMan.Status = FAILED
 					else
 						Home = LoadChan(HomeChan, telnet_pass, telnet_attempts)
 						Home.chanbot = BotMan.LoadBot(Home)
@@ -243,17 +329,17 @@ ChannelManager
 								var/cval = ckey(i)
 								if(!(cval in Home.banned)) Home.banned += cval
 
-/*						if(opList && opList.len)
+						if(opList && opList.len)
 							Home.operators = listOpen(Home.operators)
 							for(var/Name in opList)
 								if(!findtext(Name, "_"))
 									var/opKey = ckey(opList[Name])
 									var/rankIndex = text2num(opList["[Name]_level"])
-									var/rankPrivs = opList[Name + "_privs"]	// Not sure what to do with this.
+/*									var/rankPrivs = opList[Name + "_privs"]	// Not sure what to do with this.
 									if(rankPrivs != "default")
 										// Do something
 */
 									var/OpRank/Rank = Home.op_ranks[rankIndex]
 									Home.operators[opKey] = new/Op(opList[Name], Rank)
 					// TODO: Remove this once the Chatters Network is properly implemented.
-					world.OpenPort(port)
+					world.OpenPort(NetMan.Port)
