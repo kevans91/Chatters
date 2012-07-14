@@ -1,4 +1,3 @@
-
 client
 	authenticate = 0
 	perspective = EDGE_PERSPECTIVE
@@ -23,5 +22,5 @@ client
 				if(ckey(cmd) == ckey(v:name))
 					call(mob, v:name)(params)
 					success=1
-		if(!success) call(mob, "Say")(command)
+		if(!success && telnet) call(mob, "Say")(command)
 		..(command)
