@@ -53,9 +53,6 @@
 // File Size Limit
 #define MAX_FILE_SIZE 5242880 // 5 Megabytes
 
-// telnet echo ON
-#define VERBOSE 1
-
 // Used to enable debugging output with debug()
 #define DEV_DEBUG
 

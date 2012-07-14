@@ -186,7 +186,8 @@ Channel
 			if(C.show_title)
 				if(C.show_colors)
 					C << output({"<span style='text-align: center;'><b>[TextMan.fadetext("##########################################",list("000000000","255000000","255255255"))]</b></span>
-<span style='text-align: center;'><b><font color='#0000ff'>[world.name] - Created by Xooxer</font></b></span><span style='text-align: center;'><b><font color='#0000ff'>and the BYOND Community</font></b></span>
+<span style='text-align: center;'><b><font color='#0000ff'>[world.name] - Created by Xooxer</font></b></span>
+<span style='text-align: center;'><b><font color='#0000ff'>and the BYOND Community</font></b></span>
 <span style='text-align: center;'><b>[TextMan.fadetext("Still the greatest chat program on BYOND!", list("102000000","255000000","102000000","000000000","000000255"))]</b></span>
 <span style='text-align: center;'>Source available on the <a href='http://www.github.com/kevans91/Chatters/'>Chatters Repository</a>.</span>
 <span style='text-align: center;'>Copyright � 2008 Andrew "Xooxer" Arnold</span>
@@ -196,7 +197,8 @@ Channel
 
 				else
 					C << output({"<span style='text-align: center;'><b>##########################################</b></span>
-<span style='text-align: center;'><b>[world.name] - Created by Xooxer</b></span><span style='text-align: center;'><b>and the BYOND Community</b></span>
+<span style='text-align: center;'><b>[world.name] - Created by Xooxer</b></span>
+<span style='text-align: center;'><b>and the BYOND Community</b></span>
 <span style='text-align: center;'><b>Still the greatest chat program on BYOND!</b></span>
 <span style='text-align: center;'>Source available on the <a href='http://www.github.com/kevans91/Chatters/'>Chatters Repository</a>.</span>
 <span style='text-align: center;'>Copyright � 2008 Andrew "Xooxer" Arnold</span>
@@ -256,21 +258,11 @@ Channel
 
 		UpdateWho()
 
-			//telnet update who
-			var chatter_array[] = list()
-			for(var/mob/chatter/C in chatters)
-				chatter_array += "[dd_replacetext(C.name, " ", "+")][C.afk ? "~" : ""]"
-			var display = dd_list2text(chatter_array, ",")
-
-
 			for(var/mob/chatter/C in chatters)
 
 				var/active = chatters.len
 
-				if(ChatMan.istelnet(C.key))
-					C << ".who [display]"
-
-				else
+				if(!ChatMan.istelnet(C.key))
 					for(var/i=1, i<=chatters.len, i++)
 						var/mob/chatter/c = chatters[i]
 						if(isnull(c))
@@ -478,11 +470,11 @@ Channel
 				for(var/mob/chatter/c in chatters)
 					if(!(c.ignoring(C) & CHAT_IGNORE))
 						if(!c.filter)
-							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [raw_msg])", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] [c.show_colors ? "<font color=[C.name_color]>[C.name]</font>" : "[C.name]"] is now <b>AFK</b>. (Reason: [raw_msg])", "[ckey(name)].chat.default_output")
 						else if(c.filter == 1)
-							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [TextMan.FilterChat(raw_msg,c)])", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] [c.show_colors ? "<font color=[C.name_color]>[C.name]</font>" : "[C.name]"] is now <b>AFK</b>. (Reason: [TextMan.FilterChat(raw_msg,c)])", "[ckey(name)].chat.default_output")
 						else
-							c << output("[c.ParseTime()] <font color=[C.name_color]>[C.name]</font> is now <b>AFK</b>. (Reason: [msg])", "[ckey(name)].chat.default_output")
+							c << output("[c.ParseTime()] [c.show_colors ? "<font color=[C.name_color]>[C.name]</font>" : "[C.name]"] is now <b>AFK</b>. (Reason: [msg])", "[ckey(name)].chat.default_output")
 			C << output("Your activity status is now set to Away From Keyboard.", "[ckey(name)].chat.default_output")
 
 
