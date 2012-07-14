@@ -29,6 +29,7 @@ mob
 					if("unban")   voteUnban  (privilege, Rank, target)
 
 			Send(target as text|null|mob in Home.chatters, file as file|null)
+				if(telnet) return
 				if(!target)
 					target = input("Who would you like to send a file to?", "Send File") as text|null
 					if(!target) return
@@ -63,34 +64,27 @@ mob
 							C.Ignore(name,"files")
 							alert("File ([file]) rejected by [C.name].","File Transfer Failed")
 
-			login(telnet_key as text|null)
-				set hidden = 1
-				if(!telnet_key) return
-				if(!telnet) return
-				var/savefile/S = new("./data/saves/tel.net")
-				if(!S || !length(S)) return
-				var/list/L = new
-				S["telnet"] >> L
-				if(!L || !L.len) return
-				var/key_hash = md5(telnet_key)
-				if(key_hash in L)
-					var/telnet_pass = input("Please enter your telnet password:", "Telnet Key Login") as password|null
-					if(!telnet_pass)
-						del(L)
-						return
-					if(L[key_hash] != md5(telnet_pass))
-						del(L)
-						return
-					del(L)
-					name = telnet_key
-					fade_name = name
-					Home.UpdateWho()
-
 			Set()
+				if(telnet) return
 				call(usr, "ShowSet")()
 
 			Help()
-				ShowHelp()
+				if(!telnet) ShowHelp()
+				else
+					src << {"//--------------------Help--------------------\\
+All input is, by default, parsed into the chat. Input preceded by a backslash (/), up to the first space, will be interpreted as a command. If none is found, it shall be parsed into the chat.
+
+Valid Commands:
+<b>Login name</b> - Attempts to login as \[name\].
+<b>Say message</b> - Sends message to chat.
+<b>Me/My emote</b> - Emotes: "\[Name\] \[emote\]!" / "\[Name\]'s \[emote\]!"
+<b>Who</b> - Displays list of current chatters.
+<b>Fiter state</b> - Toggles the swearing filter. Valid states: on, off, 1, 0. All others simply toggle the filter.
+<b>Ignore/Unignore chatter</b> - Ignore or stop ignoring specified chatter.
+<b>Ignoring</b> - Displays list of ignored chatters.
+<b>Look</b> - Displays information about the room.
+\\---------------------------------------------//
+"}
 
 			Cmail()
 				//ShowChattersMail()
@@ -119,6 +113,7 @@ mob
 				Chan.My(src, msg)
 
 			IM(target as text|null|mob in Home.chatters, msg as text|null)
+				if(telnet) return
 				if(!target)
 					var/Messenger/im = new(src)
 					im.Display(src)
@@ -500,7 +495,7 @@ mob
 
 
 			LookAt(t as text|null|mob in Home.chatters)
-				if(!t) return
+				if(!t || telnet) return
 				var/mob/chatter/C
 				if(ismob(t)) C = t
 				else C = ChatMan.Get(t)
@@ -527,6 +522,7 @@ mob
 					winset(src, "profile.im_button", "command='IM \"[C.name]\"';")
 
 			ShowCode(t as text|null|mob in Home.chatters)
+				if(telnet) return
 				if(afk) ReturnAFK()
 				var/showcode_snippet/S = new
 				if(t)
@@ -556,8 +552,8 @@ mob
 				S.Send(1)
 
 			ShowText(t as text|null|mob in Home.chatters)
+				if(telnet) return
 				if(afk) ReturnAFK()
-
 				var/showcode_snippet/S = new
 				if(t)
 					var/mob/chatter/C
@@ -586,7 +582,7 @@ mob
 				S.Send()
 
 			afk(msg as text|null)
-				if(!Chan) return
+				if(!Chan || telnet) return
 				if(!afk)
 					if(!msg) msg = auto_reason
 					Home.GoAFK(src, msg)
@@ -596,4 +592,36 @@ mob
 				switch(ckey(msg))
 					if("on","1") filter=2
 					if("off","0") filter=0
-				src << "Filter set [msg]"
+					else filter=(!filter && 2)
+				src << "Filter is now [filter ? "on" : "off"]."
+
+			who()
+				set hidden = 1
+				if(!telnet) return
+				var chatter_array[] = list()
+				for(var/mob/chatter/C in Home.chatters)
+					chatter_array += "[C.name][C.afk ? "\[AFK\]" : ""]"
+				src << "<b>Chatters:</b> [dd_list2text(chatter_array, ", ")]"
+
+			login(telnet_key as text|null)
+				set hidden = 1
+				if(!telnet_key || !telnet) return
+				for(var/mob/chatter/C in Home.chatters) if((C.key && C.key==telnet_key) || C.name==telnet_key) return
+				var/savefile/S = new("./data/saves/tel.net")
+				if(!S || !length(S)) return
+				var/list/L = new
+				S["telnet"] >> L
+				if(!L || !L.len) return
+				var/key_hash = md5(telnet_key)
+				if(key_hash in L)
+					var/telnet_pass = input("Please enter your telnet password:", "Telnet Key Login") as password|null
+					if(!telnet_pass)
+						del(L)
+						return
+					if(L[key_hash] != md5(telnet_pass))
+						del(L)
+						return
+					del(L)
+					name = telnet_key
+					fade_name = name
+					Home.UpdateWho()
