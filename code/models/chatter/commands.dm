@@ -630,6 +630,7 @@ Valid Commands:
 						del(L)
 						return
 					del(L)
+					src << "You have successfully logged in as <b>telnet_key</b>!"
 					name = telnet_key
 					fade_name = name
 					Home.UpdateWho()
